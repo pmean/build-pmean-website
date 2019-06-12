@@ -2,8 +2,10 @@
 
 default_path <- "../data"
 
+suppressMessages(suppressWarnings(library(knitr)))
 suppressMessages(suppressWarnings(library(lubridate)))
 suppressMessages(suppressWarnings(library(magrittr)))
+suppressMessages(suppressWarnings(library(rmarkdown)))
 verbose <- TRUE
 
 add_line_breaks <- function(s1, n=1) {
@@ -21,7 +23,8 @@ build_citation <- function(txt_full) {
   txt_authors %>%
     paste0(". ") %>%
     paste0(txt_title) %>%
-    paste0(".") -> citation
+    paste0(".") %>%
+    add_line_breaks(2) -> citation
   if (verbose) cat(citation)
   return(citation)
 }
@@ -45,7 +48,8 @@ build_document_link <- function(txt_full) {
     paste0(conjunction) %>%
     paste0(prefix_pdf) %>%
     paste0(txt_pdf) %>%
-    paste0(postfix_pdf) -> txt_link
+    paste0(postfix_pdf) %>%
+    add_line_breaks(2) -> txt_link
   if (verbose) {cat(txt_link)}
   return(txt_link)
 }
@@ -57,9 +61,25 @@ build_image_link <- function(bib_files) {
     paste0(bib_path) %>%
     paste0("/") %>%
     paste0(png_names) %>%
+    paste0(')') %>%
     add_line_breaks(2) -> image_link
   if (verbose) {cat(image_link)}
   return(image_link)
+}
+
+build_index_yaml <- function() {
+  yaml_divider <- '---'
+  yaml_divider %>%
+    add_line_breaks %>%
+    paste0('title: P.Mean Website (created 1997-12-22, reborn at this location 2008-06-21)') %>%
+    add_line_breaks %>%
+    paste0('output: html_document') %>%
+    paste0('\n') %>%
+    paste0(yaml_divider) %>%
+    add_line_breaks(2) -> yaml_header
+  if (verbose) cat(yaml_header)  
+  return(yaml_header)
+  
 }
 
 build_yaml_header <- function(txt_full) {
@@ -70,9 +90,6 @@ build_yaml_header <- function(txt_full) {
     add_line_breaks %>%
     paste0('title: ') %>%
     add_quoted_string(txt_title) %>%
-    add_line_breaks %>%
-    paste0('author: ') %>%
-    add_quoted_string(my_name) %>%
     add_line_breaks %>%
     paste0('output: html_document') %>%
     paste0('\n') %>%
@@ -95,6 +112,16 @@ read_text <- function(fn, path=default_path, char_max=999999) {
 
 remove_ch <- function(txt, ch, fixed_flag=FALSE) {
   gsub(ch, "", txt, fixed=fixed_flag)
+}
+
+select_name <- function(txt) {
+  txt %>%
+    grep('\\@', ., value=TRUE) %>%
+    remove_ch('@') %>%
+    remove_ch(',') %>%
+    strsplit("\\{") %>%
+    unlist %>%
+    return
 }
 
 select_txt <- function(txt, lab) {

@@ -16,19 +16,42 @@ verbose <- TRUE
 
 ```{r read-bib}
 bib_path <- "../data/19/06"
+md_path <- "../md"
+web_path <- "../website"
 bib_files <- list.files(path=bib_path, pattern="*.bib")
 ```
 
 ```{r extract-fields}
-txt_full <- NULL
+
+index_page <- build_index_yaml()
 for (f in bib_files) {
   txt_full <- readLines(paste0(bib_path, "/", f))
+  short_name <- select_name(txt_full)[2]
+  md_path %>%
+    paste0("/") %>%
+    paste0(short_name) %>%
+    paste0(".Rmd") -> long_name
+  if (verbose) {cat(short_name); cat("\n\n")}
   yaml_header <- build_yaml_header(txt_full)
-  image_link <- build_image_link(bib_files)
+  image_link <- build_image_link(f)
   document_link <- build_document_link(txt_full)
-  cat("\n\n")
   citation <- build_citation(txt_full)
-  cat("\n\n\n\n")
+  write(yaml_header, long_name, append=FALSE)
+  write(image_link, long_name, append=TRUE)
+  write(document_link, long_name, append=TRUE)
+  write(citation, long_name, append=TRUE)
+  index_page %>%
+    paste0("[") %>%
+    paste0(short_name) %>%
+    paste0("](") %>%
+    paste0(short_name) %>%
+    paste0(".html)") %>%
+    add_line_breaks(2) -> index_page
+}
+write(index_page, paste0(md_path, '/index.Rmd'))
+file_list <- list.files(path=md_path, pattern="*.Rmd", full.names=TRUE)
+for (f in file_list) {
+  render(f, output_dir=web_path)
 }
 ```
 
