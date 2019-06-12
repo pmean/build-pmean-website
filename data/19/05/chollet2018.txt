@@ -1,0 +1,3 @@
+Quote: "Neural networks" are a sad misnomer. They're neither neural nor even networks. They're chains of differentiable, parameterized geometric functions, trained with gradient descent (with gradients obtained via the chain rule). A small set of highschool-level ideas put together.
+
+https://twitter.com/fchollet/status/951906139632840704?lang=en

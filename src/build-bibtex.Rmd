@@ -1,0 +1,39 @@
+---
+title: "Building html pages from bibtex"
+author: "Steve Simon"
+output: html_document
+---
+
+This program was written in R Markdown by Steve Simon. It was created on 2019-06-11 and last updated on `r Sys.Date()`.
+
+
+```{r echo=FALSE}
+source(file="prelims.R", echo=FALSE)
+suppressMessages(suppressWarnings(library(tidyverse)))
+knitr::opts_chunk$set(echo=FALSE)
+verbose <- TRUE
+```
+
+```{r read-bib}
+bib_path <- "../data/19/06"
+bib_files <- list.files(path=bib_path, pattern="*.bib")
+```
+
+```{r extract-fields}
+txt_full <- NULL
+for (f in bib_files) {
+  txt_full <- readLines(paste0(bib_path, "/", f))
+  yaml_header <- build_yaml_header(txt_full)
+  image_link <- build_image_link(bib_files)
+  document_link <- build_document_link(txt_full)
+  cat("\n\n")
+  citation <- build_citation(txt_full)
+  cat("\n\n\n\n")
+}
+```
+
+```{r build-citation}
+
+divider <- paste0(rep("=", 50), collapse="")
+```
+
