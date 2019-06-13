@@ -1,0 +1,77 @@
+---
+title: "Add yaml headers"
+author: "Steve Simon"
+date: "6/12/2019"
+output: html_document
+---
+
+```{r setup}
+knitr::opts_chunk$set(echo=FALSE)
+library(lubridate)
+library(magrittr)
+library(stringr)
+verbose <- TRUE
+source(file="prelims.R", echo=FALSE)
+```
+
+```{r get-md-files}
+md_files <- NULL
+for(i in 0:5) {
+  i_path <- paste0("c:/wa/0", i)
+  i_files <- list.files(path=i_path, pattern="*.md")
+  i_files <- paste0(i_path, "/", i_files)
+  md_files <- append(md_files, i_files)
+}
+n_md <- length(md_files)
+if (verbose) {print(md_files)}
+```
+
+I want to put information in the yaml header.
+
+```{}
+date: 
+title:
+
+tags:
+ -
+ -
+categories:
+ -
+ -
+```
+
+but first I have to extract that information from the original.
+
+```{r read-md-files}
+header_string <- "****[StATS](../OldWebsite.html):** "
+txt_title <- rep("No title", n_md)
+txt_date <- rep("No date", n_md)
+txt_tag <- rep("No tag", n_md)
+for (i in 1:n_md) {
+  txt_full <- readLines(md_files[i])
+  txt_full[1:2] %>%
+    paste0(collapse=" ") %>%
+    remove_ch("^.*OldWebsite.html)") %>%
+    remove_ch(":") %>%
+    remove_ch("created by ") %>%
+    remove_ch("created ") %>%
+    remove_ch(")", fixed=TRUE) %>%
+    remove_ch("**", fixed=TRUE) %>%
+    strsplit("(", fixed=TRUE) %>%
+    unlist -> title_date
+  n_lines <- length(txt_full)
+  footer_line <- min(grep("written by Steve Simon", txt_full), n_lines)
+  txt_footer <- paste0(txt_full[footer_line:n_lines], collapse=" ")
+  txt_footer %>%
+    remove_ch("^.*\\[Category: ") %>%
+    remove_ch("\\].*") -> tag
+  txt_title[i] <- trimws(title_date[1])
+  txt_date[i] <- trimws(title_date[2])
+  txt_tag[i] <- trimws(tag)
+}
+blank_count <- str_count(txt_tag, " ")
+txt_tag[blank_count > 3] <- "Untagged"
+if (verbose) {print(txt_title)}
+if (verbose) {print(txt_date)}
+if (verbose) {print(txt_tag)}
+```

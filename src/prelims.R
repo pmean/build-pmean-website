@@ -29,6 +29,13 @@ build_citation <- function(txt_full) {
   return(citation)
 }
 
+build_description <- function(txt_full) {
+  select_txt(txt_full, "annote") %>%
+    add_line_breaks(2) -> txt_annote
+  if (verbose) cat(txt_annote)
+  return(txt_annote)
+}
+
 build_document_link <- function(txt_full) {
   txt_html <- select_txt(txt_full, "html")
   txt_pdf <- select_txt(txt_full, "pdf")
@@ -54,17 +61,31 @@ build_document_link <- function(txt_full) {
   return(txt_link)
 }
 
-build_image_link <- function(bib_files) {
-  bib_files[1] %>%
-    sub(".bib", ".png", .) -> png_names
-  "![](" %>%
-    paste0(bib_path) %>%
-    paste0("/") %>%
-    paste0(png_names) %>%
-    paste0(')') %>%
-    add_line_breaks(2) -> image_link
-  if (verbose) {cat(image_link)}
-  return(image_link)
+build_index_page <- function(bib_files) {
+  index_page <- build_index_yaml()
+  for (i in 1:bib_count) {
+    short_name <- select_name(txt_full[[i]])[2]
+    md_path %>%
+      paste0("/") %>%
+      paste0(short_name) %>%
+      paste0(".Rmd") -> long_name
+    if (verbose) {cat(short_name); cat("\n\n")}
+    description <- build_description(txt_full[[i]])
+    txt_date <- select_txt(txt_full[[i]], "urldate")
+    txt_title <- select_txt(txt_full[[i]], "title")
+    index_page %>%
+      paste0(txt_date) %>%
+      paste0(". ") %>%
+      paste0("[") %>%
+      paste0("Recommended: ") %>%
+      paste0(txt_title) %>%
+      paste0("](") %>%
+      paste0(short_name) %>%
+      paste0(".html). ") %>%
+      paste0(description) %>%
+      add_line_breaks(2) -> index_page
+  }
+  write(index_page, paste0(md_path, '/index.Rmd'))
 }
 
 build_index_yaml <- function() {
@@ -82,9 +103,43 @@ build_index_yaml <- function() {
   
 }
 
+build_individual_pages <- function(bib_files) {
+  for (i in 1:bib_count) {
+    short_name <- select_name(txt_full[[i]])[2]
+    md_path %>%
+      paste0("/") %>%
+      paste0(short_name) %>%
+      paste0(".Rmd") -> long_name
+    if (verbose) {cat(short_name); cat("\n\n")}
+    yaml_header <- build_yaml_header(txt_full[[i]])
+    description <- build_description(txt_full[[i]])
+    image_link <- build_image_link(bib_files[i])
+    document_link <- build_document_link(txt_full[[i]])
+    citation <- build_citation(txt_full[[i]])
+    write(yaml_header, long_name, append=FALSE)
+    write(description, long_name, append=TRUE)
+    write(image_link, long_name, append=TRUE)
+    write(document_link, long_name, append=TRUE)
+    write(citation, long_name, append=TRUE)
+  }
+}
+
+build_image_link <- function(bib_files) {
+  bib_files[1] %>%
+    sub(".bib", ".png", .) -> png_names
+  "![](" %>%
+    paste0(bib_path) %>%
+    paste0("/") %>%
+    paste0(png_names) %>%
+    paste0(')') %>%
+    add_line_breaks(2) -> image_link
+  if (verbose) {cat(image_link)}
+  return(image_link)
+}
+
 build_yaml_header <- function(txt_full) {
   my_name <- 'Steve Simon'
-  txt_title <- select_txt(txt_full, "title")
+  txt_title <- paste0("Recommended: ", select_txt(txt_full, "title"))
   yaml_divider <- '---'
   yaml_divider %>%
     add_line_breaks %>%
@@ -133,6 +188,7 @@ select_txt <- function(txt, lab) {
     remove_ch(' = \\{') %>%
     remove_ch('\\}') %>%
     remove_ch('\\s*$') %>%
-    remove_ch(',$') %>%
-    return
+    remove_ch(',$') -> selection
+  if (is.null(selection)) return("")
+  return(paste0(selection, collapse="; "))
 }
