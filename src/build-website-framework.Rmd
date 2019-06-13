@@ -1,0 +1,41 @@
+---
+title: "Build website framework"
+author: "Steve Simon"
+date: "6/12/2019"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo=FALSE)
+library(stringr)
+web_path <- "c:/Users/steve/Dropbox/professional/pmean"
+verbose <- TRUE
+```
+
+```{r list-dirs}
+web_dirs <- list.dirs(web_path)
+slash_count <- str_count(web_dirs, "/")
+web_dirs <- web_dirs[slash_count==6]
+short_dirs <- gsub(".*/", "", web_dirs)
+if (verbose) {print(short_dirs)}
+web_dirs <- c(web_path, web_dirs)
+short_dirs <- c("", short_dirs)
+```
+
+```{r list-files}
+framework <- data.frame(f="dummy", p="dummy")
+for (i in c(3:length(web_dirs))) {
+  p <- web_dirs[]
+  f <- list.files(path=p, pattern="*.html")
+  n <- length(f)
+  framework <- rbind(framework, data.frame(f=f, p=rep(short_dirs[i])))
+}
+framework <- framework[-1, ]
+if (verbose) {print(framework[1:100, ])}
+```
+
+```{r make-dir}
+for (i in 3:length(short_dirs)) {
+  dir.create(paste0("../md/", short_dirs[i]))
+}
+```
