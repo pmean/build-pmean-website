@@ -1,0 +1,29 @@
+---
+title: "Find blog tags in converted markdown files"
+author: "Steve Simon"
+output: html_document
+---
+
+This program was written in R Markdown by Steve Simon. It was created on 2019-06-18 and last updated on `r Sys.Date()`.
+
+```{r echo=FALSE}
+source(file="prelims.R", echo=FALSE)
+knitr::opts_chunk$set(echo=FALSE)
+verbose <- TRUE
+```
+
+```{r get-dirs}
+md_path <- "c:/wu"
+md_files <- list.files(md_path)
+n_files <- length(md_files)
+```
+
+```{r read-md-files}
+for (md_file in md_files) {
+  full_name <- paste(md_path, md_file, sep="/")
+  wt_text <- readLines(full_name)
+  if (verbose) {
+    cat("\n", md_file, ": \n", sep="")
+    print(wt_text[1:10])
+  }        
+}

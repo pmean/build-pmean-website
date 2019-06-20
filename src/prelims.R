@@ -6,7 +6,14 @@ suppressMessages(suppressWarnings(library(knitr)))
 suppressMessages(suppressWarnings(library(lubridate)))
 suppressMessages(suppressWarnings(library(magrittr)))
 suppressMessages(suppressWarnings(library(rmarkdown)))
+suppressMessages(suppressWarnings(library(stringr)))
+suppressMessages(suppressWarnings(library(tidyverse)))
 verbose <- TRUE
+
+"%0%" <- function(x, y) {paste0(x, y)}
+"%1%" <- function(x, y) {paste0(x, "\n", y)}
+"%2%" <- function(x, y) {paste0(x, "\n\n", y)}
+"%s%" <- function(x, y) {paste0(x, "/", y)}
 
 add_line_breaks <- function(s1, n=1) {
   v <- c(s1, rep("\n", n))

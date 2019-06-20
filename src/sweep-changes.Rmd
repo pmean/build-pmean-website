@@ -1,0 +1,215 @@
+---
+title: "Build website framework"
+author: "Steve Simon"
+date: "6/12/2019"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo=FALSE)
+source(file="prelims.R", echo=FALSE)
+verbose <- TRUE
+```
+
+```{r functions}
+locate <- function(wa_text, text, only_first=TRUE, fixed_flag=TRUE) {
+  locations <- grep(text, wa_text, fixed=fixed_flag)
+  if (length(locations)==0) {return(-1)}
+  if (only_first) {locations <- locations[1]}
+  locations %>%
+    paste0(": ", wa_text[locations], "\n", collapse="\n") %>%
+    cat
+  return(locations)
+}
+sweep <- function(wa_text, old_text, new_text, fixed=fixed_flag) {
+  change_lines <- grep(old_text, wa_text, fixed=fixed_flag)
+  if (length(change_lines)==0) return(wa_text)
+  change_lines <- change_lines[1]
+  change_lines %>%
+    paste0(": ", wa_text[change_lines], collapse="\n") %>%
+    cat
+  wa_text[change_lines] <- sub(old_text, new_text, wa_text[change_line], fixed=fixed_flag)
+  change_lines %>%
+    paste0(": ", wa_text[change_lines], collapse="\n") %>%
+    cat
+  return(wa_text)
+}
+search_hd <- function(hd) {
+  hd_location <- rep(-9, n_files)
+  for (i in 1:n_files) {
+    wa_name <- wa_names[i]
+    full_name <- paste(wt_dir, wa_name, sep="/")
+    wt_text <- readLines(full_name)
+    hd_location[i] <- locate(wt_text, hd)
+  }
+  if (verbose) {table(hd_location)}
+  return(hd_location)
+}
+```
+
+```{r list-wt}
+wt_dir <- "c:/wt"
+wa_names <- list.files(wt_dir)
+n_files <- length(wa_names)
+```
+
+
+```{r read-translation}
+hd_list <- c(
+  "[P.Mean](index.html)",
+  "[P.Mean](../index.html)",
+  "[Stats](index.asp)",
+  "[StATS](../OldWebsite.html)",
+  "[Stats #",
+  "[Updated](../OldWebsite.html)",
+  "Statistical Evidence. Chapter",
+  "[Steve, Cathy, and Nicholas](index.html)",
+  "<a href=\"index.html\">Steve, Cathy, and Nicholas</a>",
+  "<a href=\"../index.html\">P.Mean</a>",
+  "<a href=\"index.html\">PMean</a>",
+  "<a href=\"../index.html\">Updated</a>",
+  "MonthlyMean.png",
+  "The Monthly Mean newsletter, ",
+  "[[Previous issue]]"
+)
+
+hd_location <- matrix(-9, nrow=n_files, ncol=length(hd_list))
+for (i in 1:length(hd_list)) {
+  hd_location[ , i] <- search_hd(hd_list[i])
+}
+
+```
+
+```{r random-lists}
+skip <- apply(hd_location > 0, 1, sum)
+table(skip)
+random_names <- sample(wa_names[skip==0], 5)
+random_names
+for (wa_name in random_names) {
+  full_name <- paste(wt_dir, wa_name, sep="/")
+  wt_text <- readLines(full_name)
+  print(wt_text[1:20])
+  cat("\n\n")
+}
+
+```
+
+```{r eval=FALSE}
+xcess <- c(
+  ". ",
+  "**",
+  "[StATS](../OldWebsite.html): ",
+  "[![Creative Commons License]",
+  "[(http://i.creativecommons.org",
+  "/l/by/3.0/us/80x15.png)]",
+  "It was written by Steve Simon.",
+  "This page was written by Steve Simon",
+  "and is licensed under the ",
+  "[Creative Commons Attribution",
+  " 3.0 United States License]",
+  "(http://creativecommons.org/",
+  "licenses/by/3.0/us/).",
+  "Need more information? ",
+  "I have a page with ",
+  "[general help resources]",
+  "(../GeneralHelp.html)",
+  "You can also browse for pages ",
+  "similar to this one at ",
+  "Send feedback to ssimon at ",
+  "cmh dot edu or click on the email",
+  "link at the top of the page",
+  " while working at Children's Mercy Hospital",
+  "Although I do not hold the copyright ",
+  "for this material, I am reproducing it ",
+  "here as a service, as it is no longer ",
+  "available on the Children's Mercy Hospital website",
+  "&gt;&gt; ",
+  "[<img src=\"http://i.creativecommons.org/",
+  "l/by/3.0/us/80x15.png\" alt=",
+  "\"Creative Commons License\" ",
+  "width=\"80\" height=\"15\" />]",
+  "licenses/by/3.0/us/)",
+  "This work is licensed under a",
+  "<table> <colgroup> <col style=\"width: 50%\" /> ",
+  "<col style=\"width: 50%\" /> ",
+  "</colgroup> <tbody> <tr class=\"odd\"> ",
+  "<td><strong><a href=\"../index.html\">P.Mean</a>: ",
+  "<td><img src=\"../images/logo.png\" width=\"100\" height=\"98\" />",
+  "</td> <td><strong><a href=\"../index.html\">",
+  "P.Mean</a> <a href=\"../TopicList.html\">",
+  "</strong><p><a href=\"../news.html\">",
+  "<img src=\"../images/news.png\" width=\"511\" ",
+  "height=\"68\" /></a></p></td> ",
+  "</tr> </tbody> </table> ",
+  "general help resources", 
+  "similar to this one at",
+  "and was last modified on", 
+  "[P.Mean](../index.html):Â",
+  "It was written by Steve Simon on",
+  "\\[\\[Previous issue\\]\\]",
+  "\\[\\[Next issue\\]\\]",
+  "P.Mean</a>:Â",
+  "</td>",
+  "You are welcome to link to",
+  "this page or other pages on",
+  "this web site",
+  "Individual educational uses",
+  "are also okay",
+  "Please contact me for permission",
+  "to use these pages",
+  "in any other way",
+  "For more details,",
+  "please consult my",
+  "[copyright notice]",
+  "(../00/copyright.html).",
+  "[P.Mean](../index.html):",
+  "[Stats](../08/index.asp)",
+  "http://i.creativecommons.org",
+  "</strong>",
+  "<p>News: I'm blogging now",
+  "Go to <a href=",
+  "\"http://blog.pmean.com\">http://blog.pmean.com</a>.</p>",
+  "<p>News: Sign up for",
+  "\"The Monthly Mean,\"",
+  "the newsletter that dares",
+  "to call itself average,",
+  "<a href=\"http://www.pmean.com/news\">www.pmean.com/news</a>.</p>",
+  " <td>Â  <p><a href=\"../news.html\">"
+)
+for (md_dir in sample(md_dirs[-1], 10)) {
+  md_names <- list.files(md_dir)
+  if (length(md_names) < 5) next
+  for (md_name in sample(md_names, 5)) {
+    md_text <- readLines(paste(md_dir, md_name, sep="/"))
+    md_lines <- length(md_text)
+    blank_lines <- grep("^$", md_text)
+    if (length(blank_lines) < 2) next
+    blank_top <- blank_lines[1] 
+    blank_bot <- rev(blank_lines)[1]
+    head_and_foot <- c(1:(blank_top-1),((blank_bot+1):md_lines))
+    md_head <- paste0(md_text[head_and_foot], collapse=" ")
+    md_body <- md_text[((blank_top)+1):(blank_bot-1)]
+    loc1 <- regexpr("\\(", md_head)
+    loc2 <- regexpr("//)", md_head)
+    loc3 <- regexpr("\\[", md_head)
+    loc4 <- regexpr("\\]", md_head)
+    for (x in xcess) {
+      md_head %<>% remove_ch(x, fixed=TRUE)
+    }
+    md_title <- substr(md_head, 1, loc1-1)
+    md_date <- substr(md_head, loc1, loc2)
+    md_category <- substr(md_head, loc3, loc4)
+    cat("\n\n")
+    print(md_name)
+    print(md_title)
+    print(md_date)
+    print(md_category)
+  }
+}
+```
+
+Save everything.
+
+```{r save-everything}
+save.image("../data/append-translation.RData")
+```

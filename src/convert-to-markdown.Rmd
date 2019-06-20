@@ -5,27 +5,100 @@ date: "6/12/2019"
 output: html_document
 ---
 
-```{r setup}
-knitr::opts_chunk$set(echo = FALSE)
-library(rmarkdown)
+This program was written in R Markdown by Steve Simon. It was created on 2019-06-11 and last updated on `r Sys.Date()`.
+
+```{r echo=FALSE}
+source(file="prelims.R", echo=FALSE)
+knitr::opts_chunk$set(echo=FALSE)
 verbose <- TRUE
 ```
 
-Note: I am having problems with non UTF-8 characters. According to one website, I can search for the offending lines using the regular expression "[\x80-\xFF]".
-
-```{r get-html}
-html_path <- "c:/wd/05"
-md_path <- "c:/wa/05"
-html_files <- list.files(path=html_path, pattern="*.html")
-if (verbose) {print(html_files)}
+```{r get-dirs}
+wb_path <- "c:/wd"
+md_path <- "c:/wa"
+wb_dirs <- list.dirs(wb_path)
+slash_count <- str_count(wb_dirs, "/")
+wb_dirs <- wb_dirs[slash_count == 2]
+if (verbose) {print(wb_dirs)}
+md_dirs <- gsub("wd", "wa", wb_dirs)
+for (d in md_dirs) {
+  dir.create(d)
+}
 ```
 
-```{r conversion}
-for (i in 1:length(html_files)) {
-  f <- paste0(html_path, "/", html_files[i])
-  g <- paste0(md_path, "/", strsplit(html_files[i], "\\.")[[1]][1], ".md")
-  print(f)
-  print(g)
-  pandoc_convert(f, to="markdown_strict", wd="wd", output=g)
+```{r get-html}
+wb_structure <- data.frame(p="dummy", f="dummy")
+for (wb_path in wb_dirs) {
+  wb_path %>%
+    list.files(pattern="*.html") %>%
+    remove_ch(".html", fixed=TRUE) -> wb_files
+  n_files <- length(wb_files)
+  df <- data.frame(p=rep(wb_path, n_files), f=wb_files)
+  if (verbose) {print(df)}
+  wb_structure <- rbind(wb_structure, df)
 }
+wb_structure <- wb_structure[-1, ]
+wb_structure$s <- gsub("c:/wd/", "", wb_structure$p)
+wb_structure %>%
+  mututate(s=gsub("c:/wd/", "", p))
+n_files <- dim(wb_structure)[1]
+if (verbose) {print(sample_n(wb_structure, 5))}
+```
+
+```{r reset-bad-file-counters}
+skip_list <- c(1353, 1416)
+j <- 0
+bad_char_list <- c("Â","š","æ","‘","í","ö","¤","å","£","ü","®","ä","é","ø","•","…","½","ï","¿","â","€","\u0090","Ã","¸","¯","Î","²","¼","ƒ","¨","«","»","Ï","³","±","´","ô","Œ","‹","‰","¥","™","œ","\u009d","Å","è","ë","ç","©","¬","¶","Ê","þ","¡", "¬")
+```
+
+I need to remove the smart quotes: \u201D and \u201C
+
+```{r conversion, error=TRUE}
+"%0%" <- function(x, y) {paste0(x, y)}
+"%1%" <- function(x, y) {paste0(x, "\n", y)}
+"%2%" <- function(x, y) {paste0(x, "\n\n", y)}
+
+for (i_file in setdiff((j+1):n_files, skip_list)) {
+  wb_structure$p[i_file]               %0%
+    "/"                                %0%
+    wb_structure$f[i_file]             %0%
+    ".html"                            -> wb_file
+
+  gsub("wd", "wa", 
+    wb_structure$p[i_file])            %0%
+    "/"                                %0%
+    wb_structure$f[i_file]             %0%
+    ".md"                              -> md_file
+    
+  wb_text <- readLines(wb_file, warn=FALSE)
+  if (verbose) {cat(gsub("c:/wd/", "", wb_file)); cat(" ")}
+  quote_count <- sum(grep('“', wb_text)|grep('”', wb_text)|grep("’", rv_text))
+  if(quote_count>0 & verbose) {cat(" smart quotes found ")}
+  rv_text <- gsub('“', '"', wb_text)
+  rv_text <- gsub('”', '"', rv_text)
+  rv_text <- gsub("’", "'", rv_text)
+  rv_text <- gsub("Â", "A", rv_text)
+  rv_text <- gsub("\xad", "?!?", rv_text)
+  rv_text <- gsub("\x96", "-", rv_text)
+  rv_text <- gsub("\x97", "-", rv_text)
+  rv_text <- gsub("\xA0", " ", rv_text)
+  
+  for (ch in bad_char_list) {rv_text <- gsub(ch, "?!?", rv_text)}
+  for (text in rv_text) {
+    if (nchar(text) == 0) next
+    bad_index <- which(charToRaw(text) > charToRaw("~"))
+    if (length(bad_index) > 0) {
+      for (k in bad_index) {
+        bad_ch <- substr(text, k, k)
+        substr(text, k, k) <- "?!?"
+        cat(paste0(" <<", bad_ch, ">> found "))
+        bad_char_list <- unique(c(bad_char_list, bad_ch))
+      }
+    }
+  }
+  write(rv_text, file=wb_file)
+  pandoc_convert(wb_file, to="markdown_strict", wd="wd", output=md_file)
+}
+skip_list <- c(skip_list, i)
+j <- i
 ```

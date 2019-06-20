@@ -12,7 +12,7 @@
 <meta name="author" content="Steve Simon" />
 
 
-<title>Build website framework</title>
+<title>Find blog tags in converted markdown files</title>
 
 <script>/*! jQuery v1.11.3 | (c) 2005, 2015 jQuery Foundation, Inc. | jquery.org/license */
 !function(a,b){"object"==typeof module&&"object"==typeof module.exports?module.exports=a.document?b(a,!0):function(a){if(!a.document)throw new Error("jQuery requires a window with a document");return b(a)}:b(a)}("undefined"!=typeof window?window:this,function(a,b){var c=[],d=c.slice,e=c.concat,f=c.push,g=c.indexOf,h={},i=h.toString,j=h.hasOwnProperty,k={},l="1.11.3",m=function(a,b){return new m.fn.init(a,b)},n=/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,o=/^-ms-/,p=/-([\da-z])/gi,q=function(a,b){return b.toUpperCase()};m.fn=m.prototype={jquery:l,constructor:m,selector:"",length:0,toArray:function(){return d.call(this)},get:function(a){return null!=a?0>a?this[a+this.length]:this[a]:d.call(this)},pushStack:function(a){var b=m.merge(this.constructor(),a);return b.prevObject=this,b.context=this.context,b},each:function(a,b){return m.each(this,a,b)},map:function(a){return this.pushStack(m.map(this,function(b,c){return a.call(b,c,b)}))},slice:function(){return this.pushStack(d.apply(this,arguments))},first:function(){return this.eq(0)},last:function(){return this.eq(-1)},eq:function(a){var b=this.length,c=+a+(0>a?b:0);return this.pushStack(c>=0&&b>c?[this[c]]:[])},end:function(){return this.prevObject||this.constructor(null)},push:f,sort:c.sort,splice:c.splice},m.extend=m.fn.extend=function(){var a,b,c,d,e,f,g=arguments[0]||{},h=1,i=arguments.length,j=!1;for("boolean"==typeof g&&(j=g,g=arguments[h]||{},h++),"object"==typeof g||m.isFunction(g)||(g={}),h===i&&(g=this,h--);i>h;h++)if(null!=(e=arguments[h]))for(d in e)a=g[d],c=e[d],g!==c&&(j&&c&&(m.isPlainObject(c)||(b=m.isArray(c)))?(b?(b=!1,f=a&&m.isArray(a)?a:[]):f=a&&m.isPlainObject(a)?a:{},g[d]=m.extend(j,f,c)):void 0!==c&&(g[d]=c));return g},m.extend({expando:"jQuery"+(l+Math.random()).replace(/\D/g,""),isReady:!0,error:function(a){throw new Error(a)},noop:function(){},isFunction:function(a){return"function"===m.type(a)},isArray:Array.isArray||function(a){return"array"===m.type(a)},isWindow:function(a){return null!=a&&a==a.window},isNumeric:function(a){return!m.isArray(a)&&a-parseFloat(a)+1>=0},isEmptyObject:function(a){var b;for(b in a)return!1;return!0},isPlainObject:function(a){var b;if(!a||"object"!==m.type(a)||a.nodeType||m.isWindow(a))return!1;try{if(a.constructor&&!j.call(a,"constructor")&&!j.call(a.constructor.prototype,"isPrototypeOf"))return!1}catch(c){return!1}if(k.ownLast)for(b in a)return j.call(a,b);for(b in a);return void 0===b||j.call(a,b)},type:function(a){return null==a?a+"":"object"==typeof a||"function"==typeof a?h[i.call(a)]||"object":typeof a},globalEval:function(b){b&&m.trim(b)&&(a.execScript||function(b){a.eval.call(a,b)})(b)},camelCase:function(a){return a.replace(o,"ms-").replace(p,q)},nodeName:function(a,b){return a.nodeName&&a.nodeName.toLowerCase()===b.toLowerCase()},each:function(a,b,c){var d,e=0,f=a.length,g=r(a);if(c){if(g){for(;f>e;e++)if(d=b.apply(a[e],c),d===!1)break}else for(e in a)if(d=b.apply(a[e],c),d===!1)break}else if(g){for(;f>e;e++)if(d=b.call(a[e],e,a[e]),d===!1)break}else for(e in a)if(d=b.call(a[e],e,a[e]),d===!1)break;return a},trim:function(a){return null==a?"":(a+"").replace(n,"")},makeArray:function(a,b){var c=b||[];return null!=a&&(r(Object(a))?m.merge(c,"string"==typeof a?[a]:a):f.call(c,a)),c},inArray:function(a,b,c){var d;if(b){if(g)return g.call(b,a,c);for(d=b.length,c=c?0>c?Math.max(0,d+c):c:0;d>c;c++)if(c in b&&b[c]===a)return c}return-1},merge:function(a,b){var c=+b.length,d=0,e=a.length;while(c>d)a[e++]=b[d++];if(c!==c)while(void 0!==b[d])a[e++]=b[d++];return a.length=e,a},grep:function(a,b,c){for(var d,e=[],f=0,g=a.length,h=!c;g>f;f++)d=!b(a[f],f),d!==h&&e.push(a[f]);return e},map:function(a,b,c){var d,f=0,g=a.length,h=r(a),i=[];if(h)for(;g>f;f++)d=b(a[f],f,c),null!=d&&i.push(d);else for(f in a)d=b(a[f],f,c),null!=d&&i.push(d);return e.apply([],i)},guid:1,proxy:function(a,b){var c,e,f;return"string"==typeof b&&(f=a[b],b=a,a=f),m.isFunction(a)?(c=d.call(arguments,2),e=function(){return a.apply(b||this,c.concat(d.call(arguments)))},e.guid=a.guid=a.guid||m.guid++,e):void 0},now:function(){return+new Date},support:k}),m.each("Boolean Number String Function Array Date RegExp Object Error".split(" "),function(a,b){h["[object "+b+"]"]=b.toLowerCase()});function r(a){var b="length"in a&&a.length,c=m.type(a);return"function"===c||m.isWindow(a)?!1:1===a.nodeType&&b?!0:"array"===c||0===b||"number"==typeof b&&b>0&&b-1 in a}var s=function(a){var b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u="sizzle"+1*new Date,v=a.document,w=0,x=0,y=ha(),z=ha(),A=ha(),B=function(a,b){return a===b&&(l=!0),0},C=1<<31,D={}.hasOwnProperty,E=[],F=E.pop,G=E.push,H=E.push,I=E.slice,J=function(a,b){for(var c=0,d=a.length;d>c;c++)if(a[c]===b)return c;return-1},K="checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",L="[\\x20\\t\\r\\n\\f]",M="(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+",N=M.replace("w","w#"),O="\\["+L+"*("+M+")(?:"+L+"*([*^$|!~]?=)"+L+"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|("+N+"))|)"+L+"*\\]",P=":("+M+")(?:\\((('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|((?:\\\\.|[^\\\\()[\\]]|"+O+")*)|.*)\\)|)",Q=new RegExp(L+"+","g"),R=new RegExp("^"+L+"+|((?:^|[^\\\\])(?:\\\\.)*)"+L+"+$","g"),S=new RegExp("^"+L+"*,"+L+"*"),T=new RegExp("^"+L+"*([>+~]|"+L+")"+L+"*"),U=new RegExp("="+L+"*([^\\]'\"]*?)"+L+"*\\]","g"),V=new RegExp(P),W=new RegExp("^"+N+"$"),X={ID:new RegExp("^#("+M+")"),CLASS:new RegExp("^\\.("+M+")"),TAG:new RegExp("^("+M.replace("w","w*")+")"),ATTR:new RegExp("^"+O),PSEUDO:new RegExp("^"+P),CHILD:new RegExp("^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\("+L+"*(even|odd|(([+-]|)(\\d*)n|)"+L+"*(?:([+-]|)"+L+"*(\\d+)|))"+L+"*\\)|)","i"),bool:new RegExp("^(?:"+K+")$","i"),needsContext:new RegExp("^"+L+"*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\("+L+"*((?:-\\d)?\\d*)"+L+"*\\)|)(?=[^-]|$)","i")},Y=/^(?:input|select|textarea|button)$/i,Z=/^h\d$/i,$=/^[^{]+\{\s*\[native \w/,_=/^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,aa=/[+~]/,ba=/'|\\/g,ca=new RegExp("\\\\([\\da-f]{1,6}"+L+"?|("+L+")|.)","ig"),da=function(a,b,c){var d="0x"+b-65536;return d!==d||c?b:0>d?String.fromCharCode(d+65536):String.fromCharCode(d>>10|55296,1023&d|56320)},ea=function(){m()};try{H.apply(E=I.call(v.childNodes),v.childNodes),E[v.childNodes.length].nodeType}catch(fa){H={apply:E.length?function(a,b){G.apply(a,I.call(b))}:function(a,b){var c=a.length,d=0;while(a[c++]=b[d++]);a.length=c-1}}}function ga(a,b,d,e){var f,h,j,k,l,o,r,s,w,x;if((b?b.ownerDocument||b:v)!==n&&m(b),b=b||n,d=d||[],k=b.nodeType,"string"!=typeof a||!a||1!==k&&9!==k&&11!==k)return d;if(!e&&p){if(11!==k&&(f=_.exec(a)))if(j=f[1]){if(9===k){if(h=b.getElementById(j),!h||!h.parentNode)return d;if(h.id===j)return d.push(h),d}else if(b.ownerDocument&&(h=b.ownerDocument.getElementById(j))&&t(b,h)&&h.id===j)return d.push(h),d}else{if(f[2])return H.apply(d,b.getElementsByTagName(a)),d;if((j=f[3])&&c.getElementsByClassName)return H.apply(d,b.getElementsByClassName(j)),d}if(c.qsa&&(!q||!q.test(a))){if(s=r=u,w=b,x=1!==k&&a,1===k&&"object"!==b.nodeName.toLowerCase()){o=g(a),(r=b.getAttribute("id"))?s=r.replace(ba,"\\$&"):b.setAttribute("id",s),s="[id='"+s+"'] ",l=o.length;while(l--)o[l]=s+ra(o[l]);w=aa.test(a)&&pa(b.parentNode)||b,x=o.join(",")}if(x)try{return H.apply(d,w.querySelectorAll(x)),d}catch(y){}finally{r||b.removeAttribute("id")}}}return i(a.replace(R,"$1"),b,d,e)}function ha(){var a=[];function b(c,e){return a.push(c+" ")>d.cacheLength&&delete b[a.shift()],b[c+" "]=e}return b}function ia(a){return a[u]=!0,a}function ja(a){var b=n.createElement("div");try{return!!a(b)}catch(c){return!1}finally{b.parentNode&&b.parentNode.removeChild(b),b=null}}function ka(a,b){var c=a.split("|"),e=a.length;while(e--)d.attrHandle[c[e]]=b}function la(a,b){var c=b&&a,d=c&&1===a.nodeType&&1===b.nodeType&&(~b.sourceIndex||C)-(~a.sourceIndex||C);if(d)return d;if(c)while(c=c.nextSibling)if(c===b)return-1;return a?1:-1}function ma(a){return function(b){var c=b.nodeName.toLowerCase();return"input"===c&&b.type===a}}function na(a){return function(b){var c=b.nodeName.toLowerCase();return("input"===c||"button"===c)&&b.type===a}}function oa(a){return ia(function(b){return b=+b,ia(function(c,d){var e,f=a([],c.length,b),g=f.length;while(g--)c[e=f[g]]&&(c[e]=!(d[e]=c[e]))})})}function pa(a){return a&&"undefined"!=typeof a.getElementsByTagName&&a}c=ga.support={},f=ga.isXML=function(a){var b=a&&(a.ownerDocument||a).documentElement;return b?"HTML"!==b.nodeName:!1},m=ga.setDocument=function(a){var b,e,g=a?a.ownerDocument||a:v;return g!==n&&9===g.nodeType&&g.documentElement?(n=g,o=g.documentElement,e=g.defaultView,e&&e!==e.top&&(e.addEventListener?e.addEventListener("unload",ea,!1):e.attachEvent&&e.attachEvent("onunload",ea)),p=!f(g),c.attributes=ja(function(a){return a.className="i",!a.getAttribute("className")}),c.getElementsByTagName=ja(function(a){return a.appendChild(g.createComment("")),!a.getElementsByTagName("*").length}),c.getElementsByClassName=$.test(g.getElementsByClassName),c.getById=ja(function(a){return o.appendChild(a).id=u,!g.getElementsByName||!g.getElementsByName(u).length}),c.getById?(d.find.ID=function(a,b){if("undefined"!=typeof b.getElementById&&p){var c=b.getElementById(a);return c&&c.parentNode?[c]:[]}},d.filter.ID=function(a){var b=a.replace(ca,da);return function(a){return a.getAttribute("id")===b}}):(delete d.find.ID,d.filter.ID=function(a){var b=a.replace(ca,da);return function(a){var c="undefined"!=typeof a.getAttributeNode&&a.getAttributeNode("id");return c&&c.value===b}}),d.find.TAG=c.getElementsByTagName?function(a,b){return"undefined"!=typeof b.getElementsByTagName?b.getElementsByTagName(a):c.qsa?b.querySelectorAll(a):void 0}:function(a,b){var c,d=[],e=0,f=b.getElementsByTagName(a);if("*"===a){while(c=f[e++])1===c.nodeType&&d.push(c);return d}return f},d.find.CLASS=c.getElementsByClassName&&function(a,b){return p?b.getElementsByClassName(a):void 0},r=[],q=[],(c.qsa=$.test(g.querySelectorAll))&&(ja(function(a){o.appendChild(a).innerHTML="<a id='"+u+"'></a><select id='"+u+"-\f]' msallowcapture=''><option selected=''></option></select>",a.querySelectorAll("[msallowcapture^='']").length&&q.push("[*^$]="+L+"*(?:''|\"\")"),a.querySelectorAll("[selected]").length||q.push("\\["+L+"*(?:value|"+K+")"),a.querySelectorAll("[id~="+u+"-]").length||q.push("~="),a.querySelectorAll(":checked").length||q.push(":checked"),a.querySelectorAll("a#"+u+"+*").length||q.push(".#.+[+~]")}),ja(function(a){var b=g.createElement("input");b.setAttribute("type","hidden"),a.appendChild(b).setAttribute("name","D"),a.querySelectorAll("[name=d]").length&&q.push("name"+L+"*[*^$|!~]?="),a.querySelectorAll(":enabled").length||q.push(":enabled",":disabled"),a.querySelectorAll("*,:x"),q.push(",.*:")})),(c.matchesSelector=$.test(s=o.matches||o.webkitMatchesSelector||o.mozMatchesSelector||o.oMatchesSelector||o.msMatchesSelector))&&ja(function(a){c.disconnectedMatch=s.call(a,"div"),s.call(a,"[s!='']:x"),r.push("!=",P)}),q=q.length&&new RegExp(q.join("|")),r=r.length&&new RegExp(r.join("|")),b=$.test(o.compareDocumentPosition),t=b||$.test(o.contains)?function(a,b){var c=9===a.nodeType?a.documentElement:a,d=b&&b.parentNode;return a===d||!(!d||1!==d.nodeType||!(c.contains?c.contains(d):a.compareDocumentPosition&&16&a.compareDocumentPosition(d)))}:function(a,b){if(b)while(b=b.parentNode)if(b===a)return!0;return!1},B=b?function(a,b){if(a===b)return l=!0,0;var d=!a.compareDocumentPosition-!b.compareDocumentPosition;return d?d:(d=(a.ownerDocument||a)===(b.ownerDocument||b)?a.compareDocumentPosition(b):1,1&d||!c.sortDetached&&b.compareDocumentPosition(a)===d?a===g||a.ownerDocument===v&&t(v,a)?-1:b===g||b.ownerDocument===v&&t(v,b)?1:k?J(k,a)-J(k,b):0:4&d?-1:1)}:function(a,b){if(a===b)return l=!0,0;var c,d=0,e=a.parentNode,f=b.parentNode,h=[a],i=[b];if(!e||!f)return a===g?-1:b===g?1:e?-1:f?1:k?J(k,a)-J(k,b):0;if(e===f)return la(a,b);c=a;while(c=c.parentNode)h.unshift(c);c=b;while(c=c.parentNode)i.unshift(c);while(h[d]===i[d])d++;return d?la(h[d],i[d]):h[d]===v?-1:i[d]===v?1:0},g):n},ga.matches=function(a,b){return ga(a,null,null,b)},ga.matchesSelector=function(a,b){if((a.ownerDocument||a)!==n&&m(a),b=b.replace(U,"='$1']"),!(!c.matchesSelector||!p||r&&r.test(b)||q&&q.test(b)))try{var d=s.call(a,b);if(d||c.disconnectedMatch||a.document&&11!==a.document.nodeType)return d}catch(e){}return ga(b,n,null,[a]).length>0},ga.contains=function(a,b){return(a.ownerDocument||a)!==n&&m(a),t(a,b)},ga.attr=function(a,b){(a.ownerDocument||a)!==n&&m(a);var e=d.attrHandle[b.toLowerCase()],f=e&&D.call(d.attrHandle,b.toLowerCase())?e(a,b,!p):void 0;return void 0!==f?f:c.attributes||!p?a.getAttribute(b):(f=a.getAttributeNode(b))&&f.specified?f.value:null},ga.error=function(a){throw new Error("Syntax error, unrecognized expression: "+a)},ga.uniqueSort=function(a){var b,d=[],e=0,f=0;if(l=!c.detectDuplicates,k=!c.sortStable&&a.slice(0),a.sort(B),l){while(b=a[f++])b===a[f]&&(e=d.push(f));while(e--)a.splice(d[e],1)}return k=null,a},e=ga.getText=function(a){var b,c="",d=0,f=a.nodeType;if(f){if(1===f||9===f||11===f){if("string"==typeof a.textContent)return a.textContent;for(a=a.firstChild;a;a=a.nextSibling)c+=e(a)}else if(3===f||4===f)return a.nodeValue}else while(b=a[d++])c+=e(b);return c},d=ga.selectors={cacheLength:50,createPseudo:ia,match:X,attrHandle:{},find:{},relative:{">":{dir:"parentNode",first:!0}," ":{dir:"parentNode"},"+":{dir:"previousSibling",first:!0},"~":{dir:"previousSibling"}},preFilter:{ATTR:function(a){return a[1]=a[1].replace(ca,da),a[3]=(a[3]||a[4]||a[5]||"").replace(ca,da),"~="===a[2]&&(a[3]=" "+a[3]+" "),a.slice(0,4)},CHILD:function(a){return a[1]=a[1].toLowerCase(),"nth"===a[1].slice(0,3)?(a[3]||ga.error(a[0]),a[4]=+(a[4]?a[5]+(a[6]||1):2*("even"===a[3]||"odd"===a[3])),a[5]=+(a[7]+a[8]||"odd"===a[3])):a[3]&&ga.error(a[0]),a},PSEUDO:function(a){var b,c=!a[6]&&a[2];return X.CHILD.test(a[0])?null:(a[3]?a[2]=a[4]||a[5]||"":c&&V.test(c)&&(b=g(c,!0))&&(b=c.indexOf(")",c.length-b)-c.length)&&(a[0]=a[0].slice(0,b),a[2]=c.slice(0,b)),a.slice(0,3))}},filter:{TAG:function(a){var b=a.replace(ca,da).toLowerCase();return"*"===a?function(){return!0}:function(a){return a.nodeName&&a.nodeName.toLowerCase()===b}},CLASS:function(a){var b=y[a+" "];return b||(b=new RegExp("(^|"+L+")"+a+"("+L+"|$)"))&&y(a,function(a){return b.test("string"==typeof a.className&&a.className||"undefined"!=typeof a.getAttribute&&a.getAttribute("class")||"")})},ATTR:function(a,b,c){return function(d){var e=ga.attr(d,a);return null==e?"!="===b:b?(e+="","="===b?e===c:"!="===b?e!==c:"^="===b?c&&0===e.indexOf(c):"*="===b?c&&e.indexOf(c)>-1:"$="===b?c&&e.slice(-c.length)===c:"~="===b?(" "+e.replace(Q," ")+" ").indexOf(c)>-1:"|="===b?e===c||e.slice(0,c.length+1)===c+"-":!1):!0}},CHILD:function(a,b,c,d,e){var f="nth"!==a.slice(0,3),g="last"!==a.slice(-4),h="of-type"===b;return 1===d&&0===e?function(a){return!!a.parentNode}:function(b,c,i){var j,k,l,m,n,o,p=f!==g?"nextSibling":"previousSibling",q=b.parentNode,r=h&&b.nodeName.toLowerCase(),s=!i&&!h;if(q){if(f){while(p){l=b;while(l=l[p])if(h?l.nodeName.toLowerCase()===r:1===l.nodeType)return!1;o=p="only"===a&&!o&&"nextSibling"}return!0}if(o=[g?q.firstChild:q.lastChild],g&&s){k=q[u]||(q[u]={}),j=k[a]||[],n=j[0]===w&&j[1],m=j[0]===w&&j[2],l=n&&q.childNodes[n];while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if(1===l.nodeType&&++m&&l===b){k[a]=[w,n,m];break}}else if(s&&(j=(b[u]||(b[u]={}))[a])&&j[0]===w)m=j[1];else while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if((h?l.nodeName.toLowerCase()===r:1===l.nodeType)&&++m&&(s&&((l[u]||(l[u]={}))[a]=[w,m]),l===b))break;return m-=e,m===d||m%d===0&&m/d>=0}}},PSEUDO:function(a,b){var c,e=d.pseudos[a]||d.setFilters[a.toLowerCase()]||ga.error("unsupported pseudo: "+a);return e[u]?e(b):e.length>1?(c=[a,a,"",b],d.setFilters.hasOwnProperty(a.toLowerCase())?ia(function(a,c){var d,f=e(a,b),g=f.length;while(g--)d=J(a,f[g]),a[d]=!(c[d]=f[g])}):function(a){return e(a,0,c)}):e}},pseudos:{not:ia(function(a){var b=[],c=[],d=h(a.replace(R,"$1"));return d[u]?ia(function(a,b,c,e){var f,g=d(a,null,e,[]),h=a.length;while(h--)(f=g[h])&&(a[h]=!(b[h]=f))}):function(a,e,f){return b[0]=a,d(b,null,f,c),b[0]=null,!c.pop()}}),has:ia(function(a){return function(b){return ga(a,b).length>0}}),contains:ia(function(a){return a=a.replace(ca,da),function(b){return(b.textContent||b.innerText||e(b)).indexOf(a)>-1}}),lang:ia(function(a){return W.test(a||"")||ga.error("unsupported lang: "+a),a=a.replace(ca,da).toLowerCase(),function(b){var c;do if(c=p?b.lang:b.getAttribute("xml:lang")||b.getAttribute("lang"))return c=c.toLowerCase(),c===a||0===c.indexOf(a+"-");while((b=b.parentNode)&&1===b.nodeType);return!1}}),target:function(b){var c=a.location&&a.location.hash;return c&&c.slice(1)===b.id},root:function(a){return a===o},focus:function(a){return a===n.activeElement&&(!n.hasFocus||n.hasFocus())&&!!(a.type||a.href||~a.tabIndex)},enabled:function(a){return a.disabled===!1},disabled:function(a){return a.disabled===!0},checked:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&!!a.checked||"option"===b&&!!a.selected},selected:function(a){return a.parentNode&&a.parentNode.selectedIndex,a.selected===!0},empty:function(a){for(a=a.firstChild;a;a=a.nextSibling)if(a.nodeType<6)return!1;return!0},parent:function(a){return!d.pseudos.empty(a)},header:function(a){return Z.test(a.nodeName)},input:function(a){return Y.test(a.nodeName)},button:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&"button"===a.type||"button"===b},text:function(a){var b;return"input"===a.nodeName.toLowerCase()&&"text"===a.type&&(null==(b=a.getAttribute("type"))||"text"===b.toLowerCase())},first:oa(function(){return[0]}),last:oa(function(a,b){return[b-1]}),eq:oa(function(a,b,c){return[0>c?c+b:c]}),even:oa(function(a,b){for(var c=0;b>c;c+=2)a.push(c);return a}),odd:oa(function(a,b){for(var c=1;b>c;c+=2)a.push(c);return a}),lt:oa(function(a,b,c){for(var d=0>c?c+b:c;--d>=0;)a.push(d);return a}),gt:oa(function(a,b,c){for(var d=0>c?c+b:c;++d<b;)a.push(d);return a})}},d.pseudos.nth=d.pseudos.eq;for(b in{radio:!0,checkbox:!0,file:!0,password:!0,image:!0})d.pseudos[b]=ma(b);for(b in{submit:!0,reset:!0})d.pseudos[b]=na(b);function qa(){}qa.prototype=d.filters=d.pseudos,d.setFilters=new qa,g=ga.tokenize=function(a,b){var c,e,f,g,h,i,j,k=z[a+" "];if(k)return b?0:k.slice(0);h=a,i=[],j=d.preFilter;while(h){(!c||(e=S.exec(h)))&&(e&&(h=h.slice(e[0].length)||h),i.push(f=[])),c=!1,(e=T.exec(h))&&(c=e.shift(),f.push({value:c,type:e[0].replace(R," ")}),h=h.slice(c.length));for(g in d.filter)!(e=X[g].exec(h))||j[g]&&!(e=j[g](e))||(c=e.shift(),f.push({value:c,type:g,matches:e}),h=h.slice(c.length));if(!c)break}return b?h.length:h?ga.error(a):z(a,i).slice(0)};function ra(a){for(var b=0,c=a.length,d="";c>b;b++)d+=a[b].value;return d}function sa(a,b,c){var d=b.dir,e=c&&"parentNode"===d,f=x++;return b.first?function(b,c,f){while(b=b[d])if(1===b.nodeType||e)return a(b,c,f)}:function(b,c,g){var h,i,j=[w,f];if(g){while(b=b[d])if((1===b.nodeType||e)&&a(b,c,g))return!0}else while(b=b[d])if(1===b.nodeType||e){if(i=b[u]||(b[u]={}),(h=i[d])&&h[0]===w&&h[1]===f)return j[2]=h[2];if(i[d]=j,j[2]=a(b,c,g))return!0}}}function ta(a){return a.length>1?function(b,c,d){var e=a.length;while(e--)if(!a[e](b,c,d))return!1;return!0}:a[0]}function ua(a,b,c){for(var d=0,e=b.length;e>d;d++)ga(a,b[d],c);return c}function va(a,b,c,d,e){for(var f,g=[],h=0,i=a.length,j=null!=b;i>h;h++)(f=a[h])&&(!c||c(f,d,e))&&(g.push(f),j&&b.push(h));return g}function wa(a,b,c,d,e,f){return d&&!d[u]&&(d=wa(d)),e&&!e[u]&&(e=wa(e,f)),ia(function(f,g,h,i){var j,k,l,m=[],n=[],o=g.length,p=f||ua(b||"*",h.nodeType?[h]:h,[]),q=!a||!f&&b?p:va(p,m,a,h,i),r=c?e||(f?a:o||d)?[]:g:q;if(c&&c(q,r,h,i),d){j=va(r,n),d(j,[],h,i),k=j.length;while(k--)(l=j[k])&&(r[n[k]]=!(q[n[k]]=l))}if(f){if(e||a){if(e){j=[],k=r.length;while(k--)(l=r[k])&&j.push(q[k]=l);e(null,r=[],j,i)}k=r.length;while(k--)(l=r[k])&&(j=e?J(f,l):m[k])>-1&&(f[j]=!(g[j]=l))}}else r=va(r===g?r.splice(o,r.length):r),e?e(null,g,r,i):H.apply(g,r)})}function xa(a){for(var b,c,e,f=a.length,g=d.relative[a[0].type],h=g||d.relative[" "],i=g?1:0,k=sa(function(a){return a===b},h,!0),l=sa(function(a){return J(b,a)>-1},h,!0),m=[function(a,c,d){var e=!g&&(d||c!==j)||((b=c).nodeType?k(a,c,d):l(a,c,d));return b=null,e}];f>i;i++)if(c=d.relative[a[i].type])m=[sa(ta(m),c)];else{if(c=d.filter[a[i].type].apply(null,a[i].matches),c[u]){for(e=++i;f>e;e++)if(d.relative[a[e].type])break;return wa(i>1&&ta(m),i>1&&ra(a.slice(0,i-1).concat({value:" "===a[i-2].type?"*":""})).replace(R,"$1"),c,e>i&&xa(a.slice(i,e)),f>e&&xa(a=a.slice(e)),f>e&&ra(a))}m.push(c)}return ta(m)}function ya(a,b){var c=b.length>0,e=a.length>0,f=function(f,g,h,i,k){var l,m,o,p=0,q="0",r=f&&[],s=[],t=j,u=f||e&&d.find.TAG("*",k),v=w+=null==t?1:Math.random()||.1,x=u.length;for(k&&(j=g!==n&&g);q!==x&&null!=(l=u[q]);q++){if(e&&l){m=0;while(o=a[m++])if(o(l,g,h)){i.push(l);break}k&&(w=v)}c&&((l=!o&&l)&&p--,f&&r.push(l))}if(p+=q,c&&q!==p){m=0;while(o=b[m++])o(r,s,g,h);if(f){if(p>0)while(q--)r[q]||s[q]||(s[q]=F.call(i));s=va(s)}H.apply(i,s),k&&!f&&s.length>0&&p+b.length>1&&ga.uniqueSort(i)}return k&&(w=v,j=t),r};return c?ia(f):f}return h=ga.compile=function(a,b){var c,d=[],e=[],f=A[a+" "];if(!f){b||(b=g(a)),c=b.length;while(c--)f=xa(b[c]),f[u]?d.push(f):e.push(f);f=A(a,ya(e,d)),f.selector=a}return f},i=ga.select=function(a,b,e,f){var i,j,k,l,m,n="function"==typeof a&&a,o=!f&&g(a=n.selector||a);if(e=e||[],1===o.length){if(j=o[0]=o[0].slice(0),j.length>2&&"ID"===(k=j[0]).type&&c.getById&&9===b.nodeType&&p&&d.relative[j[1].type]){if(b=(d.find.ID(k.matches[0].replace(ca,da),b)||[])[0],!b)return e;n&&(b=b.parentNode),a=a.slice(j.shift().value.length)}i=X.needsContext.test(a)?0:j.length;while(i--){if(k=j[i],d.relative[l=k.type])break;if((m=d.find[l])&&(f=m(k.matches[0].replace(ca,da),aa.test(j[0].type)&&pa(b.parentNode)||b))){if(j.splice(i,1),a=f.length&&ra(j),!a)return H.apply(e,f),e;break}}}return(n||h(a,o))(f,b,!p,e,aa.test(a)&&pa(b.parentNode)||b),e},c.sortStable=u.split("").sort(B).join("")===u,c.detectDuplicates=!!l,m(),c.sortDetached=ja(function(a){return 1&a.compareDocumentPosition(n.createElement("div"))}),ja(function(a){return a.innerHTML="<a href='#'></a>","#"===a.firstChild.getAttribute("href")})||ka("type|href|height|width",function(a,b,c){return c?void 0:a.getAttribute(b,"type"===b.toLowerCase()?1:2)}),c.attributes&&ja(function(a){return a.innerHTML="<input/>",a.firstChild.setAttribute("value",""),""===a.firstChild.getAttribute("value")})||ka("value",function(a,b,c){return c||"input"!==a.nodeName.toLowerCase()?void 0:a.defaultValue}),ja(function(a){return null==a.getAttribute("disabled")})||ka(K,function(a,b,c){var d;return c?void 0:a[b]===!0?b.toLowerCase():(d=a.getAttributeNode(b))&&d.specified?d.value:null}),ga}(a);m.find=s,m.expr=s.selectors,m.expr[":"]=m.expr.pseudos,m.unique=s.uniqueSort,m.text=s.getText,m.isXMLDoc=s.isXML,m.contains=s.contains;var t=m.expr.match.needsContext,u=/^<(\w+)\s*\/?>(?:<\/\1>|)$/,v=/^.[^:#\[\.,]*$/;function w(a,b,c){if(m.isFunction(b))return m.grep(a,function(a,d){return!!b.call(a,d,a)!==c});if(b.nodeType)return m.grep(a,function(a){return a===b!==c});if("string"==typeof b){if(v.test(b))return m.filter(b,a,c);b=m.filter(b,a)}return m.grep(a,function(a){return m.inArray(a,b)>=0!==c})}m.filter=function(a,b,c){var d=b[0];return c&&(a=":not("+a+")"),1===b.length&&1===d.nodeType?m.find.matchesSelector(d,a)?[d]:[]:m.find.matches(a,m.grep(b,function(a){return 1===a.nodeType}))},m.fn.extend({find:function(a){var b,c=[],d=this,e=d.length;if("string"!=typeof a)return this.pushStack(m(a).filter(function(){for(b=0;e>b;b++)if(m.contains(d[b],this))return!0}));for(b=0;e>b;b++)m.find(a,d[b],c);return c=this.pushStack(e>1?m.unique(c):c),c.selector=this.selector?this.selector+" "+a:a,c},filter:function(a){return this.pushStack(w(this,a||[],!1))},not:function(a){return this.pushStack(w(this,a||[],!0))},is:function(a){return!!w(this,"string"==typeof a&&t.test(a)?m(a):a||[],!1).length}});var x,y=a.document,z=/^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,A=m.fn.init=function(a,b){var c,d;if(!a)return this;if("string"==typeof a){if(c="<"===a.charAt(0)&&">"===a.charAt(a.length-1)&&a.length>=3?[null,a,null]:z.exec(a),!c||!c[1]&&b)return!b||b.jquery?(b||x).find(a):this.constructor(b).find(a);if(c[1]){if(b=b instanceof m?b[0]:b,m.merge(this,m.parseHTML(c[1],b&&b.nodeType?b.ownerDocument||b:y,!0)),u.test(c[1])&&m.isPlainObject(b))for(c in b)m.isFunction(this[c])?this[c](b[c]):this.attr(c,b[c]);return this}if(d=y.getElementById(c[2]),d&&d.parentNode){if(d.id!==c[2])return x.find(a);this.length=1,this[0]=d}return this.context=y,this.selector=a,this}return a.nodeType?(this.context=this[0]=a,this.length=1,this):m.isFunction(a)?"undefined"!=typeof x.ready?x.ready(a):a(m):(void 0!==a.selector&&(this.selector=a.selector,this.context=a.context),m.makeArray(a,this))};A.prototype=m.fn,x=m(y);var B=/^(?:parents|prev(?:Until|All))/,C={children:!0,contents:!0,next:!0,prev:!0};m.extend({dir:function(a,b,c){var d=[],e=a[b];while(e&&9!==e.nodeType&&(void 0===c||1!==e.nodeType||!m(e).is(c)))1===e.nodeType&&d.push(e),e=e[b];return d},sibling:function(a,b){for(var c=[];a;a=a.nextSibling)1===a.nodeType&&a!==b&&c.push(a);return c}}),m.fn.extend({has:function(a){var b,c=m(a,this),d=c.length;return this.filter(function(){for(b=0;d>b;b++)if(m.contains(this,c[b]))return!0})},closest:function(a,b){for(var c,d=0,e=this.length,f=[],g=t.test(a)||"string"!=typeof a?m(a,b||this.context):0;e>d;d++)for(c=this[d];c&&c!==b;c=c.parentNode)if(c.nodeType<11&&(g?g.index(c)>-1:1===c.nodeType&&m.find.matchesSelector(c,a))){f.push(c);break}return this.pushStack(f.length>1?m.unique(f):f)},index:function(a){return a?"string"==typeof a?m.inArray(this[0],m(a)):m.inArray(a.jquery?a[0]:a,this):this[0]&&this[0].parentNode?this.first().prevAll().length:-1},add:function(a,b){return this.pushStack(m.unique(m.merge(this.get(),m(a,b))))},addBack:function(a){return this.add(null==a?this.prevObject:this.prevObject.filter(a))}});function D(a,b){do a=a[b];while(a&&1!==a.nodeType);return a}m.each({parent:function(a){var b=a.parentNode;return b&&11!==b.nodeType?b:null},parents:function(a){return m.dir(a,"parentNode")},parentsUntil:function(a,b,c){return m.dir(a,"parentNode",c)},next:function(a){return D(a,"nextSibling")},prev:function(a){return D(a,"previousSibling")},nextAll:function(a){return m.dir(a,"nextSibling")},prevAll:function(a){return m.dir(a,"previousSibling")},nextUntil:function(a,b,c){return m.dir(a,"nextSibling",c)},prevUntil:function(a,b,c){return m.dir(a,"previousSibling",c)},siblings:function(a){return m.sibling((a.parentNode||{}).firstChild,a)},children:function(a){return m.sibling(a.firstChild)},contents:function(a){return m.nodeName(a,"iframe")?a.contentDocument||a.contentWindow.document:m.merge([],a.childNodes)}},function(a,b){m.fn[a]=function(c,d){var e=m.map(this,b,c);return"Until"!==a.slice(-5)&&(d=c),d&&"string"==typeof d&&(e=m.filter(d,e)),this.length>1&&(C[a]||(e=m.unique(e)),B.test(a)&&(e=e.reverse())),this.pushStack(e)}});var E=/\S+/g,F={};function G(a){var b=F[a]={};return m.each(a.match(E)||[],function(a,c){b[c]=!0}),b}m.Callbacks=function(a){a="string"==typeof a?F[a]||G(a):m.extend({},a);var b,c,d,e,f,g,h=[],i=!a.once&&[],j=function(l){for(c=a.memory&&l,d=!0,f=g||0,g=0,e=h.length,b=!0;h&&e>f;f++)if(h[f].apply(l[0],l[1])===!1&&a.stopOnFalse){c=!1;break}b=!1,h&&(i?i.length&&j(i.shift()):c?h=[]:k.disable())},k={add:function(){if(h){var d=h.length;!function f(b){m.each(b,function(b,c){var d=m.type(c);"function"===d?a.unique&&k.has(c)||h.push(c):c&&c.length&&"string"!==d&&f(c)})}(arguments),b?e=h.length:c&&(g=d,j(c))}return this},remove:function(){return h&&m.each(arguments,function(a,c){var d;while((d=m.inArray(c,h,d))>-1)h.splice(d,1),b&&(e>=d&&e--,f>=d&&f--)}),this},has:function(a){return a?m.inArray(a,h)>-1:!(!h||!h.length)},empty:function(){return h=[],e=0,this},disable:function(){return h=i=c=void 0,this},disabled:function(){return!h},lock:function(){return i=void 0,c||k.disable(),this},locked:function(){return!i},fireWith:function(a,c){return!h||d&&!i||(c=c||[],c=[a,c.slice?c.slice():c],b?i.push(c):j(c)),this},fire:function(){return k.fireWith(this,arguments),this},fired:function(){return!!d}};return k},m.extend({Deferred:function(a){var b=[["resolve","done",m.Callbacks("once memory"),"resolved"],["reject","fail",m.Callbacks("once memory"),"rejected"],["notify","progress",m.Callbacks("memory")]],c="pending",d={state:function(){return c},always:function(){return e.done(arguments).fail(arguments),this},then:function(){var a=arguments;return m.Deferred(function(c){m.each(b,function(b,f){var g=m.isFunction(a[b])&&a[b];e[f[1]](function(){var a=g&&g.apply(this,arguments);a&&m.isFunction(a.promise)?a.promise().done(c.resolve).fail(c.reject).progress(c.notify):c[f[0]+"With"](this===d?c.promise():this,g?[a]:arguments)})}),a=null}).promise()},promise:function(a){return null!=a?m.extend(a,d):d}},e={};return d.pipe=d.then,m.each(b,function(a,f){var g=f[2],h=f[3];d[f[1]]=g.add,h&&g.add(function(){c=h},b[1^a][2].disable,b[2][2].lock),e[f[0]]=function(){return e[f[0]+"With"](this===e?d:this,arguments),this},e[f[0]+"With"]=g.fireWith}),d.promise(e),a&&a.call(e,e),e},when:function(a){var b=0,c=d.call(arguments),e=c.length,f=1!==e||a&&m.isFunction(a.promise)?e:0,g=1===f?a:m.Deferred(),h=function(a,b,c){return function(e){b[a]=this,c[a]=arguments.length>1?d.call(arguments):e,c===i?g.notifyWith(b,c):--f||g.resolveWith(b,c)}},i,j,k;if(e>1)for(i=new Array(e),j=new Array(e),k=new Array(e);e>b;b++)c[b]&&m.isFunction(c[b].promise)?c[b].promise().done(h(b,k,c)).fail(g.reject).progress(h(b,j,i)):--f;return f||g.resolveWith(k,c),g.promise()}});var H;m.fn.ready=function(a){return m.ready.promise().done(a),this},m.extend({isReady:!1,readyWait:1,holdReady:function(a){a?m.readyWait++:m.ready(!0)},ready:function(a){if(a===!0?!--m.readyWait:!m.isReady){if(!y.body)return setTimeout(m.ready);m.isReady=!0,a!==!0&&--m.readyWait>0||(H.resolveWith(y,[m]),m.fn.triggerHandler&&(m(y).triggerHandler("ready"),m(y).off("ready")))}}});function I(){y.addEventListener?(y.removeEventListener("DOMContentLoaded",J,!1),a.removeEventListener("load",J,!1)):(y.detachEvent("onreadystatechange",J),a.detachEvent("onload",J))}function J(){(y.addEventListener||"load"===event.type||"complete"===y.readyState)&&(I(),m.ready())}m.ready.promise=function(b){if(!H)if(H=m.Deferred(),"complete"===y.readyState)setTimeout(m.ready);else if(y.addEventListener)y.addEventListener("DOMContentLoaded",J,!1),a.addEventListener("load",J,!1);else{y.attachEvent("onreadystatechange",J),a.attachEvent("onload",J);var c=!1;try{c=null==a.frameElement&&y.documentElement}catch(d){}c&&c.doScroll&&!function e(){if(!m.isReady){try{c.doScroll("left")}catch(a){return setTimeout(e,50)}I(),m.ready()}}()}return H.promise(b)};var K="undefined",L;for(L in m(k))break;k.ownLast="0"!==L,k.inlineBlockNeedsLayout=!1,m(function(){var a,b,c,d;c=y.getElementsByTagName("body")[0],c&&c.style&&(b=y.createElement("div"),d=y.createElement("div"),d.style.cssText="position:absolute;border:0;width:0;height:0;top:0;left:-9999px",c.appendChild(d).appendChild(b),typeof b.style.zoom!==K&&(b.style.cssText="display:inline;margin:0;border:0;padding:1px;width:1px;zoom:1",k.inlineBlockNeedsLayout=a=3===b.offsetWidth,a&&(c.style.zoom=1)),c.removeChild(d))}),function(){var a=y.createElement("div");if(null==k.deleteExpando){k.deleteExpando=!0;try{delete a.test}catch(b){k.deleteExpando=!1}}a=null}(),m.acceptData=function(a){var b=m.noData[(a.nodeName+" ").toLowerCase()],c=+a.nodeType||1;return 1!==c&&9!==c?!1:!b||b!==!0&&a.getAttribute("classid")===b};var M=/^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,N=/([A-Z])/g;function O(a,b,c){if(void 0===c&&1===a.nodeType){var d="data-"+b.replace(N,"-$1").toLowerCase();if(c=a.getAttribute(d),"string"==typeof c){try{c="true"===c?!0:"false"===c?!1:"null"===c?null:+c+""===c?+c:M.test(c)?m.parseJSON(c):c}catch(e){}m.data(a,b,c)}else c=void 0}return c}function P(a){var b;for(b in a)if(("data"!==b||!m.isEmptyObject(a[b]))&&"toJSON"!==b)return!1;
@@ -374,55 +374,1558 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Build website framework</h1>
+<h1 class="title toc-ignore">Find blog tags in converted markdown files</h1>
 <h4 class="author">Steve Simon</h4>
-<h4 class="date">6/12/2019</h4>
 
 </div>
 
 
-<pre class="r"><code>knitr::opts_chunk$set(echo=FALSE)
-library(stringr)
-library(tidyverse)</code></pre>
-<pre><code>## Registered S3 methods overwritten by &#39;ggplot2&#39;:
-##   method         from 
-##   [.quosures     rlang
-##   c.quosures     rlang
-##   print.quosures rlang</code></pre>
-<pre><code>## -- Attaching packages -------------------------------------------------------------------------------- tidyverse 1.2.1 --</code></pre>
-<pre><code>## v ggplot2 3.1.1     v readr   1.3.1
-## v tibble  2.1.1     v purrr   0.3.2
-## v tidyr   0.8.3     v dplyr   0.8.1
-## v ggplot2 3.1.1     v forcats 0.4.0</code></pre>
-<pre><code>## -- Conflicts ----------------------------------------------------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>web_path &lt;- &quot;c:/Users/steve/Dropbox/professional/pmean&quot;
-verbose &lt;- TRUE</code></pre>
-<pre><code>##  [1] &quot;_notes&quot;      &quot;00&quot;          &quot;0000images&quot;  &quot;00files&quot;     &quot;01&quot;         
-##  [6] &quot;02&quot;          &quot;03&quot;          &quot;04&quot;          &quot;05&quot;          &quot;06&quot;         
-## [11] &quot;07&quot;          &quot;08&quot;          &quot;09&quot;          &quot;10&quot;          &quot;11&quot;         
-## [16] &quot;12&quot;          &quot;12a&quot;         &quot;13&quot;          &quot;14&quot;          &quot;15&quot;         
-## [21] &quot;16&quot;          &quot;17&quot;          &quot;18&quot;          &quot;99&quot;          &quot;Articles&quot;   
-## [26] &quot;cases&quot;       &quot;category&quot;    &quot;definitions&quot; &quot;details&quot;     &quot;evidence&quot;   
-## [31] &quot;images&quot;      &quot;informatics&quot; &quot;news&quot;        &quot;personal&quot;    &quot;training&quot;   
-## [36] &quot;v&quot;           &quot;webinars&quot;    &quot;weblog&quot;</code></pre>
-<pre><code>## Joining, by = &quot;f&quot;</code></pre>
-<pre><code>## # A tibble: 175 x 4
-##    f            n p       fx         
-##    &lt;fct&gt;    &lt;int&gt; &lt;fct&gt;   &lt;chr&gt;      
-##  1 fishers      2 00      fishers-00 
-##  2 fishers      2 12      fishers-12 
-##  3 flaws        2 00      flaws-00   
-##  4 flaws        2 04      flaws-04   
-##  5 software     3 00      software-00
-##  6 software     3 04      software-04
-##  7 software     3 14      software-14
-##  8 zzz          6 00      zzz-00     
-##  9 zzz          6 00files zzz-00files
-## 10 zzz          6 11      zzz-11     
-## # ... with 165 more rows</code></pre>
-<p>Save everything.</p>
+<p>This program was written in R Markdown by Steve Simon. It was created on 2019-06-18 and last updated on 2019-06-18.</p>
+<pre><code>##   [1] &quot;17-years.md&quot;                                                                                                           
+##   [2] &quot;8-tips.md&quot;                                                                                                             
+##   [3] &quot;a-lot-longer.md&quot;                                                                                                       
+##   [4] &quot;acceptable-response.md&quot;                                                                                                
+##   [5] &quot;accessible-r-markdown.md&quot;                                                                                              
+##   [6] &quot;adjusted-survival-curves.md&quot;                                                                                           
+##   [7] &quot;adverse-events.md&quot;                                                                                                     
+##   [8] &quot;ai-story.md&quot;                                                                                                           
+##   [9] &quot;all-this-math-stuff.md&quot;                                                                                                
+##  [10] &quot;already-borderline.md&quot;                                                                                                 
+##  [11] &quot;amy-cuddy.md&quot;                                                                                                          
+##  [12] &quot;anaconda.md&quot;                                                                                                           
+##  [13] &quot;analysis-biological-data.md&quot;                                                                                           
+##  [14] &quot;analysis-of-continuous-variables.md&quot;                                                                                   
+##  [15] &quot;analysis-of-means.md&quot;                                                                                                  
+##  [16] &quot;analysis-of-variance.md&quot;                                                                                               
+##  [17] &quot;analyzing-ordinal.md&quot;                                                                                                  
+##  [18] &quot;anecdotal-quote.md&quot;                                                                                                    
+##  [19] &quot;ansi-8601.md&quot;                                                                                                          
+##  [20] &quot;applied-survival-analysis.md&quot;                                                                                          
+##  [21] &quot;archive-accrual.md&quot;                                                                                                    
+##  [22] &quot;archiving.md&quot;                                                                                                          
+##  [23] &quot;areas-of-expertise.md&quot;                                                                                                 
+##  [24] &quot;arrive-guidelines.md&quot;                                                                                                  
+##  [25] &quot;artist.md&quot;                                                                                                             
+##  [26] &quot;assignment-in-r.md&quot;                                                                                                    
+##  [27] &quot;attitude-survey.md&quot;                                                                                                    
+##  [28] &quot;authorized-official.md&quot;                                                                                                
+##  [29] &quot;baby-walk.md&quot;                                                                                                          
+##  [30] &quot;bad-prediction.md&quot;                                                                                                     
+##  [31] &quot;basp-editorial.md&quot;                                                                                                     
+##  [32] &quot;bayesian-book.md&quot;                                                                                                      
+##  [33] &quot;bayesian-meta-analysis.md&quot;                                                                                             
+##  [34] &quot;bayesian-statistics.md&quot;                                                                                                
+##  [35] &quot;be-more-effective.md&quot;                                                                                                  
+##  [36] &quot;beanumber-repository.md&quot;                                                                                               
+##  [37] &quot;beepr.md&quot;                                                                                                              
+##  [38] &quot;beginners-workshop.md&quot;                                                                                                 
+##  [39] &quot;bending-the-rules.md&quot;                                                                                                  
+##  [40] &quot;biased-algorithms.md&quot;                                                                                                  
+##  [41] &quot;bibliographies-in-r-markdown.md&quot;                                                                                       
+##  [42] &quot;big-data-goes-to-school.md&quot;                                                                                            
+##  [43] &quot;big-data-missouri.md&quot;                                                                                                  
+##  [44] &quot;big-data-publication.md&quot;                                                                                               
+##  [45] &quot;big-data-training.md&quot;                                                                                                  
+##  [46] &quot;biggest-statistics-papers.md&quot;                                                                                          
+##  [47] &quot;billionaire-statistician.md&quot;                                                                                           
+##  [48] &quot;binary-imbalanced-learning.md&quot;                                                                                         
+##  [49] &quot;biography-2016.md&quot;                                                                                                     
+##  [50] &quot;biography-2019.md&quot;                                                                                                     
+##  [51] &quot;bioinformatics-programming.md&quot;                                                                                         
+##  [52] &quot;biostatistician-effort.md&quot;                                                                                             
+##  [53] &quot;blow-the-whistle.md&quot;                                                                                                   
+##  [54] &quot;book-review.md&quot;                                                                                                        
+##  [55] &quot;book.md&quot;                                                                                                               
+##  [56] &quot;borderline-significance.md&quot;                                                                                            
+##  [57] &quot;breast-cancer-study.md&quot;                                                                                                
+##  [58] &quot;brief-research-interests.md&quot;                                                                                           
+##  [59] &quot;budgetary-measure.md&quot;                                                                                                  
+##  [60] &quot;budgeting-time.md&quot;                                                                                                     
+##  [61] &quot;business-essentials-2.md&quot;                                                                                              
+##  [62] &quot;business-essentials.md&quot;                                                                                                
+##  [63] &quot;cancer-testing.md&quot;                                                                                                     
+##  [64] &quot;car-speeds.md&quot;                                                                                                         
+##  [65] &quot;case-cohort-review.md&quot;                                                                                                 
+##  [66] &quot;cases-and-cohorts.md&quot;                                                                                                  
+##  [67] &quot;cdcfluview.md&quot;                                                                                                         
+##  [68] &quot;cdrmp-webinars.md&quot;                                                                                                     
+##  [69] &quot;census-geocoder.md&quot;                                                                                                    
+##  [70] &quot;changes-to-classes.md&quot;                                                                                                 
+##  [71] &quot;chapter-on-r.md&quot;                                                                                                       
+##  [72] &quot;charging-models.md&quot;                                                                                                    
+##  [73] &quot;chart-review.md&quot;                                                                                                       
+##  [74] &quot;cheatsheets.md&quot;                                                                                                        
+##  [75] &quot;christmas-carol.md&quot;                                                                                                    
+##  [76] &quot;circle.md&quot;                                                                                                             
+##  [77] &quot;citation-of-prior-research.md&quot;                                                                                         
+##  [78] &quot;citing-my-web-pages.md&quot;                                                                                                
+##  [79] &quot;claims-lacking-specificity.md&quot;                                                                                         
+##  [80] &quot;clinical-research.md&quot;                                                                                                  
+##  [81] &quot;clinical-trial.md&quot;                                                                                                     
+##  [82] &quot;clinical-trials-hype.md&quot;                                                                                               
+##  [83] &quot;clone-sd-cards.md&quot;                                                                                                     
+##  [84] &quot;cluster-hat.md&quot;                                                                                                        
+##  [85] &quot;cluster-randomized-trials.md&quot;                                                                                          
+##  [86] &quot;cluster-randomized.md&quot;                                                                                                 
+##  [87] &quot;coin-flip.md&quot;                                                                                                          
+##  [88] &quot;cold-call.md&quot;                                                                                                          
+##  [89] &quot;combination-of-some-data.md&quot;                                                                                           
+##  [90] &quot;commas-in-sql.md&quot;                                                                                                      
+##  [91] &quot;comments-feature.md&quot;                                                                                                   
+##  [92] &quot;communicating-statistical-findings.md&quot;                                                                                 
+##  [93] &quot;company-sponsored-research.md&quot;                                                                                         
+##  [94] &quot;compare-project.md&quot;                                                                                                    
+##  [95] &quot;comparing-diagnostic-tests.md&quot;                                                                                         
+##  [96] &quot;comparing-two-vectors.md&quot;                                                                                              
+##  [97] &quot;comparisons-within.md&quot;                                                                                                 
+##  [98] &quot;competing-commtments.md&quot;                                                                                               
+##  [99] &quot;complex-trials.md&quot;                                                                                                     
+## [100] &quot;conferences-for-learning-r.md&quot;                                                                                         
+## [101] &quot;confusion-intervals.md&quot;                                                                                                
+## [102] &quot;consult-by-email.md&quot;                                                                                                   
+## [103] &quot;consulting-contract.md&quot;                                                                                                
+## [104] &quot;consulting-trap.md&quot;                                                                                                    
+## [105] &quot;consulting-webinars.md&quot;                                                                                                
+## [106] &quot;contributions-to-ebm.md&quot;                                                                                               
+## [107] &quot;convert-powerpoint.md&quot;                                                                                                 
+## [108] &quot;copyright-data.md&quot;                                                                                                     
+## [109] &quot;course-proposal.md&quot;                                                                                                    
+## [110] &quot;covariate-imbalance.md&quot;                                                                                                
+## [111] &quot;cox-regression.md&quot;                                                                                                     
+## [112] &quot;crc.md&quot;                                                                                                                
+## [113] &quot;ctsa-grant.md&quot;                                                                                                         
+## [114] &quot;dark-side.md&quot;                                                                                                          
+## [115] &quot;dasl.md&quot;                                                                                                               
+## [116] &quot;data-codebook.md&quot;                                                                                                      
+## [117] &quot;data-dictionaries.md&quot;                                                                                                  
+## [118] &quot;data-doesnt-speak.md&quot;                                                                                                  
+## [119] &quot;data-notes.md&quot;                                                                                                         
+## [120] &quot;data-presentation.md&quot;                                                                                                  
+## [121] &quot;data-science-curriculum.md&quot;                                                                                            
+## [122] &quot;databases-using-r.md&quot;                                                                                                  
+## [123] &quot;datamind.md&quot;                                                                                                           
+## [124] &quot;dataset-search.md&quot;                                                                                                     
+## [125] &quot;dates-in-r.md&quot;                                                                                                         
+## [126] &quot;deep-learning-mooc.md&quot;                                                                                                 
+## [127] &quot;defining-urban.md&quot;                                                                                                     
+## [128] &quot;design-monte-carlo-2.md&quot;                                                                                               
+## [129] &quot;design-monte-carlo.md&quot;                                                                                                 
+## [130] &quot;developer-works.md&quot;                                                                                                    
+## [131] &quot;developing-grants.md&quot;                                                                                                  
+## [132] &quot;developing-research.md&quot;                                                                                                
+## [133] &quot;difference-of-two-exponentials.md&quot;                                                                                     
+## [134] &quot;differing-versions.md&quot;                                                                                                 
+## [135] &quot;discussion-section.md&quot;                                                                                                 
+## [136] &quot;documentation-standards.md&quot;                                                                                            
+## [137] &quot;dogs-vs-cats.md&quot;                                                                                                       
+## [138] &quot;dplyr-and-pipes.md&quot;                                                                                                    
+## [139] &quot;dryad.md&quot;                                                                                                              
+## [140] &quot;early.md&quot;                                                                                                              
+## [141] &quot;effect-size.md&quot;                                                                                                        
+## [142] &quot;effective-consulting.md&quot;                                                                                               
+## [143] &quot;effective-quesitonnaires.md&quot;                                                                                           
+## [144] &quot;effectiveness-vs-efficacy.md&quot;                                                                                          
+## [145] &quot;efficiency-of-block-design.md&quot;                                                                                         
+## [146] &quot;ehr-fda-guidance.md&quot;                                                                                                   
+## [147] &quot;election-predictions.md&quot;                                                                                               
+## [148] &quot;elsevier-vs-uc.md&quot;                                                                                                     
+## [149] &quot;encode.md&quot;                                                                                                             
+## [150] &quot;encyclopedia-of-big-data.md&quot;                                                                                           
+## [151] &quot;end-of-sas.md&quot;                                                                                                         
+## [152] &quot;enigma-public.md&quot;                                                                                                      
+## [153] &quot;enrichment-designs.md&quot;                                                                                                 
+## [154] &quot;equivalence-talk.md&quot;                                                                                                   
+## [155] &quot;ethical-data-mining.md&quot;                                                                                                
+## [156] &quot;evaluation-methods.md&quot;                                                                                                 
+## [157] &quot;evidence-of-bias.md&quot;                                                                                                   
+## [158] &quot;excel-colors.md&quot;                                                                                                       
+## [159] &quot;excel-users.md&quot;                                                                                                        
+## [160] &quot;experience-vs-memory.md&quot;                                                                                               
+## [161] &quot;explain-ai.md&quot;                                                                                                         
+## [162] &quot;exploits-of-a-mom.md&quot;                                                                                                  
+## [163] &quot;exploratory-data-analysis.md&quot;                                                                                          
+## [164] &quot;exporting-sas.md&quot;                                                                                                      
+## [165] &quot;faculty-profile.md&quot;                                                                                                    
+## [166] &quot;failed-study.md&quot;                                                                                                       
+## [167] &quot;fair-principles.md&quot;                                                                                                    
+## [168] &quot;false-positive-psychology.md&quot;                                                                                          
+## [169] &quot;fancy-technologies.md&quot;                                                                                                 
+## [170] &quot;fda-r-ok.md&quot;                                                                                                           
+## [171] &quot;feed.md&quot;                                                                                                               
+## [172] &quot;fighting-sasism.md&quot;                                                                                                    
+## [173] &quot;finding-interesting-articles.md&quot;                                                                                       
+## [174] &quot;finding-me.md&quot;                                                                                                         
+## [175] &quot;first-jags.md&quot;                                                                                                         
+## [176] &quot;five-safes.md&quot;                                                                                                         
+## [177] &quot;five-thirty-eight-data.md&quot;                                                                                             
+## [178] &quot;fix-the-ehr.md&quot;                                                                                                        
+## [179] &quot;flipped-classroom.md&quot;                                                                                                  
+## [180] &quot;font-size-in-r.md&quot;                                                                                                     
+## [181] &quot;font-size-in-rstudio.md&quot;                                                                                               
+## [182] &quot;food-researcher.md&quot;                                                                                                    
+## [183] &quot;for-profit-journals.md&quot;                                                                                                
+## [184] &quot;foreach.md&quot;                                                                                                            
+## [185] &quot;forensic-bioinformatics.md&quot;                                                                                            
+## [186] &quot;fourteen-points.md&quot;                                                                                                    
+## [187] &quot;framingham-contribution.md&quot;                                                                                            
+## [188] &quot;function-argumentsr.md&quot;                                                                                                
+## [189] &quot;git-and-github.md&quot;                                                                                                     
+## [190] &quot;git.md&quot;                                                                                                                
+## [191] &quot;github-standards.md&quot;                                                                                                   
+## [192] &quot;good-enough.md&quot;                                                                                                        
+## [193] &quot;google-scholar-profile.md&quot;                                                                                             
+## [194] &quot;gpc-work.md&quot;                                                                                                           
+## [195] &quot;grade-point-averages.md&quot;                                                                                               
+## [196] &quot;grading-rubric.md&quot;                                                                                                     
+## [197] &quot;grant-proposals.md&quot;                                                                                                    
+## [198] &quot;grant-training-2.md&quot;                                                                                                   
+## [199] &quot;grant-writing-styles.md&quot;                                                                                               
+## [200] &quot;greece-prosecution.md&quot;                                                                                                 
+## [201] &quot;greedy.md&quot;                                                                                                             
+## [202] &quot;grumpy-editorials.md&quot;                                                                                                  
+## [203] &quot;h-index.md&quot;                                                                                                            
+## [204] &quot;hadley-wickham.md&quot;                                                                                                     
+## [205] &quot;hate-about-consulting.md&quot;                                                                                              
+## [206] &quot;health-insurance-systems.md&quot;                                                                                           
+## [207] &quot;hedis.md&quot;                                                                                                              
+## [208] &quot;heron-i2b2-analytics.md&quot;                                                                                               
+## [209] &quot;history-hadoop.md&quot;                                                                                                     
+## [210] &quot;history-of-r.md&quot;                                                                                                       
+## [211] &quot;history-of-sas.md&quot;                                                                                                     
+## [212] &quot;history-of-spss.md&quot;                                                                                                    
+## [213] &quot;homework-format.md&quot;                                                                                                    
+## [214] &quot;how-big-ehr.md&quot;                                                                                                        
+## [215] &quot;how-big.md&quot;                                                                                                            
+## [216] &quot;how-many-months.md&quot;                                                                                                    
+## [217] &quot;how-many-research-subjects.md&quot;                                                                                         
+## [218] &quot;how-much-missingness.md&quot;                                                                                               
+## [219] &quot;hundred-data-sets.md&quot;                                                                                                  
+## [220] &quot;i2b2-ontology.md&quot;                                                                                                      
+## [221] &quot;idre.md&quot;                                                                                                               
+## [222] &quot;imbalanced-multi-center-trials.md&quot;                                                                                     
+## [223] &quot;implementation-science.md&quot;                                                                                             
+## [224] &quot;important-packages-for-r.md&quot;                                                                                           
+## [225] &quot;incentivizing.md&quot;                                                                                                      
+## [226] &quot;informed-consent.md&quot;                                                                                                   
+## [227] &quot;ingelfinger.md&quot;                                                                                                        
+## [228] &quot;inla.md&quot;                                                                                                               
+## [229] &quot;interesting-data-sets.md&quot;                                                                                              
+## [230] &quot;interval-censored.md&quot;                                                                                                  
+## [231] &quot;interval-regression.md&quot;                                                                                                
+## [232] &quot;interview-questions.md&quot;                                                                                                
+## [233] &quot;introduction-section.md&quot;                                                                                               
+## [234] &quot;introversion.md&quot;                                                                                                       
+## [235] &quot;irb-questions.md&quot;                                                                                                      
+## [236] &quot;john-gawalt.md&quot;                                                                                                        
+## [237] &quot;jupyterlab.md&quot;                                                                                                         
+## [238] &quot;justifying-assumptions.md&quot;                                                                                             
+## [239] &quot;kableextra.md&quot;                                                                                                         
+## [240] &quot;kaggle-data.md&quot;                                                                                                        
+## [241] &quot;kaplan-meier.md&quot;                                                                                                       
+## [242] &quot;large-negative.md&quot;                                                                                                     
+## [243] &quot;large-rcts.md&quot;                                                                                                         
+## [244] &quot;lasso.md&quot;                                                                                                              
+## [245] &quot;latex-mathematics.md&quot;                                                                                                  
+## [246] &quot;lavaan.md&quot;                                                                                                             
+## [247] &quot;leading-questions.md&quot;                                                                                                  
+## [248] &quot;leaflet.md&quot;                                                                                                            
+## [249] &quot;learn-about-r.md&quot;                                                                                                      
+## [250] &quot;learning-health-system.md&quot;                                                                                             
+## [251] &quot;learning-sas.md&quot;                                                                                                       
+## [252] &quot;least-important-variable.md&quot;                                                                                           
+## [253] &quot;lending-false-credibility.md&quot;                                                                                          
+## [254] &quot;limitations-alternative-strategies.md&quot;                                                                                 
+## [255] &quot;limitations.md&quot;                                                                                                        
+## [256] &quot;line-style-r.md&quot;                                                                                                       
+## [257] &quot;literature-review.md&quot;                                                                                                  
+## [258] &quot;looks-like-a-blank.md&quot;                                                                                                 
+## [259] &quot;loops-in-r.md&quot;                                                                                                         
+## [260] &quot;losing-track.md&quot;                                                                                                       
+## [261] &quot;loud-mistake.md&quot;                                                                                                       
+## [262] &quot;machine-learning-comparison.md&quot;                                                                                        
+## [263] &quot;machine-learning-vs-logistic-regression.md&quot;                                                                            
+## [264] &quot;machine-learning.md&quot;                                                                                                   
+## [265] &quot;maternal-mortality.md&quot;                                                                                                 
+## [266] &quot;measuring-pixels.md&quot;                                                                                                   
+## [267] &quot;meet-rothwell.md&quot;                                                                                                      
+## [268] &quot;megabyte.md&quot;                                                                                                           
+## [269] &quot;merging-in-dplyr.md&quot;                                                                                                   
+## [270] &quot;meta-analysis-of-ordinal-data.md&quot;                                                                                      
+## [271] &quot;mike-bostock.md&quot;                                                                                                       
+## [272] &quot;mining-ehr.md&quot;                                                                                                         
+## [273] &quot;missing-equals-zero.md&quot;                                                                                                
+## [274] &quot;missing-values-in-r.md&quot;                                                                                                
+## [275] &quot;misunderstanding-autism.md&quot;                                                                                            
+## [276] &quot;mixed-up-names.md&quot;                                                                                                     
+## [277] &quot;mlpowsim.md&quot;                                                                                                           
+## [278] &quot;morbid-emphasis.md&quot;                                                                                                    
+## [279] &quot;more-kaplan-meier.md&quot;                                                                                                  
+## [280] &quot;mpi-tutorial.md&quot;                                                                                                       
+## [281] &quot;mpi4py.md&quot;                                                                                                             
+## [282] &quot;my-research-one-page.md&quot;                                                                                               
+## [283] &quot;my-research.md&quot;                                                                                                        
+## [284] &quot;my-teaching-approach.md&quot;                                                                                               
+## [285] &quot;my-teaching-interests-one-page.md&quot;                                                                                     
+## [286] &quot;my-teaching.md&quot;                                                                                                        
+## [287] &quot;negative-numers.md&quot;                                                                                                    
+## [288] &quot;network-analysis.md&quot;                                                                                                   
+## [289] &quot;next-generation-phenotyping.md&quot;                                                                                        
+## [290] &quot;next-stop-bmc.md&quot;                                                                                                      
+## [291] &quot;nicholas-volker.md&quot;                                                                                                    
+## [292] &quot;nightingale-big-data.md&quot;                                                                                               
+## [293] &quot;nih-big-data.md&quot;                                                                                                       
+## [294] &quot;nih-criteria.md&quot;                                                                                                       
+## [295] &quot;nis-standards.md&quot;                                                                                                      
+## [296] &quot;non-technical-mcmc.md&quot;                                                                                                 
+## [297] &quot;nonfinancial-conflicts.md&quot;                                                                                             
+## [298] &quot;nonparametric-multifactor.md&quot;                                                                                          
+## [299] &quot;noobs-installation.md&quot;                                                                                                 
+## [300] &quot;not-created-equal.md&quot;                                                                                                  
+## [301] &quot;numbers-mosteller.md&quot;                                                                                                  
+## [302] &quot;numerical-accuracy.md&quot;                                                                                                 
+## [303] &quot;nytimes-graph.md&quot;                                                                                                      
+## [304] &quot;observational-recommendations.md&quot;                                                                                      
+## [305] &quot;one-small-grant.md&quot;                                                                                                    
+## [306] &quot;open-questions.md&quot;                                                                                                     
+## [307] &quot;open-source-km.md&quot;                                                                                                     
+## [308] &quot;openrefine.md&quot;                                                                                                         
+## [309] &quot;optimistic-graphs.md&quot;                                                                                                  
+## [310] &quot;oracle-dates.md&quot;                                                                                                       
+## [311] &quot;orcid-database.md&quot;                                                                                                     
+## [312] &quot;organizing-data.md&quot;                                                                                                    
+## [313] &quot;origins-of-big-data.md&quot;                                                                                                
+## [314] &quot;ozone-hole.md&quot;                                                                                                         
+## [315] &quot;p-value-of-0.md&quot;                                                                                                       
+## [316] &quot;part-timer.md&quot;                                                                                                         
+## [317] &quot;patient-accrual-models.md&quot;                                                                                             
+## [318] &quot;pdf-accessibility.md&quot;                                                                                                  
+## [319] &quot;peer-grading.md&quot;                                                                                                       
+## [320] &quot;personal-biography.md&quot;                                                                                                 
+## [321] &quot;personal-statement.md&quot;                                                                                                 
+## [322] &quot;phase-ii.md&quot;                                                                                                           
+## [323] &quot;phekb.md&quot;                                                                                                              
+## [324] &quot;physiological-statistics.md&quot;                                                                                           
+## [325] &quot;pilot-study-sample-size.md&quot;                                                                                            
+## [326] &quot;pilot-study.md&quot;                                                                                                        
+## [327] &quot;pipes-in-r-2.md&quot;                                                                                                       
+## [328] &quot;pipes-in-r.md&quot;                                                                                                         
+## [329] &quot;plos-one-2015.md&quot;                                                                                                      
+## [330] &quot;plos-one-reviewer.md&quot;                                                                                                  
+## [331] &quot;plotrix.md&quot;                                                                                                            
+## [332] &quot;pmean-analysis-plan.md&quot;                                                                                                
+## [333] &quot;possibility-theory.md&quot;                                                                                                 
+## [334] &quot;post-hoc-sample-size.md&quot;                                                                                               
+## [335] &quot;power-for-two-by-two-table.md&quot;                                                                                         
+## [336] &quot;powerpoint-with-r-markdown.md&quot;                                                                                         
+## [337] &quot;practical-advice.md&quot;                                                                                                   
+## [338] &quot;precursors-to-data-science.md&quot;                                                                                         
+## [339] &quot;predicting-trial-results.md&quot;                                                                                           
+## [340] &quot;predictive-analytics-software.md&quot;                                                                                      
+## [341] &quot;pretest-posttest.md&quot;                                                                                                   
+## [342] &quot;price-of-calculation.md&quot;                                                                                               
+## [343] &quot;probability-of-a-probability-of-one.md&quot;                                                                                
+## [344] &quot;probonto.md&quot;                                                                                                           
+## [345] &quot;proc-transpose.md&quot;                                                                                                     
+## [346] &quot;procrastination.md&quot;                                                                                                    
+## [347] &quot;program-evaluation.md&quot;                                                                                                 
+## [348] &quot;promotional-toolkit.md&quot;                                                                                                
+## [349] &quot;propensity-monte-carlo.md&quot;                                                                                             
+## [350] &quot;proving-null.md&quot;                                                                                                       
+## [351] &quot;ps-power-calculator.md&quot;                                                                                                
+## [352] &quot;python-raspberry-pi.md&quot;                                                                                                
+## [353] &quot;python-resources.md&quot;                                                                                                   
+## [354] &quot;qi-resources.md&quot;                                                                                                       
+## [355] &quot;qi-video.md&quot;                                                                                                           
+## [356] &quot;qualifications-for-teaching.md&quot;                                                                                        
+## [357] &quot;quality-of-rct.md&quot;                                                                                                     
+## [358] &quot;qualtrics.md&quot;                                                                                                          
+## [359] &quot;questionnaire-checklist.md&quot;                                                                                            
+## [360] &quot;quote-excel.md&quot;                                                                                                        
+## [361] &quot;r-and-sql-server.md&quot;                                                                                                   
+## [362] &quot;r-and-sqlserver.md&quot;                                                                                                    
+## [363] &quot;r-class-2016.md&quot;                                                                                                       
+## [364] &quot;r-is-bad.md&quot;                                                                                                           
+## [365] &quot;r-is-sixth.md&quot;                                                                                                         
+## [366] &quot;r-markdown-basics.md&quot;                                                                                                  
+## [367] &quot;r-syllabus.md&quot;                                                                                                         
+## [368] &quot;r-within-spss.md&quot;                                                                                                      
+## [369] &quot;r2d3.md&quot;                                                                                                               
+## [370] &quot;rainbows.md&quot;                                                                                                           
+## [371] &quot;randomization-techniques.md&quot;                                                                                           
+## [372] &quot;reader-pays.md&quot;                                                                                                        
+## [373] &quot;readmission-rates.md&quot;                                                                                                  
+## [374] &quot;ready-for-testing.md&quot;                                                                                                  
+## [375] &quot;recent-advances.md&quot;                                                                                                    
+## [376] &quot;recommended-data-sharing-network-shrine.md&quot;                                                                            
+## [377] &quot;recommended-philosophy-news-network-postmodernism-special-report.md&quot;                                                   
+## [378] &quot;recommended-research-vs-quality-improvement.md&quot;                                                                        
+## [379] &quot;recommended-tinytex-a-lightweight-cross-platform-portable-and-easy-to-maintain-latex-distribution-based-on-tex-live.md&quot;
+## [380] &quot;red-text.md&quot;                                                                                                           
+## [381] &quot;registry-differences.md&quot;                                                                                               
+## [382] &quot;reinhart-rogoff-error.md&quot;                                                                                              
+## [383] &quot;relationships-in-r.md&quot;                                                                                                 
+## [384] &quot;reproducible-stata.md&quot;                                                                                                 
+## [385] &quot;reproductive-toxicology.md&quot;                                                                                            
+## [386] &quot;research-interests.md&quot;                                                                                                 
+## [387] &quot;research-summary.md&quot;                                                                                                   
+## [388] &quot;research-waste.md&quot;                                                                                                     
+## [389] &quot;resolutions-for-2014.md&quot;                                                                                               
+## [390] &quot;resources-for-r.md&quot;                                                                                                    
+## [391] &quot;review-missing-data.md&quot;                                                                                                
+## [392] &quot;revised-standards.md&quot;                                                                                                  
+## [393] &quot;riat.md&quot;                                                                                                               
+## [394] &quot;rich-data.md&quot;                                                                                                          
+## [395] &quot;risks-of-randomised-trials.md&quot;                                                                                         
+## [396] &quot;rogue-scientists.md&quot;                                                                                                   
+## [397] &quot;rotating-text.md&quot;                                                                                                      
+## [398] &quot;row-over-screening.md&quot;                                                                                                 
+## [399] &quot;russell-waitman.md&quot;                                                                                                    
+## [400] &quot;safeguarding.md&quot;                                                                                                       
+## [401] &quot;sample-grants.md&quot;                                                                                                      
+## [402] &quot;sample-size-reproducibility.md&quot;                                                                                        
+## [403] &quot;sas-blog.md&quot;                                                                                                           
+## [404] &quot;sas-ods.md&quot;                                                                                                            
+## [405] &quot;sas-university.md&quot;                                                                                                     
+## [406] &quot;sats.md&quot;                                                                                                               
+## [407] &quot;save-time.md&quot;                                                                                                          
+## [408] &quot;science-march.md&quot;                                                                                                      
+## [409] &quot;scientific-work.md&quot;                                                                                                    
+## [410] &quot;scientist-brain.md&quot;                                                                                                    
+## [411] &quot;screen-sharing.md&quot;                                                                                                     
+## [412] &quot;searching-files.md&quot;                                                                                                    
+## [413] &quot;select-variables.md&quot;                                                                                                   
+## [414] &quot;selection-of-controls.md&quot;                                                                                              
+## [415] &quot;semi-structured-interviews.md&quot;                                                                                         
+## [416] &quot;separating-unique.md&quot;                                                                                                  
+## [417] &quot;sequence-variants.md&quot;                                                                                                  
+## [418] &quot;shiny-server.md&quot;                                                                                                       
+## [419] &quot;short-bio.md&quot;                                                                                                          
+## [420] &quot;short-biography.md&quot;                                                                                                    
+## [421] &quot;short-course-consulting.md&quot;                                                                                            
+## [422] &quot;shortening-survey.md&quot;                                                                                                  
+## [423] &quot;shut-the-heck-up.md&quot;                                                                                                   
+## [424] &quot;silver-interview.md&quot;                                                                                                   
+## [425] &quot;simple-longitudinal-data-sets.md&quot;                                                                                      
+## [426] &quot;simple-sample-size.md&quot;                                                                                                 
+## [427] &quot;simulating-power.md&quot;                                                                                                   
+## [428] &quot;single-imputation.md&quot;                                                                                                  
+## [429] &quot;sins-against-science.md&quot;                                                                                               
+## [430] &quot;skin-of-my-teeth.md&quot;                                                                                                   
+## [431] &quot;slide-rule-poster.md&quot;                                                                                                  
+## [432] &quot;slow-dget.md&quot;                                                                                                          
+## [433] &quot;smart-objectives.md&quot;                                                                                                   
+## [434] &quot;smr-example.md&quot;                                                                                                        
+## [435] &quot;social-media-for-scientists.md&quot;                                                                                        
+## [436] &quot;social-media.md&quot;                                                                                                       
+## [437] &quot;space-center.md&quot;                                                                                                       
+## [438] &quot;spam-data.md&quot;                                                                                                          
+## [439] &quot;spark-pi.md&quot;                                                                                                           
+## [440] &quot;sparse-matrices.md&quot;                                                                                                    
+## [441] &quot;spreasheet-horror.md&quot;                                                                                                  
+## [442] &quot;spss-syllabus.md&quot;                                                                                                      
+## [443] &quot;sql-for-data-science.md&quot;                                                                                               
+## [444] &quot;statistics-education.md&quot;                                                                                               
+## [445] &quot;stemming.md&quot;                                                                                                           
+## [446] &quot;steve-simon.md&quot;                                                                                                        
+## [447] &quot;stop-saying-exponential.md&quot;                                                                                            
+## [448] &quot;string-substitutions.md&quot;                                                                                               
+## [449] &quot;structure-for-documentation.md&quot;                                                                                        
+## [450] &quot;structure-i2b2.md&quot;                                                                                                     
+## [451] &quot;study-development.md&quot;                                                                                                  
+## [452] &quot;subjects-per-variable.md&quot;                                                                                              
+## [453] &quot;summary-of-my-research.md&quot;                                                                                             
+## [454] &quot;super-pi.md&quot;                                                                                                           
+## [455] &quot;support-for-research.md&quot;                                                                                               
+## [456] &quot;survey-data-r.md&quot;                                                                                                      
+## [457] &quot;survey-newsletter.md&quot;                                                                                                  
+## [458] &quot;survey-refusals.md&quot;                                                                                                    
+## [459] &quot;survey-research.md&quot;                                                                                                    
+## [460] &quot;switching-hypotheses.md&quot;                                                                                               
+## [461] &quot;syllabus-r-2018a.md&quot;                                                                                                   
+## [462] &quot;syllabus-sas-2018a.md&quot;                                                                                                 
+## [463] &quot;synthetic-claims.md&quot;                                                                                                   
+## [464] &quot;systematic-overview.md&quot;                                                                                                
+## [465] &quot;systematic-overviews-reliable.md&quot;                                                                                      
+## [466] &quot;talk-at-ku.md&quot;                                                                                                         
+## [467] &quot;teaching-and-research.md&quot;                                                                                              
+## [468] &quot;teaching-bootstrap.md&quot;                                                                                                 
+## [469] &quot;ten-simple-rules.md&quot;                                                                                                   
+## [470] &quot;tessera.md&quot;                                                                                                            
+## [471] &quot;text-data-into-sas.md&quot;                                                                                                 
+## [472] &quot;text-mining-with-r.md&quot;                                                                                                 
+## [473] &quot;the-survey-statistician.md&quot;                                                                                            
+## [474] &quot;think-positively.md&quot;                                                                                                   
+## [475] &quot;tibbles.md&quot;                                                                                                            
+## [476] &quot;tied-ranks.md&quot;                                                                                                         
+## [477] &quot;too-many-priors.md&quot;                                                                                                    
+## [478] &quot;tribute-altman.md&quot;                                                                                                     
+## [479] &quot;triple-blind.md&quot;                                                                                                       
+## [480] &quot;tripod-statement.md&quot;                                                                                                   
+## [481] &quot;trump-tweets.md&quot;                                                                                                       
+## [482] &quot;tshs-resource-portal.md&quot;                                                                                               
+## [483] &quot;turning-off-large-blocks.md&quot;                                                                                           
+## [484] &quot;twelve-things.md&quot;                                                                                                      
+## [485] &quot;twenty-tips.md&quot;                                                                                                        
+## [486] &quot;two-questions.md&quot;                                                                                                      
+## [487] &quot;ucla-software.md&quot;                                                                                                      
+## [488] &quot;understanding-sql.md&quot;                                                                                                  
+## [489] &quot;unfinished-studies.md&quot;                                                                                                 
+## [490] &quot;unpredictability-paradox.md&quot;                                                                                           
+## [491] &quot;unpublished-data-audit.md&quot;                                                                                             
+## [492] &quot;unthinking-approach.md&quot;                                                                                                
+## [493] &quot;use-of-ehr-data.md&quot;                                                                                                    
+## [494] &quot;using-bad-examples.md&quot;                                                                                                 
+## [495] &quot;using-big-data.md&quot;                                                                                                     
+## [496] &quot;using-bugs.md&quot;                                                                                                         
+## [497] &quot;using-mathtype.md&quot;                                                                                                     
+## [498] &quot;validating-diabetes.md&quot;                                                                                                
+## [499] &quot;waste-acronym.md&quot;                                                                                                      
+## [500] &quot;weird-characters.md&quot;                                                                                                   
+## [501] &quot;what-day-is-it.md&quot;                                                                                                     
+## [502] &quot;what-i-did.md&quot;                                                                                                         
+## [503] &quot;what-i-like.md&quot;                                                                                                        
+## [504] &quot;which-r-package.md&quot;                                                                                                    
+## [505] &quot;why-coincidences-happen.md&quot;                                                                                            
+## [506] &quot;why-independent.md&quot;                                                                                                    
+## [507] &quot;without-data.md&quot;                                                                                                       
+## [508] &quot;women-in-analytics.md&quot;                                                                                                 
+## [509] &quot;women-in-science.md&quot;                                                                                                   
+## [510] &quot;word-vector-embeddings.md&quot;                                                                                             
+## [511] &quot;writing-methods-section.md&quot;                                                                                            
+## [512] &quot;xkcd-p-values.md&quot;                                                                                                      
+## [513] &quot;you-can-now-register.md&quot;                                                                                               
+## [514] &quot;zero-in-table.md&quot;                                                                                                      
+## [515] &quot;zero-or-infinity.md&quot;</code></pre>
+<pre><code>## 
+## 17-years.md: [1] &quot;&quot;
+## 
+## 8-tips.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## a-lot-longer.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## acceptable-response.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## accessible-r-markdown.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## adjusted-survival-curves.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## adverse-events.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## ai-story.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## all-this-math-stuff.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## already-borderline.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## amy-cuddy.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## anaconda.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## analysis-biological-data.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## analysis-of-continuous-variables.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## analysis-of-means.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## analysis-of-variance.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## analyzing-ordinal.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## anecdotal-quote.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## ansi-8601.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## applied-survival-analysis.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## archive-accrual.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## archiving.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## areas-of-expertise.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## arrive-guidelines.md: [1] &quot;&quot;
+## 
+## artist.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## assignment-in-r.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## attitude-survey.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## authorized-official.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## baby-walk.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## bad-prediction.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## basp-editorial.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## bayesian-book.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## bayesian-meta-analysis.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## bayesian-statistics.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## be-more-effective.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## beanumber-repository.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## beepr.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## beginners-workshop.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## bending-the-rules.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## biased-algorithms.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## bibliographies-in-r-markdown.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## big-data-goes-to-school.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## big-data-missouri.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## big-data-publication.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## big-data-training.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## biggest-statistics-papers.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## billionaire-statistician.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## binary-imbalanced-learning.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## biography-2016.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## biography-2019.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## bioinformatics-programming.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## biostatistician-effort.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## blow-the-whistle.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## book-review.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## book.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## borderline-significance.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## breast-cancer-study.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## brief-research-interests.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## budgetary-measure.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## budgeting-time.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## business-essentials-2.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## business-essentials.md: [1] &quot;&quot;
+## 
+## cancer-testing.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## car-speeds.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## case-cohort-review.md: [1] &quot;&quot;
+## 
+## cases-and-cohorts.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## cdcfluview.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## cdrmp-webinars.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## census-geocoder.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## changes-to-classes.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## chapter-on-r.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## charging-models.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## chart-review.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## cheatsheets.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## christmas-carol.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## circle.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## citation-of-prior-research.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## citing-my-web-pages.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## claims-lacking-specificity.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## clinical-research.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## clinical-trial.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## clinical-trials-hype.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## clone-sd-cards.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## cluster-hat.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## cluster-randomized-trials.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## cluster-randomized.md: [1] &quot;&quot;
+## 
+## coin-flip.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## cold-call.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## combination-of-some-data.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## commas-in-sql.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## comments-feature.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## communicating-statistical-findings.md: [1] &quot;&quot;
+## 
+## company-sponsored-research.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## compare-project.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## comparing-diagnostic-tests.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## comparing-two-vectors.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## comparisons-within.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## competing-commtments.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## complex-trials.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## conferences-for-learning-r.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## confusion-intervals.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## consult-by-email.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## consulting-contract.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## consulting-trap.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## consulting-webinars.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## contributions-to-ebm.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## convert-powerpoint.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## copyright-data.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## course-proposal.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## covariate-imbalance.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## cox-regression.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## crc.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## ctsa-grant.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## dark-side.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## dasl.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## data-codebook.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## data-dictionaries.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## data-doesnt-speak.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## data-notes.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## data-presentation.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## data-science-curriculum.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## databases-using-r.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## datamind.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## dataset-search.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## dates-in-r.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## deep-learning-mooc.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## defining-urban.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## design-monte-carlo-2.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## design-monte-carlo.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## developer-works.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## developing-grants.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## developing-research.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## difference-of-two-exponentials.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## differing-versions.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## discussion-section.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## documentation-standards.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## dogs-vs-cats.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## dplyr-and-pipes.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## dryad.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## early.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## effect-size.md: [1] &quot;&quot;
+## 
+## effective-consulting.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## effective-quesitonnaires.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## effectiveness-vs-efficacy.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## efficiency-of-block-design.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## ehr-fda-guidance.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## election-predictions.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## elsevier-vs-uc.md: [1] &quot;&quot;
+## 
+## encode.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## encyclopedia-of-big-data.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## end-of-sas.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## enigma-public.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## enrichment-designs.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## equivalence-talk.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## ethical-data-mining.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## evaluation-methods.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## evidence-of-bias.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## excel-colors.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## excel-users.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## experience-vs-memory.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## explain-ai.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## exploits-of-a-mom.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## exploratory-data-analysis.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## exporting-sas.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## faculty-profile.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## failed-study.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## fair-principles.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## false-positive-psychology.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## fancy-technologies.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## fda-r-ok.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## feed.md: [1] &quot;https://wordpr?!?ss.org/?v=3.7.29 PM?!?an: Finding m?!? on th?!?&quot;
+## 
+## fighting-sasism.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## finding-interesting-articles.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## finding-me.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## first-jags.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## five-safes.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## five-thirty-eight-data.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## fix-the-ehr.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## flipped-classroom.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## font-size-in-r.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## font-size-in-rstudio.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## food-researcher.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## for-profit-journals.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## foreach.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## forensic-bioinformatics.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## fourteen-points.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## framingham-contribution.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## function-argumentsr.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## git-and-github.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## git.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## github-standards.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## good-enough.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## google-scholar-profile.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## gpc-work.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## grade-point-averages.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## grading-rubric.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## grant-proposals.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## grant-training-2.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## grant-writing-styles.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## greece-prosecution.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## greedy.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## grumpy-editorials.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## h-index.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## hadley-wickham.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## hate-about-consulting.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## health-insurance-systems.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## hedis.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## heron-i2b2-analytics.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## history-hadoop.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## history-of-r.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## history-of-sas.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## history-of-spss.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## homework-format.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## how-big-ehr.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## how-big.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## how-many-months.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## how-many-research-subjects.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## how-much-missingness.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## hundred-data-sets.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## i2b2-ontology.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## idre.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## imbalanced-multi-center-trials.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## implementation-science.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## important-packages-for-r.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## incentivizing.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## informed-consent.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## ingelfinger.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## inla.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## interesting-data-sets.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## interval-censored.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## interval-regression.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## interview-questions.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## introduction-section.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## introversion.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## irb-questions.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## john-gawalt.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## jupyterlab.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## justifying-assumptions.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## kableextra.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## kaggle-data.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## kaplan-meier.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## large-negative.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## large-rcts.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## lasso.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## latex-mathematics.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## lavaan.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## leading-questions.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## leaflet.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## learn-about-r.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## learning-health-system.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## learning-sas.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## least-important-variable.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## lending-false-credibility.md: [1] &quot;&quot;
+## 
+## limitations-alternative-strategies.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## limitations.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## line-style-r.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## literature-review.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## looks-like-a-blank.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## loops-in-r.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## losing-track.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## loud-mistake.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## machine-learning-comparison.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## machine-learning-vs-logistic-regression.md: [1] &quot;&quot;
+## 
+## machine-learning.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## maternal-mortality.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## measuring-pixels.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## meet-rothwell.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## megabyte.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## merging-in-dplyr.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## meta-analysis-of-ordinal-data.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## mike-bostock.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## mining-ehr.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## missing-equals-zero.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## missing-values-in-r.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## misunderstanding-autism.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## mixed-up-names.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## mlpowsim.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## morbid-emphasis.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## more-kaplan-meier.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## mpi-tutorial.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## mpi4py.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## my-research-one-page.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## my-research.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## my-teaching-approach.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## my-teaching-interests-one-page.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## my-teaching.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## negative-numers.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## network-analysis.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## next-generation-phenotyping.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## next-stop-bmc.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## nicholas-volker.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## nightingale-big-data.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## nih-big-data.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## nih-criteria.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## nis-standards.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## non-technical-mcmc.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## nonfinancial-conflicts.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## nonparametric-multifactor.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## noobs-installation.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## not-created-equal.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## numbers-mosteller.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## numerical-accuracy.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## nytimes-graph.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## observational-recommendations.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## one-small-grant.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## open-questions.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## open-source-km.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## openrefine.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## optimistic-graphs.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## oracle-dates.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## orcid-database.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## organizing-data.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## origins-of-big-data.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## ozone-hole.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## p-value-of-0.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## part-timer.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## patient-accrual-models.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## pdf-accessibility.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## peer-grading.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## personal-biography.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## personal-statement.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## phase-ii.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## phekb.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## physiological-statistics.md: [1] &quot;und?!?rstand!) | PM?!?an&quot;
+## 
+## pilot-study-sample-size.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## pilot-study.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## pipes-in-r-2.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## pipes-in-r.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## plos-one-2015.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## plos-one-reviewer.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## plotrix.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## pmean-analysis-plan.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## possibility-theory.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## post-hoc-sample-size.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## power-for-two-by-two-table.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## powerpoint-with-r-markdown.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## practical-advice.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## precursors-to-data-science.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## predicting-trial-results.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## predictive-analytics-software.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## pretest-posttest.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## price-of-calculation.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## probability-of-a-probability-of-one.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## probonto.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## proc-transpose.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## procrastination.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## program-evaluation.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## promotional-toolkit.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## propensity-monte-carlo.md: [1] &quot;&quot;
+## 
+## proving-null.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## ps-power-calculator.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## python-raspberry-pi.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## python-resources.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## qi-resources.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## qi-video.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## qualifications-for-teaching.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## quality-of-rct.md: [1] &quot;&quot;
+## 
+## qualtrics.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## questionnaire-checklist.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## quote-excel.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## r-and-sql-server.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## r-and-sqlserver.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## r-class-2016.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## r-is-bad.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## r-is-sixth.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## r-markdown-basics.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## r-syllabus.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## r-within-spss.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## r2d3.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## rainbows.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## randomization-techniques.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## reader-pays.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## readmission-rates.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## ready-for-testing.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## recent-advances.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## recommended-data-sharing-network-shrine.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## recommended-philosophy-news-network-postmodernism-special-report.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## recommended-research-vs-quality-improvement.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## recommended-tinytex-a-lightweight-cross-platform-portable-and-easy-to-maintain-latex-distribution-based-on-tex-live.md: [1] &quot;&quot;
+## 
+## red-text.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## registry-differences.md: [1] &quot;&quot;
+## 
+## reinhart-rogoff-error.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## relationships-in-r.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## reproducible-stata.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## reproductive-toxicology.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## research-interests.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## research-summary.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## research-waste.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## resolutions-for-2014.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## resources-for-r.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## review-missing-data.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## revised-standards.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## riat.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## rich-data.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## risks-of-randomised-trials.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## rogue-scientists.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## rotating-text.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## row-over-screening.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## russell-waitman.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## safeguarding.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## sample-grants.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## sample-size-reproducibility.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## sas-blog.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## sas-ods.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## sas-university.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## sats.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## save-time.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## science-march.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## scientific-work.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## scientist-brain.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## screen-sharing.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## searching-files.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## select-variables.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## selection-of-controls.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## semi-structured-interviews.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## separating-unique.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## sequence-variants.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## shiny-server.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## short-bio.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## short-biography.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## short-course-consulting.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## shortening-survey.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## shut-the-heck-up.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## silver-interview.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## simple-longitudinal-data-sets.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## simple-sample-size.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## simulating-power.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## single-imputation.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## sins-against-science.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## skin-of-my-teeth.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## slide-rule-poster.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## slow-dget.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## smart-objectives.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## smr-example.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## social-media-for-scientists.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## social-media.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## space-center.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## spam-data.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## spark-pi.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## sparse-matrices.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## spreasheet-horror.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## spss-syllabus.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## sql-for-data-science.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## statistics-education.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## stemming.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## steve-simon.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## stop-saying-exponential.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## string-substitutions.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## structure-for-documentation.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## structure-i2b2.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## study-development.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## subjects-per-variable.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## summary-of-my-research.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## super-pi.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## support-for-research.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## survey-data-r.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## survey-newsletter.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## survey-refusals.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## survey-research.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## switching-hypotheses.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## syllabus-r-2018a.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## syllabus-sas-2018a.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## synthetic-claims.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## systematic-overview.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## systematic-overviews-reliable.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## talk-at-ku.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## teaching-and-research.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## teaching-bootstrap.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## ten-simple-rules.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## tessera.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## text-data-into-sas.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## text-mining-with-r.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## the-survey-statistician.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## think-positively.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## tibbles.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## tied-ranks.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## too-many-priors.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## tribute-altman.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## triple-blind.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## tripod-statement.md: [1] &quot;&quot;
+## 
+## trump-tweets.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## tshs-resource-portal.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## turning-off-large-blocks.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## twelve-things.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## twenty-tips.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## two-questions.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## ucla-software.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## understanding-sql.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## unfinished-studies.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## unpredictability-paradox.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## unpublished-data-audit.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## unthinking-approach.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## use-of-ehr-data.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## using-bad-examples.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## using-big-data.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## using-bugs.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## using-mathtype.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## validating-diabetes.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## waste-acronym.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## weird-characters.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## what-day-is-it.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## what-i-did.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## what-i-like.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## which-r-package.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## why-coincidences-happen.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## why-independent.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## without-data.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## women-in-analytics.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## women-in-science.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## word-vector-embeddings.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## writing-methods-section.md: [1] &quot;.r?!?c?!?ntcomm?!?nts a{display:inlin?!? !important;padding:0&quot;
+## 
+## xkcd-p-values.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## you-can-now-register.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## zero-in-table.md: [1] &quot;!important;margin:0 !important;}&quot;
+## 
+## zero-or-infinity.md: [1] &quot;!important;margin:0 !important;}&quot;</code></pre>
 
 
 

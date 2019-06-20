@@ -1,0 +1,82 @@
+---
+title: "Convert blog site to markdown"
+author: "Steve Simon"
+output: html_document
+---
+
+This program was written in R Markdown by Steve Simon. It was created on 2019-06-12 and last updated on `r Sys.Date()`.
+
+```{r echo=FALSE}
+source(file="prelims.R", echo=FALSE)
+knitr::opts_chunk$set(echo=FALSE)
+verbose <- TRUE
+```
+
+```{r get-dirs}
+bl_path <- "c:/wb"
+md_path <- "c:/wu"
+wb_dirs <- list.dirs(bl_path)
+slash_count <- str_count(wb_dirs, "/")
+data.frame(wb_dirs=wb_dirs, slash_count=slash_count) %>%
+  filter(grepl("blog.pmean.com", wb_dirs)) %>%
+  filter(slash_count==4) %>%
+  arrange(slash_count, wb_dirs) %>%
+  mutate(sb_dirs=sub("^.*blog.pmean.com/", "", wb_dirs)) %>%
+  filter(!grepl("^20", wb_dirs)) %>%
+  select(sb_dirs) -> org
+if (verbose) (print(org$sb_dirs))
+n_files <- dim(org)[1]
+```
+
+```{r reset-bad-file-counters}
+skip_list <- NULL
+j_file <- 0
+bad_char_list <- c("Â","š","æ","‘","í","ö","¤","å","£","ü","®","ä","é","ø","•","…","½","ï","¿","â","€","\u0090","Ã","¸","¯","Î","²","¼","ƒ","¨","«","»","Ï","³","±","´","ô","Œ","‹","‰","¥","™","œ","\u009d","Å","è","ë","ç","©","¬","¶","Ê","þ","¡", "¬","¶","Ê","þ","¡","¦","e","˜","‚")
+index_exists <- rep(TRUE, n_files)
+```
+
+I need to remove the smart quotes: \u201D and \u201C
+
+```{r conversion, error=TRUE}
+for (i_file in setdiff((j_file+1):n_files, skip_list)) {
+  "c:/wb/"                             %0%
+  "Second attempt at blog site"        %0%
+  "/blog.pmean.com/"                   %0%
+  org$sb_dirs[i_file]                  %0%
+  "/index.html"                        -> wb_file
+  index_exists[i_file] <- file.exists(wb_file)
+  if (!index_exists[i_file]) next
+  md_file <- paste0("c:/wu/", org$sb_dirs[i_file], ".md")
+
+  if (verbose) {cat(org$b_dirs[i_file], " ")}
+  wb_text <- readLines(wb_file, warn=FALSE)
+  quote_count <- sum(grep('“', wb_text)|grep('”', wb_text)|grep("’", wb_text))
+  if(quote_count>0 & verbose) {cat(" smart quotes found ")}
+  rv_text <- gsub('“', '"', wb_text)
+  rv_text <- gsub('”', '"', rv_text)
+  rv_text <- gsub("’", "'", rv_text)
+  rv_text <- gsub("Â", "A", rv_text)
+  rv_text <- gsub("\xad", "?!?", rv_text)
+  rv_text <- gsub("\x96", "-", rv_text)
+  rv_text <- gsub("\x97", "-", rv_text)
+  rv_text <- gsub("\xA0", " ", rv_text)
+  
+  for (ch in bad_char_list) {rv_text <- gsub(ch, "?!?", rv_text)}
+  for (text in rv_text) {
+    if (nchar(text) == 0) next
+    bad_index <- which(charToRaw(text) > charToRaw("~"))
+    if (length(bad_index) > 0) {
+      for (k in bad_index) {
+        bad_ch <- substr(text, k, k)
+        substr(text, k, k) <- "?!?"
+        cat(paste0(" <<", bad_ch, ">> found "))
+        bad_char_list <- unique(c(bad_char_list, bad_ch))
+      }
+    }
+  }
+  write(rv_text, file=wb_file)
+  pandoc_convert(wb_file, to="markdown_strict", wd="wd", output=md_file)
+}
+skip_list <- c(skip_list, i_file)
+j_file <- i_file
+```

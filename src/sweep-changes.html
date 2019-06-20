@@ -382,46 +382,41 @@ $(document).ready(function () {
 
 
 <pre class="r"><code>knitr::opts_chunk$set(echo=FALSE)
-library(stringr)
-library(tidyverse)</code></pre>
-<pre><code>## Registered S3 methods overwritten by &#39;ggplot2&#39;:
-##   method         from 
-##   [.quosures     rlang
-##   c.quosures     rlang
-##   print.quosures rlang</code></pre>
-<pre><code>## -- Attaching packages -------------------------------------------------------------------------------- tidyverse 1.2.1 --</code></pre>
-<pre><code>## v ggplot2 3.1.1     v readr   1.3.1
-## v tibble  2.1.1     v purrr   0.3.2
-## v tidyr   0.8.3     v dplyr   0.8.1
-## v ggplot2 3.1.1     v forcats 0.4.0</code></pre>
-<pre><code>## -- Conflicts ----------------------------------------------------------------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>web_path &lt;- &quot;c:/Users/steve/Dropbox/professional/pmean&quot;
+source(file=&quot;prelims.R&quot;, echo=FALSE)
 verbose &lt;- TRUE</code></pre>
-<pre><code>##  [1] &quot;_notes&quot;      &quot;00&quot;          &quot;0000images&quot;  &quot;00files&quot;     &quot;01&quot;         
-##  [6] &quot;02&quot;          &quot;03&quot;          &quot;04&quot;          &quot;05&quot;          &quot;06&quot;         
-## [11] &quot;07&quot;          &quot;08&quot;          &quot;09&quot;          &quot;10&quot;          &quot;11&quot;         
-## [16] &quot;12&quot;          &quot;12a&quot;         &quot;13&quot;          &quot;14&quot;          &quot;15&quot;         
-## [21] &quot;16&quot;          &quot;17&quot;          &quot;18&quot;          &quot;99&quot;          &quot;Articles&quot;   
-## [26] &quot;cases&quot;       &quot;category&quot;    &quot;definitions&quot; &quot;details&quot;     &quot;evidence&quot;   
-## [31] &quot;images&quot;      &quot;informatics&quot; &quot;news&quot;        &quot;personal&quot;    &quot;training&quot;   
-## [36] &quot;v&quot;           &quot;webinars&quot;    &quot;weblog&quot;</code></pre>
-<pre><code>## Joining, by = &quot;f&quot;</code></pre>
-<pre><code>## # A tibble: 175 x 4
-##    f            n p       fx         
-##    &lt;fct&gt;    &lt;int&gt; &lt;fct&gt;   &lt;chr&gt;      
-##  1 fishers      2 00      fishers-00 
-##  2 fishers      2 12      fishers-12 
-##  3 flaws        2 00      flaws-00   
-##  4 flaws        2 04      flaws-04   
-##  5 software     3 00      software-00
-##  6 software     3 04      software-04
-##  7 software     3 14      software-14
-##  8 zzz          6 00      zzz-00     
-##  9 zzz          6 00files zzz-00files
-## 10 zzz          6 11      zzz-11     
-## # ... with 165 more rows</code></pre>
+<pre><code>## skip
+##    0 
+## 1694</code></pre>
+<pre><code>##  [1] &quot;SummitAbstract.md&quot;       &quot;TouchscreenInterface.md&quot;
+##  [3] &quot;DiagnosticExercises.md&quot;  &quot;DimensionReduction.md&quot;  
+##  [5] &quot;SurveyDesign.md&quot;         &quot;archive12.md&quot;           
+##  [7] &quot;QuotesJanuary.md&quot;        &quot;WebLinksJanuary-06.md&quot;  
+##  [9] &quot;ResidualConfounding.md&quot;  &quot;ElicitingPrior.md&quot;</code></pre>
+<pre><code>## [1] &quot;&lt;table&gt;&quot;                      &quot;&lt;colgroup&gt;&quot;                  
+## [3] &quot;&lt;col style=\&quot;width: 50%\&quot; /&gt;&quot;
+## [1] &quot;**[StATS](../OldWebsite.html):** **Manipulating graphic images using a&quot;
+## [2] &quot;touchscreen interface (January 23, 2007)**&quot;                            
+## [3] &quot;&quot;                                                                      
+## [1] &quot;**[StATS](../OldWebsite.html):** **Calculations involving diagnostic&quot;
+## [2] &quot;tests using open source abstracts (October 5, 2006)**&quot;               
+## [3] &quot;&quot;                                                                    
+## [1] &quot;**[StATS](../OldWebsite.html):** **Dimension reduction in a microarray&quot;
+## [2] &quot;experiment (May 25, 2005)**.&quot;                                          
+## [3] &quot;&quot;                                                                      
+## [1] &quot;&lt;table&gt;&quot;                      &quot;&lt;colgroup&gt;&quot;                  
+## [3] &quot;&lt;col style=\&quot;width: 50%\&quot; /&gt;&quot;
+## [1] &quot;Â &quot;      &quot;&quot;        &quot;&lt;table&gt;&quot;
+## [1] &quot;**[StATS](../OldWebsite.html): Quotes for the month of January (January&quot;
+## [2] &quot;24, 2005)**&quot;                                                            
+## [3] &quot;&quot;                                                                       
+## [1] &quot;**[StATS](../OldWebsite.html):** **Interesting web sites, publications,&quot;
+## [2] &quot;and quotes for the month of January (January 31, 2006)** [Category:&quot;    
+## [3] &quot;Interesting stuff](../category/InterestingStuff.html)&quot;                  
+## [1] &quot;&lt;table&gt;&quot;                      &quot;&lt;colgroup&gt;&quot;                  
+## [3] &quot;&lt;col style=\&quot;width: 50%\&quot; /&gt;&quot;
+## [1] &quot;**[StATS](../OldWebsite.html): Eliciting a prior distribution for&quot;
+## [2] &quot;rejection/refusal rates (created 2008-06-07)**.&quot;                  
+## [3] &quot;&quot;</code></pre>
 <p>Save everything.</p>
 
 

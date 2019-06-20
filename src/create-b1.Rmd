@@ -1,0 +1,47 @@
+---
+title: "Collapse blog structutre and place in new location"
+author: "Steve Simon"
+date: "6/12/2019"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo=FALSE)
+source(file="prelims.R", echo=FALSE)
+verbose <- TRUE
+```
+
+```{r list-dirs}
+b0_path <- "c:/web/b0"
+b1_path <- "c:/web/b1"
+b0_path                                %>%
+  list.dirs                            %>%
+  remove_ch(b0_path)                   %>%
+  remove_ch("^/")                      -> b0_dirs
+slash_count <- str_count(b0_dirs, "/")
+b0_dirs <- b0_dirs[slash_count==0]
+b0_dirs <- b0_dirs[-1]
+n_dirs <- length(b0_dirs)
+if (verbose) print(b0_dirs)
+```
+
+
+```{r file-move}
+b0_path                              %s%
+  b0_dirs                            %s%
+  "index.html"                       -> old_files
+b1_path                              %s%
+  b0_dirs                            %0%
+  ".html"                            -> new_files
+n_files <- length(old_files)
+for (i in 1:n_files) {
+  if (!file.exists(old_files[i])) next
+  file.copy(old_files[i], new_files[i])
+}
+```
+
+Save everything.
+
+```{r save-everything}
+save.image("../data/create-b1.RData")
+```

@@ -1,0 +1,147 @@
+---
+title: "Translate blog files to html"
+author: "Steve Simon"
+date: "6/18/2019"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo=FALSE)
+source(file="prelims.R", echo=FALSE)
+verbose <- TRUE
+```
+
+```{r list-dirs}
+p1_path <- "c:/web/p1"
+p2_path <- "c:/web/p2"
+p1_names <- list.files(p1_path)
+if (verbose) print(p1_names)
+```
+
+
+```{r skip}
+skip_files <- NULL
+j <- 0
+x <- function(n) {
+  single_ch <- substr(wb_string, n, n)
+  context_l <- substr(wb_string, n-40, n)
+  context_r <- substr(wb_string, n, n+40)
+  cat('"')
+  cat(single_ch)
+  cat('"=')
+  cat(charToRaw(single_ch))
+  cat('\n"')
+  cat(context_l)
+  cat('"=')
+  cat(charToRaw(context_l))
+  cat('\n"')
+  cat(context_r)
+  cat('"=')
+  cat(charToRaw(context_r))
+}
+```
+
+It looks like the sequence c2 a0 is causing a problem.
+
+```{r file-translate, error=TRUE}
+p1_path                              %s%
+  p1_names                           -> old_files
+p2_path                              %s%
+  p1_names                           %>%
+  sub(".html", ".md", ., fixed=TRUE) -> new_files
+n_files <- length(old_files)
+for (i_file in (j+1):n_files) {
+  cat(new_files[i_file], " ")
+  old_files[i_file]                    %>%
+    read_lines                         -> wb_text
+  rv_text <- gsub('“', '"', wb_text)
+  rv_text <- gsub('”', '"', rv_text)
+  rv_text <- gsub("’", "'", rv_text)
+  rv_text <- gsub("‘", "'", rv_text)
+  rv_text <- gsub("–", "-", rv_text)
+  rv_text <- gsub("—", "-", rv_text)
+  rv_text <- gsub("±", "+/-", rv_text)
+  rv_text <- gsub("©", "(c)", rv_text)
+  rv_text <- gsub("…", "...", rv_text)
+  rv_text <- gsub("•", ".", rv_text)
+  rv_text <- gsub("¼", "1/4", rv_text) 
+  rv_text <- gsub("½", "1/2", rv_text)
+  rv_text <- gsub("ä", "a", rv_text) 
+  rv_text <- gsub("å", "a", rv_text) 
+  rv_text <- gsub("á", "a", rv_text)
+  rv_text <- gsub("Å", "A", rv_text) 
+  rv_text <- gsub("Â", " ", rv_text)
+  rv_text <- gsub("æ", "ae", rv_text) 
+  rv_text <- gsub("ç", "c", rv_text) 
+  rv_text <- gsub("é", "e", rv_text) 
+  rv_text <- gsub("è", "e", rv_text) 
+  rv_text <- gsub("ë", "e", rv_text) 
+  rv_text <- gsub("í", "i", rv_text) 
+  rv_text <- gsub("ï", "i", rv_text)
+  rv_text <- gsub("ö", "o", rv_text) 
+  rv_text <- gsub("ø", "o", rv_text) 
+  rv_text <- gsub("š", "s", rv_text) 
+  rv_text <- gsub("þ", "p", rv_text) 
+  rv_text <- gsub("ü", "u", rv_text) 
+  rv_text <- gsub("£", "lb", rv_text) 
+  rv_text <- gsub("¤", "*", rv_text) 
+  rv_text <- gsub("®", "*", rv_text)
+  
+  clean_file <- sub("/p1/", "/p1-clean/", old_files[i_file])
+  write(rv_text, clean_file, append=FALSE)
+  wb_string <- paste0(wb_text, collapse="\n\n")
+  pandoc_convert(clean_file, from="html", to="markdown", output=new_files[i_file])
+}
+skip_files <- c(skip_files, i_file)
+j <- i_file
+print(skip_files)
+print(p1_names[skip_files])
+```
+
+```{r move-problem-files}
+new_files <- sub("p1", "p1-broke", old_files)
+for (i_file in skip_files) {
+  file.copy(old_files[i_file], new_files[i_file])
+}
+new_files <- sub("p1", "p1-fixed", old_files)
+for (i_file in setdiff(1:n_files,skip_files)) {
+  file.copy(old_files[i_file], new_files[i_file])
+}
+```
+
+Look for things like u0097.
+
+```{r conversion, error=TRUE}
+bad_ch_list <- NULL
+p1_broke_path <- "c:/web/p1-broke"
+p1_names <- list.files(p1_broke_path)
+n_broke <- length(p1_names)
+wb_files <- p1_broke_path %s% p1_names
+for (i_file in 1:n_broke) {
+  st_text <- paste0(rv_text, collapse="\n")
+  bad_index <- which(charToRaw(st_text) > charToRaw("~"))
+  for (i_bad in bad_index) {
+    if (verbose) cat(wb_files[i_file])
+    bad_ch <- substr(st_text, i_bad, i_bad)
+    bad_ch                            %>%
+      append(bad_ch_list)             %>%
+      unique                          %>%
+      sort                            -> bad_ch_list
+    if (verbose) {
+      cat('"', bad_ch, '" ', sep="")
+    }
+  if (verbose) {
+    cat(bad_index, " ")
+    cat(substr(st_text, bad_index[1]-10, bad_index[1]+10))
+  }
+}
+bad_ch_list
+# write(rv_text, file=wb_files[i_file])
+#  pandoc_convert(wb_file, to="markdown_strict", wd="wd", output=md_file)
+```
+
+Save everything.
+
+```{r save-everything}
+save.image("../data/create-p2.RData")
+```

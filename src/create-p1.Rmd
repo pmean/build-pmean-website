@@ -1,0 +1,94 @@
+---
+title: "Collapse directory structutre and place in new location"
+author: "Steve Simon"
+date: "6/12/2019"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo=FALSE)
+source(file="prelims.R", echo=FALSE)
+verbose <- TRUE
+```
+
+```{r list-dirs}
+p0_path <- "c:/web/p0"
+p1_path <- "c:/web/p1"
+p0_path                                %>%
+  list.dirs                            %>%
+  remove_ch(p0_path)                   %>%
+  remove_ch("^/")                      -> p0_dirs
+slash_count <- str_count(p0_dirs, "/")
+p0_dirs <- p0_dirs[slash_count==0]
+p0_dirs <- p0_dirs[-1]
+p0_dirs <- p0_dirs[!grepl("_", p0_dirs, fixed=TRUE)]
+n_dirs <- length(p0_dirs)
+if (verbose) print(p0_dirs)
+```
+
+```{r file-count}
+p0_names <- NULL
+p0_count <- rep(-1, length(p0_dirs))
+for (i_dir in 1:n_dirs) {
+  p0_path                              %>%
+    paste(p0_dirs[i_dir], sep="/")     %>%
+    list.files(pattern="*.html")       %>%
+    length                             -> p0_count[i_dir]
+}
+if (verbose) {
+  print(p0_count)
+  print(sum(p0_count))
+}
+```
+
+```{r file-names}
+p0_location <- rep(p0_dirs, p0_count)
+p0_names <- NULL
+for (i_dir in 1:n_dirs) {
+  p0_path                              %>%
+    paste(p0_dirs[i_dir], sep="/")     %>%
+    list.files(pattern="*.html")       %>%
+    append(p0_names, .)                -> p0_names
+  
+  p0_names %<>% append(list.files(p0_dirs[i_dir], pattern="*.html"))
+}
+p0_names %<>% remove_ch(".html", fixed_flag=TRUE)
+p0_meta <- data.frame(loc=p0_location, nam=p0_names, stringsAsFactors=FALSE)
+if (verbose) head(p0_meta)
+```
+
+```{r identify-duplicates}
+n_files <- dim(p0_meta)[1]
+p0_meta                                %>%
+  group_by(nam)                        %>%
+  tally                                -> dup_count
+
+p0_meta                                %>%
+  inner_join(dup_count)                -> p1_meta
+
+p1_meta$unam <- p1_meta$nam
+for (i in 1:n_files) {
+  if (p1_meta$n[i]==1) next
+  p1_meta$unam[i] <- p1_meta$unam[i] %0% "-" %0% p1_meta$loc[i]
+}
+if (verbose) print(p1_meta)
+```
+
+```{r file-move}
+p0_path                              %s%
+  p0_meta$loc                        %s%
+  p0_meta$nam                        %0%
+  ".html"                            -> old_files
+p1_path                              %s%
+  p1_meta$unam                        %0%
+  ".html"                            -> new_files
+for (i in 1:n_files) {
+  file.copy(old_files[i], new_files[i])
+}
+```
+
+Save everything.
+
+```{r save-everything}
+save.image("../data/create-p1.RData")
+```
