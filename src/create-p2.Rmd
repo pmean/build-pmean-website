@@ -16,12 +16,11 @@ p1_path <- "c:/web/p1"
 p2_path <- "c:/web/p2"
 p1_names <- list.files(p1_path)
 if (verbose) print(p1_names)
+n_files <- length(p1_names)
 ```
 
 
 ```{r skip}
-skip_files <- NULL
-j <- 0
 x <- function(n) {
   single_ch <- substr(wb_string, n, n)
   context_l <- substr(wb_string, n-40, n)
@@ -39,105 +38,163 @@ x <- function(n) {
   cat('"=')
   cat(charToRaw(context_r))
 }
+skip_files <- NULL
+j <- 0
 ```
 
 It looks like the sequence c2 a0 is causing a problem.
 
 ```{r file-translate, error=TRUE}
-p1_path                              %s%
-  p1_names                           -> old_files
-p2_path                              %s%
-  p1_names                           %>%
-  sub(".html", ".md", ., fixed=TRUE) -> new_files
-n_files <- length(old_files)
-for (i_file in (j+1):n_files) {
-  cat(new_files[i_file], " ")
-  old_files[i_file]                    %>%
-    read_lines                         -> wb_text
-  rv_text <- gsub('“', '"', wb_text)
-  rv_text <- gsub('”', '"', rv_text)
-  rv_text <- gsub("’", "'", rv_text)
-  rv_text <- gsub("‘", "'", rv_text)
-  rv_text <- gsub("–", "-", rv_text)
-  rv_text <- gsub("—", "-", rv_text)
-  rv_text <- gsub("±", "+/-", rv_text)
-  rv_text <- gsub("©", "(c)", rv_text)
-  rv_text <- gsub("…", "...", rv_text)
-  rv_text <- gsub("•", ".", rv_text)
-  rv_text <- gsub("¼", "1/4", rv_text) 
-  rv_text <- gsub("½", "1/2", rv_text)
-  rv_text <- gsub("ä", "a", rv_text) 
-  rv_text <- gsub("å", "a", rv_text) 
-  rv_text <- gsub("á", "a", rv_text)
-  rv_text <- gsub("Å", "A", rv_text) 
-  rv_text <- gsub("Â", " ", rv_text)
-  rv_text <- gsub("æ", "ae", rv_text) 
-  rv_text <- gsub("ç", "c", rv_text) 
-  rv_text <- gsub("é", "e", rv_text) 
-  rv_text <- gsub("è", "e", rv_text) 
-  rv_text <- gsub("ë", "e", rv_text) 
-  rv_text <- gsub("í", "i", rv_text) 
-  rv_text <- gsub("ï", "i", rv_text)
-  rv_text <- gsub("ö", "o", rv_text) 
-  rv_text <- gsub("ø", "o", rv_text) 
-  rv_text <- gsub("š", "s", rv_text) 
-  rv_text <- gsub("þ", "p", rv_text) 
-  rv_text <- gsub("ü", "u", rv_text) 
-  rv_text <- gsub("£", "lb", rv_text) 
-  rv_text <- gsub("¤", "*", rv_text) 
-  rv_text <- gsub("®", "*", rv_text)
-  
-  clean_file <- sub("/p1/", "/p1-clean/", old_files[i_file])
-  write(rv_text, clean_file, append=FALSE)
-  wb_string <- paste0(wb_text, collapse="\n\n")
-  pandoc_convert(clean_file, from="html", to="markdown", output=new_files[i_file])
-}
-skip_files <- c(skip_files, i_file)
-j <- i_file
-print(skip_files)
-print(p1_names[skip_files])
-```
+m <- c(
+  "ä", "a", 
+  "å", "a", 
+  "á", "a",
+  "â", "a",
+  "Å", "A", 
+  "Â", " ",
+  "Ã", "A",
+  "æ", "ae", 
+  "Ê", "E",
+  "ç", "c", 
+  "é", "e", 
+  "è", "e", 
+  "ë", "e", 
+  "ƒ", "f",
+  "Ï", "I",
+  "Î", "I",
+  "í", "i", 
+  "ï", "i",
+  "ö", "o", 
+  "ø", "o", 
+  "œ", "oe",
+  "ô", "o",
+  "Œ", "OE",
+  "š", "s", 
+  "þ", "p", 
+  "ü", "u", 
+  "£", "lb", 
+  '“', '"',
+  '”', '"',
+  "’", "'",
+  "‘", "'",
+  "–", "-",
+  "—", "-",
+  "±", "+/-",
+  "©", "(c)",
+  "…", "...",
+  "•", ".",
+  "¼", "1/4", 
+  "½", "1/2",
+  "¤", "*", 
+  "®", "*",
+  "¿", "?",
+  "¸", " ",
+  "¯", " ",
+  "¡", "!",
+  "²", "2",
+  "¬", " ",
+  "»", ">",
+  "™", "TM",
+  "¶", " ",
+  "³", "3",
+  "¨", " ",
+  "«", "<",
+  "´", " ",
+  "‹", "<",
+  "‰", "pct",
+  "¥", "yen"
+)
+ch_key <- matrix(m, ncol=2, byrow=TRUE)
 
-```{r move-problem-files}
-new_files <- sub("p1", "p1-broke", old_files)
-for (i_file in skip_files) {
-  file.copy(old_files[i_file], new_files[i_file])
-}
-new_files <- sub("p1", "p1-fixed", old_files)
-for (i_file in setdiff(1:n_files,skip_files)) {
-  file.copy(old_files[i_file], new_files[i_file])
-}
-```
-
-Look for things like u0097.
-
-```{r conversion, error=TRUE}
-bad_ch_list <- NULL
-p1_broke_path <- "c:/web/p1-broke"
-p1_names <- list.files(p1_broke_path)
-n_broke <- length(p1_names)
-wb_files <- p1_broke_path %s% p1_names
-for (i_file in 1:n_broke) {
-  st_text <- paste0(rv_text, collapse="\n")
-  bad_index <- which(charToRaw(st_text) > charToRaw("~"))
-  for (i_bad in bad_index) {
-    if (verbose) cat(wb_files[i_file])
-    bad_ch <- substr(st_text, i_bad, i_bad)
-    bad_ch                            %>%
-      append(bad_ch_list)             %>%
-      unique                          %>%
-      sort                            -> bad_ch_list
-    if (verbose) {
-      cat('"', bad_ch, '" ', sep="")
-    }
-  if (verbose) {
-    cat(bad_index, " ")
-    cat(substr(st_text, bad_index[1]-10, bad_index[1]+10))
+clean_files <- function(f1, f2) {
+  # Take the text in a file named f1 and
+  # strip away any unusual characters.
+  # Store the clean text in f2.
+  wb_text <- readLines(f1, warn=FALSE)
+  rv_text <- wb_text
+  for (i_ch in 1:dim(ch_key)[1]) {
+    rv_text <- gsub(ch_key[i_ch, 1], ch_key[i_ch, 2], rv_text)
   }
+  if (verbose) print(f1)
+  changed_lines <- which(wb_text != rv_text)
+  if (verbose) {
+    for(i_line in changed_lines) {
+      print(wb_text[i_line])
+      print(rv_text[i_line])
+    }
+  }
+  write(rv_text, f2)
 }
-bad_ch_list
-# write(rv_text, file=wb_files[i_file])
-#  pandoc_convert(wb_file, to="markdown_strict", wd="wd", output=md_file)
+old_files <- paste0(p1_path, "/", p1_names)
+new_files <- paste0(p1_path, "-clean/", p1_names)
+for (i_file in 1:n_files) {
+  clean_files(old_files[i_file], new_files[i_file])
+}
+```
+
+```{r strange}
+capture_strangeness <- function(f2) {
+  # read in an already clean file and
+  # see if anything else strange is
+  # still lurking out there.
+  wb_text <- readLines(f2, warn=FALSE)
+  odd_ch <- NULL
+  for (i_line in 1:length(wb_text)) {
+    raw_line <- charToRaw(wb_text[i_line])
+    k_ch <- which(raw_line > as.raw(127))
+    if (length(k_ch)==0) next
+    for (k in k_ch) {
+      odd_ch <- c(odd_ch, substr(wb_text[i_line], k, k))  
+    }
+  }
+  # for (ch in odd_ch) {cat('"', ch, '" ', sep="")}
+  return(odd_ch)
+}
+
+skip_files <- NULL
+for (i_file in 1:n_files) {
+  odd_ch <- NULL
+  new_ch <- capture_strangeness(new_files[i_file])
+  if (length(new_ch)==0) next
+  skip_files <- c(skip_files, i_file)
+  if (verbose) {
+    cat("\n")
+    cat(new_files[i_file])
+    cat(" ")
+    cat(unique(new_ch))
+    cat(charToRaw(paste0(unique(new_ch), collapse="")))
+  }
+  odd_ch <- sort(unique(c(odd_ch, new_ch)))
+}
+paste0(odd_ch, collapse=", ")
+```
+
+```{r separate}
+for (i_file in skip_files) {
+  old_file <- paste0(p1_path, "-clean/", p1_names[i_file])
+  new_file <- paste0(p1_path, "-broke/", p1_names[i_file])
+  file.copy(old_file, new_file, overwrite=TRUE)
+}
+for (i_file in setdiff(1:n_files, skip_files)) {
+  old_file <- paste0(p1_path, "-clean/", p1_names[i_file])
+  new_file <- paste0(p1_path, "-fixed/", p1_names[i_file])
+  file.copy(old_file, new_file, overwrite=TRUE)
+}
+invalid <- NULL
+j_file <- 0
+```
+
+```{r convert-fixed-files, error=TRUE}
+p2_names <- sub(".html", ".md", p1_names, fixed=TRUE)
+for (i_file in setdiff((j_file+1):n_files, skip_files)) {
+  old_file <- paste0(p1_path, "-fixed/", p1_names[i_file])
+  new_file <- paste0(p2_path, "/",       p2_names[i_file])
+  pandoc_convert(old_file, to="markdown_strict", wd="wd", output=new_file)
+  if (verbose) {cat(new_file, " ")}
+}
+invalid <- c(invalid, i_file)
+j_file <- i_file
+print(p2_names[invalid])
 ```
 
 Save everything.
