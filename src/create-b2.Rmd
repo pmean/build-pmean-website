@@ -12,8 +12,8 @@ verbose <- TRUE
 ```
 
 ```{r list-dirs}
-b1_path <- "c:/web/b1"
-b2_path <- "c:/web/b2"
+b1_path <- "c:/Users/steve/Dropbox/professional/web/b1"
+b2_path <- "c:/Users/steve/Dropbox/professional/web/b2"
 b1_names <- list.files(b1_path)
 if (verbose) print(b1_names)
 ```
@@ -24,7 +24,7 @@ b1_path                              %s%
   b1_names                           -> old_files
 b2_path                              %s%
   b1_names                           %>%
-  sub("html", "md", ., fixed=TRUE) -> new_files
+  sub("html", "md", ., fixed=TRUE)   -> new_files
 n_files <- length(old_files)
 for (i_file in 1:n_files) {
   cat(new_files[i_file], " ")

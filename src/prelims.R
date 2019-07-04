@@ -9,10 +9,13 @@ suppressMessages(suppressWarnings(library(rmarkdown)))
 suppressMessages(suppressWarnings(library(stringr)))
 suppressMessages(suppressWarnings(library(tidyverse)))
 verbose <- TRUE
+yaml_header <- "---"
 
 "%0%" <- function(x, y) {paste0(x, y)}
 "%1%" <- function(x, y) {paste0(x, "\n", y)}
 "%2%" <- function(x, y) {paste0(x, "\n\n", y)}
+"%p%" <- function(x, y) {paste0(x, '(', y, ')')}
+"%q%" <- function(x, y) {paste0(x, '"', y, '"')}
 "%s%" <- function(x, y) {paste0(x, "/", y)}
 
 add_line_breaks <- function(s1, n=1) {
@@ -20,8 +23,12 @@ add_line_breaks <- function(s1, n=1) {
   paste0(v, collapse="")
 }
 
-add_quoted_string <- function(s1, s2) {
+add_quotes <- function(s1, s2) {
   paste0(s1, '"', s2, '"')
+}
+
+add_parentheses <- function(s1, s2) {
+  paste0(s1, '(', s2, ')')
 }
 
 read_text <- function(fn, path=default_path, char_max=999999) {

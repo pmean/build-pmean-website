@@ -12,8 +12,8 @@ verbose <- TRUE
 ```
 
 ```{r list-dirs}
-b0_path <- "c:/web/b0"
-b1_path <- "c:/web/b1"
+b0_path <- "c:/Users/steve/Dropbox/professional/web/b0"
+b1_path <- "c:/Users/steve/Dropbox/professional/web/b1"
 b0_path                                %>%
   list.dirs                            %>%
   remove_ch(b0_path)                   %>%

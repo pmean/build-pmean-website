@@ -1,0 +1,96 @@
+---
+title: "Add headers to md files"
+author: "Steve Simon"
+date: "6/28/2019"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo=FALSE)
+source(file="prelims.R", echo=FALSE)
+verbose <- TRUE
+```
+
+```{r list-dirs}
+r1_path <- "c:/web/r1/19/06"
+r2_path <- "c:/web/r2"
+r3_path <- "c:/web/r3"
+r1_names <- list.files(r1_path, pattern = ".bib")
+if (verbose) print(r1_names)
+n_files <- length(r1_names)
+```
+
+```{r read-bib}
+png_files <- r1_path %s% sub("bib$", "png", r1_names)
+txt_original <- as.list(1:n_files)
+yaml_divider <- '---'
+marks <- c(
+  "title = ",
+  "urldate = ",
+  "mendeley-tags = ",
+  "annote = ",
+  "url = ",
+  "pdf = "
+)
+default_marks <- c(
+  "No title",
+  "1999-09-09",
+  "Untagged",
+  "No commentary",
+  "No html link",
+  "No PDF link"
+)
+n_marks <- length(marks)
+bib_info <- 
+  matrix(
+    rep(default_marks, n_files), 
+    nrow=n_files, ncol=n_marks,
+    byrow=TRUE)
+for (i_file in 1:n_files) {
+  txt_original[[i_file]] <- readLines(r1_path %s% r1_names[i_file])
+  txt_original[[i_file]][1] %>%
+    sub("^.*\\{", "", .) %>%
+    sub(",$", "", .) -> md_name
+  if (verbose) {cat("\n\n", md_name, " ", sep="")}
+  for (i_mark in 1:n_marks) {
+    b <- select_txt(txt_original[[i_file]], marks[i_mark])
+    if (length(b)==1) {bib_info[i_file, i_mark] <- b}
+  }
+  yaml_divider                                           %1%
+    'title: '                    %q% bib_info[i_file, 1] %1%
+    'date: '                     %q% bib_info[i_file, 2] %1%
+    'tags: '                     %q% bib_info[i_file, 3] %1%
+    'output: '                   %0% 'html_document'     %1%
+    yaml_divider                                         %2%
+
+    bib_info[i_file, 4]                                  %2%
+    
+    '![]'                        %p% png_files[i_file]   %2%
+    
+    'Available in [html format]' %p% bib_info[i_file, 5] %0%
+    ' or [PDF format]'           %p% bib_info[i_file, 6] %0%
+    '.\n'                                                -> md_file
+  md_file %>%
+    sub(" or [PDF format]()",  "", ., fixed=TRUE)        %>%
+    sub(" [html format]() or", "", ., fixed=TRUE)        -> md_file
+  if (verbose) {
+    cat(r1_names[i_file] %1% md_file)
+  }
+}
+```
+
+```{r produce index, eval=FALSE} 
+o <- rev(order(bib_dates))
+bib_dates <- bib_dates[o]
+bib_files <- bib_files[o]
+txt_full <- as.list(1:bib_count)
+for (i in 1:bib_count) {
+  txt_full[[i]] <- txt_original[[o[i]]]
+}
+```
+
+Save everything.
+
+```{r save-everything}
+save.image("../data/create-b3.RData")
+```
