@@ -60,6 +60,10 @@ select_txt <- function(txt, lab) {
   txt %>%
     grep(lab, ., value=TRUE) %>%
     gsub("{{", "{", ., fixed=TRUE) %>%
+    remove_ch('article{', fixed=TRUE) %>%
+    remove_ch('article {', fixed=TRUE) %>%
+    remove_ch('misc{', fixed=TRUE) %>%
+    remove_ch(',.*?$', fixed=TRUE) %>%
     remove_ch('"', fixed=TRUE) %>%
     remove_ch('^\\s*') %>%
     remove_ch(paste0("^",lab)) %>%

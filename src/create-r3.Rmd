@@ -12,12 +12,11 @@ verbose <- TRUE
 ```
 
 ```{r list-dirs}
-r1_path <- "c:/web/r1/19/06"
-r2_path <- "c:/web/r2"
-r3_path <- "c:/web/r3"
-r1_names <- list.files(r1_path, pattern = ".bib")
+r1_path <- "c:/Users/steve/Dropbox/professional/web/r1/19/06"
+r1_names <- list.files(r1_path, pattern = "*.bib")
 if (verbose) print(r1_names)
 n_files <- length(r1_names)
+r3_path <- "c:/Users/steve/Dropbox/professional/web/r3"
 ```
 
 ```{r read-bib}
@@ -30,7 +29,8 @@ marks <- c(
   "mendeley-tags = ",
   "annote = ",
   "url = ",
-  "pdf = "
+  "pdf = ",
+  "@"
 )
 default_marks <- c(
   "No title",
@@ -38,7 +38,8 @@ default_marks <- c(
   "Untagged",
   "No commentary",
   "No html link",
-  "No PDF link"
+  "No PDF link",
+  "No short name"
 )
 n_marks <- length(marks)
 bib_info <- 
@@ -58,24 +59,31 @@ for (i_file in 1:n_files) {
   }
   yaml_divider                                           %1%
     'title: '                    %q% bib_info[i_file, 1] %1%
+    'author: '                   %q% "Steve Simon"       %1%
     'date: '                     %q% bib_info[i_file, 2] %1%
+    'category: '                 %0% 'Recommended'       %1%
     'tags: '                     %q% bib_info[i_file, 3] %1%
     'output: '                   %0% 'html_document'     %1%
     yaml_divider                                         %2%
 
     bib_info[i_file, 4]                                  %2%
     
+    '<!---More--->'                                      %2%
+    
     '![]'                        %p% png_files[i_file]   %2%
     
     'Available in [html format]' %p% bib_info[i_file, 5] %0%
     ' or [PDF format]'           %p% bib_info[i_file, 6] %0%
     '.\n'                                                -> md_file
+  
   md_file %>%
     sub(" or [PDF format]()",  "", ., fixed=TRUE)        %>%
     sub(" [html format]() or", "", ., fixed=TRUE)        -> md_file
   if (verbose) {
-    cat(r1_names[i_file] %1% md_file)
+    cat(new_names[i_file] %1% md_file)
   }
+  new_name <- r3_path %s% bib_info[i_file, 7] %0% ".md"
+  writeLines(md_file, new_name)  
 }
 ```
 

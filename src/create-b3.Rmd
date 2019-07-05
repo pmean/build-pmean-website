@@ -33,11 +33,11 @@ for (i_file in 1:n_files) {
   title_line <- grep('::: {#content role="main"}', md_text, fixed=TRUE)+1
   md_text[title_line] %>% remove_ch(" \\{.*") -> md_title
   if (verbose) cat("\n"); cat(b2_names[i_file])
-  body0 <- grep('::: {.entry-content}', md_text, fixed=TRUE)+1
-  body1 <- grep(":::", md_text[-(1:body0)])
-  body1 <- min(body1[body1>=body0])
-  md_body <- paste0(md_text[body0:body1], collapse="\n")
-  md_body <- sub("\\[\\]\\{.*?\\}", more_tag, md_body)
+  body0 <- grep('::: {.entry-content}', md_text, fixed=TRUE)
+  body1 <- grep(":::", md_text)
+  body1 <- min(body1[body1>body0])
+  md_body <- paste0(md_text[(body0+1):body1], collapse="\n")
+  md_body <- sub("\\[\\]\\{#more.*?\\}", more_tag, md_body)
   category0 <- grep('This entry was posted in', md_text, fixed=TRUE)
   category1 <- grep('### Post navigation', md_text, fixed=TRUE)-1
   if (length(category0) != 1) next
@@ -63,7 +63,7 @@ for (i_file in 1:n_files) {
     cat(", ")
     cat(md_title)
     cat("\n")
-    cat(details)
+    cat(paste(body0, body1))
     cat("\n")
     cat(md_category)
     cat("\n")
@@ -74,7 +74,7 @@ for (i_file in 1:n_files) {
   }
   yaml_header                          %1%
     "title: "    %q% md_title          %1%
-    "author: "   %0% "Steve Simon"     %1%
+    "author: "   %q% "Steve Simon"     %1%
     "date: "     %q% md_date           %1%
     "category: " %0% md_category       %1%
     "tags: "     %0% md_tag            %1%
