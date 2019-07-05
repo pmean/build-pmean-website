@@ -1,0 +1,51 @@
+---
+title: "Collapse directory structutre and place in new location"
+author: "Steve Simon"
+date: "6/12/2019"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo=FALSE)
+source(file="prelims.R", echo=FALSE)
+verbose <- TRUE
+```
+
+```{r list-dirs}
+wa_path <- "c:/wa"
+wa_dirs <- list.dirs(wa_path)
+if (verbose) {print(wa_dirs)}
+```
+
+```{r slide}
+name_list <- NULL
+dir_list <- NULL
+for (wa_dir in wa_dirs[-1]) {
+  wa_names <- list.files(wa_dir)
+  if (length(wa_names) == 0) next
+  for (wa_name in wa_names) {
+    if (grepl("^zz", wa_name)) next
+    if (verbose) cat(wa_dir, " ", wa_name, " ", sep="")
+    full_name <- paste(wa_dir, wa_name, sep="/")
+    wa_text <- readLines(full_name)
+    if (tolower(wa_name) %in% tolower(name_list)) {
+      if (verbose) cat(" duplicate file ")
+      root <- sub(".md", "", wa_name, fixed=TRUE)
+      suffix <- sub("c:/wa/", "", wa_dir)
+      wa_name <- paste0(root, "-", suffix, ".md")
+      if (verbose) cat(wa_name, " ", sep="")
+    }
+    name_list <- c(name_list, wa_name)
+    dir_list <- c(dir_list, sub("c:/wa/", "", wa_dir))
+    new_name <- paste0("c:/wt/", wa_name)
+    if (verbose) cat(new_name, " ")
+    write(wa_text, new_name, append=FALSE)
+  }
+}
+```
+
+Save everything.
+
+```{r save-everything}
+save.image("../data/collapse-directories.RData")
+```

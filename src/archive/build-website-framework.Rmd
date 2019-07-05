@@ -1,0 +1,124 @@
+---
+title: "Build website framework"
+author: "Steve Simon"
+date: "6/12/2019"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo=FALSE)
+library(stringr)
+library(tidyverse)
+web_path <- "c:/Users/steve/Dropbox/professional/pmean"
+verbose <- TRUE
+```
+
+```{r list-dirs}
+web_dirs <- list.dirs(web_path)
+slash_count <- str_count(web_dirs, "/")
+web_dirs <- web_dirs[slash_count==6]
+short_dirs <- gsub(".*/", "", web_dirs)
+if (verbose) {print(short_dirs)}
+web_dirs <- c(web_path, web_dirs)
+short_dirs <- c("", short_dirs)
+```
+
+```{r list-files}
+framework <- data.frame(f="dummy", p="dummy")
+for (i in c(3:length(web_dirs))) {
+  p <- web_dirs[i]
+  f <- list.files(path=p, pattern="*.html")
+  f <- gsub(".html", "", f, fixed=TRUE)
+  n <- length(f)
+  df <- data.frame(f=f, p=rep(short_dirs[i], n))
+  framework <- rbind(framework, df)
+}
+framework <- framework[-1, ]
+framework %>% 
+  group_by(f) %>%
+  tally %>%
+  inner_join(framework) -> framework
+dup <- framework$n > 1
+framework$fx <- ifelse(dup, paste(framework$f, framework$p, sep="-"), framework$f)
+if (verbose) {print(framework[dup, ])}
+```
+
+```{r make-dir, eval=FALSE}
+for (i in 3:length(short_dirs)) {
+  dir.create(paste0("../md/", short_dirs[i]))
+}
+```
+
+```{r make-shell-files}
+"%0%" <- function(x, y) {paste0(x, y)}
+"%1%" <- function(x, y) {paste0(x, "\n", y)}
+"%2%" <- function(x, y) {paste0(x, "\n\n", y)}
+yaml_divider <- "---"
+
+yaml_divider                      %1%
+  
+  "title: web_file_name"          %1%
+  
+  "output: html_document"         %1%
+  
+  yaml_divider                    %2%
+  
+  
+  "Not yet updated"               %2%
+  
+  "Link to "                      %0%
+  "[original file]"               %0%
+  "(http://www.pmean.com/"        %0%
+  "web_path_name/"                %0%
+  "web_file_name"                 %0%
+  ".html)"                        -> shell_file
+
+
+yaml_divider                      %1%
+  
+  "title: web_file_name"          %1%
+  
+  "output: html_document"         %1%
+  
+  yaml_divider                    %2%
+  
+  
+  "This page has moved to a "     %0%
+  "[different directory]"         %0%
+  "(../"                          %0%
+  "web_file_name"                 %0%
+  ".html)"                        -> redirect_file
+
+n_files <- dim(framework)[1]
+md_path <- "../md"
+for (i in 1:150) {
+  
+  md_path                         %0%
+    "/"                           %0%
+    framework$p[i]                %0%
+    "/"                           %0%
+    framework$f[i]                %0%
+    ".Rmd"                        -> redirect_path
+
+  md_path                         %0%
+    "/blog/"                      %0%
+    framework$fx[i]               %0%
+    ".Rmd"                        -> shell_path
+
+  shell_file %>%
+    gsub("web_path_name", framework$p[i], .) %>%
+    gsub("web_file_name", framework$f[i], .) %>%
+    write(shell_path, append=FALSE)
+
+  redirect_file %>%
+    gsub("web_path_name", framework$p[i], .) %>%
+    gsub("web_file_name", framework$fx[i], .) %>%
+    write(redirect_path, append=FALSE)
+}
+```
+
+Save everything.
+
+```{r save-everything}
+save.image("../data/build-website-framework.RData")
+```
