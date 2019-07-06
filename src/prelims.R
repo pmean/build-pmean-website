@@ -2,6 +2,8 @@
 
 default_path <- "../data"
 
+suppressMessages(suppressWarnings(library(base64enc)))
+suppressMessages(suppressWarnings(library(curl)))
 suppressMessages(suppressWarnings(library(knitr)))
 suppressMessages(suppressWarnings(library(lubridate)))
 suppressMessages(suppressWarnings(library(magrittr)))

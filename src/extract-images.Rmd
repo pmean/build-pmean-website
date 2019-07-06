@@ -1,0 +1,62 @@
+---
+title: "Extract images from files"
+author: "Steve Simon"
+date: "2019-07-06"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo=FALSE)
+source(file="prelims.R", echo=FALSE)
+verbose <- TRUE
+```
+
+
+```{r list-dirs}
+b3_path <- "c:/Users/steve/Dropbox/professional/web/b3"
+b4_path <- "c:/Users/steve/Dropbox/professional/web/b4"
+b3_names <- list.files(b3_path)
+```
+
+```{r read-md, error=TRUE}
+b3_path                              %s%
+  b3_names                           -> old_files
+b4_path                              %s%
+  b3_names                           -> new_files
+b3_roots <- sub(".md", "", b3_names, fixed=TRUE)
+n_files <- length(old_files)
+for (i_file in 1:n_files) {
+  md_text <- readLines(old_files[i_file], warn=FALSE)
+  image_lines <- grep("![](data:image/", md_text, fixed=TRUE)
+  if (verbose) {
+    cat("\n")
+    cat(b3_names[i_file])
+    cat(": ")
+    cat(paste0(image_lines, collapse=", "))
+  }
+  i_image <- 0
+  for (image_line in image_lines) {
+    i_image <- i_image+1
+    image_text <- md_text[image_line]
+    image_text %>%
+      remove_ch("\\!\\[\\]\\(data\\:image/.*") -> previous_text
+    image_text %>%
+      remove_ch(".*!\\[\\]\\(data\\:image/") %>%
+      remove_ch(";base64,.*") -> image_type
+    graph_file <- "images" %s% b3_roots[i_file] %0% i_image %0% "." %0% image_type
+    if (length(image_lines==1)) graph_file <- gsub("1.", ".", graph_file, fixed=TRUE)
+    cat(" "); cat(graph_file)
+    image_text %>%
+      remove_ch("^.*;base64,") %>%
+      remove_ch(")$") %>%
+      base64decode %>%
+      writeBin(b4_path %s% graph_file)
+  }
+}
+```
+
+
+
+```{r save-everything}
+save.image("../data/create-b4.RData")
+```
