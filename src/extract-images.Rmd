@@ -32,6 +32,8 @@ for (i_file in 1:n_files) {
     cat("\n")
     cat(b3_names[i_file])
     cat(": ")
+    cat(length(image_lines))
+    cat(" ")
     cat(paste0(image_lines, collapse=", "))
   }
   i_image <- 0
@@ -44,14 +46,58 @@ for (i_file in 1:n_files) {
       remove_ch(".*!\\[\\]\\(data\\:image/") %>%
       remove_ch(";base64,.*") -> image_type
     graph_file <- "images" %s% b3_roots[i_file] %0% i_image %0% "." %0% image_type
-    if (length(image_lines==1)) graph_file <- gsub("1.", ".", graph_file, fixed=TRUE)
-    cat(" "); cat(graph_file)
+    if (length(image_lines==1)) {
+      graph_file <- gsub("1.", ".", graph_file, fixed=TRUE)
+    }
+    if (verbose) cat(" "); cat(graph_file)
     image_text %>%
       remove_ch("^.*;base64,") %>%
       remove_ch(")$") %>%
       base64decode %>%
       writeBin(b4_path %s% graph_file)
+    md_text[image_line] <- "![Screenshot of article/website]" %p% graph_file
+    if (nchar(previous_text)>0) {
+      md_text[image_line] <- previous_text %2% md_text[image_line]
+    }
   }
+  write(md_text, new_files[i_file], append=FALSE)
+  grep("date: ", md_text[1:9], value=TRUE) %>%
+    remove_ch("date: ") %>%
+    remove_ch('"') -> date_text
+  grep("category: ", md_text[1:9], value=TRUE) %>%
+    remove_ch("category: ") %>%
+    remove_ch('"') -> category_text
+  grep("tags: ") %>%
+    remove_ch("tags: ") %>%
+    remove_ch('"') %>%
+    strsplit(",") %>%
+    unlist %>%
+    remove_ch("^ ") -> tags
+  if (category_text=="Recommended") {
+    footer_text <- 
+      "\n\nThis [recommendation](../archive/recommendations.html) was added on "
+  } else if (category_text=="Quote") {
+    footer_text <- 
+      "\n\nThis [quote](../archive/quotes.html) was added on "
+  } else if (category_text=="Statistics") {
+    footer_text <- 
+      "\n\nThis [blog entry](../archive/blog-entries.html) was written by Steve Simon on "
+  } else {
+    footer_text <- 
+      "\n\nThis " %0% category_text %0% " page was written by Steve Simon on "
+  }
+  "[" %0% tags %0% "]("                          %0%
+    sub(" ", "-", tags) %0% ".html)"             %>%
+    paste0(collapse=", ") %0% "."                -> tag_links
+  
+  footer_text                                    %0%
+    "[" %0% substr(date_text, 1, 7) %0% "]("     %0%
+    "../archive/"                                %0%
+    substr(date_text, 1, 7) %0% ".html)"         %0%
+    substr(date_text, 8, 10)                     %1%
+    "and tagged "                                %0%
+    tag_links                                    %>%
+    write(new_files[i_file], append=TRUE)
 }
 ```
 
