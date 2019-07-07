@@ -67,7 +67,7 @@ for (i_file in 1:n_files) {
   grep("category: ", md_text[1:9], value=TRUE) %>%
     remove_ch("category: ") %>%
     remove_ch('"') -> category_text
-  grep("tags: ") %>%
+  grep("tags: ", md_text[1:9]) %>%
     remove_ch("tags: ") %>%
     remove_ch('"') %>%
     strsplit(",") %>%
