@@ -1,0 +1,38 @@
+---
+title: "Build topic pages"
+author: "Steve Simon"
+date: "2019-10-23"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo=FALSE)
+source(file="prelims.R", echo=FALSE)
+verbose <- TRUE
+```
+
+```{r translate-to-html}
+x4_path <- "../../x4"
+x4_files <- list.files(path=x4_path)
+exclude <- c("2017-05.md", "2019-02.md")
+a4_path <- "../../a4"
+a4_files <- list.files(path=a4_path)
+for (i_file in setdiff(a4_files, exclude)) {
+  old_file <- a4_path %s% i_file
+  new_file <- "../website/archive" %s% sub("md$", "html", i_file)
+  render(old_file, output_file=new_file)
+  if (verbose) cat(new_file, "\n")
+}
+for (i_file in setdiff(x4_files, exclude)) {
+  old_file <- x4_path %s% i_file
+  new_file <- "../website" %s% sub("md$", "html", i_file)
+  new_folder <- "../../website"
+  render(old_file, output_file=new_file)
+  if (verbose) cat(new_file, "\n")
+}
+```
+
+
+```{r save-everything}
+save.image("../data/build-categories.RData")
+```

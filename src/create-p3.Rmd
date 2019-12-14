@@ -1,0 +1,42 @@
+---
+title: "Translate blog files to html"
+author: "Steve Simon"
+date: "6/18/2019"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo=FALSE)
+source(file="prelims.R", echo=FALSE)
+verbose <- TRUE
+```
+
+```{r list-dirs}
+getwd()
+p2_path <- "../../p2"
+p2_names <- list.files(p2_path)
+if (verbose) print(p2_names[1:20])
+n_files <- length(p2_names)
+```
+
+
+```{r classify}
+x1 <- grep("^zz", p2_names, value=TRUE)
+x1 <- c(x1, grep("^20", p2_names, value=TRUE))
+for (i_name in sample(setdiff(p2_names, x1), 20)) {
+  md_text <- readLines(p2_path %s% i_name)
+  cat(i_name, "\n")
+  cat(md_text[1], "\n")
+  cat(grep("/category/", md_text, value=TRUE), "\n")
+  i_line <- grep("StATS", md_text)
+  if (length(i_line)!=1) next
+  header_text <- paste0(md_text[i_line:(i_line+2)], collapse=" ")
+  cat(header_text, "\n")
+}
+```
+
+Save everything.
+
+```{r save-everything}
+save.image("../data/create-p3.RData")
+```

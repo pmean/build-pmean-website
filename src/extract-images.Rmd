@@ -13,17 +13,26 @@ verbose <- TRUE
 
 
 ```{r list-dirs}
-b3_path <- "c:/Users/steve/Dropbox/professional/web/b3"
-b4_path <- "c:/Users/steve/Dropbox/professional/web/b4"
+b3_path <- "../../b3"
+b4_path <- "../../x4"
 b3_names <- list.files(b3_path)
+r3_path <- "../../r3"
+r4_path <- "../../x4"
+r3_names <- list.files(r3_path)
 ```
 
 ```{r read-md, error=TRUE}
 b3_path                              %s%
-  b3_names                           -> old_files
+  b3_names                           -> old_b
 b4_path                              %s%
-  b3_names                           -> new_files
-b3_roots <- sub(".md", "", b3_names, fixed=TRUE)
+  b3_names                           -> new_b
+r3_path                              %s%
+  r3_names                           -> old_r
+r4_path                              %s%
+  r3_names                           -> new_r
+old_files <- c(old_b, old_r)
+new_files <- c(new_b, new_r)
+fil_roots <- sub(".md", "", c(b3_names, r3_names), fixed=TRUE)
 n_files <- length(old_files)
 for (i_file in 1:n_files) {
   md_text <- readLines(old_files[i_file], warn=FALSE)
@@ -45,7 +54,7 @@ for (i_file in 1:n_files) {
     image_text %>%
       remove_ch(".*!\\[\\]\\(data\\:image/") %>%
       remove_ch(";base64,.*") -> image_type
-    graph_file <- "images" %s% b3_roots[i_file] %0% i_image %0% "." %0% image_type
+    graph_file <- "images" %s% fil_roots[i_file] %0% i_image %0% "." %0% image_type
     if (length(image_lines==1)) {
       graph_file <- gsub("1.", ".", graph_file, fixed=TRUE)
     }

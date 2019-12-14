@@ -16,6 +16,7 @@ yaml_header <- "---"
 "%0%" <- function(x, y) {paste0(x, y)}
 "%1%" <- function(x, y) {paste0(x, "\n", y)}
 "%2%" <- function(x, y) {paste0(x, "\n\n", y)}
+"%b%" <- function(x, y) {paste0(x, ' ', y)}
 "%p%" <- function(x, y) {paste0(x, '(', y, ')')}
 "%q%" <- function(x, y) {paste0(x, '"', y, '"')}
 "%s%" <- function(x, y) {paste0(x, "/", y)}

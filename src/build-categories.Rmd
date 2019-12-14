@@ -1,0 +1,158 @@
+---
+title: "Build topic pages"
+author: "Steve Simon"
+date: "2019-10-23"
+output: html_document
+---
+
+```{r setup, include=TRUE}
+knitr::opts_chunk$set(echo=FALSE)
+source(file="prelims.R", echo=FALSE)
+verbose <- TRUE
+```
+
+
+```{r list-dirs}
+b4_path <- "../../x4"
+b4_names <- list.files(b4_path, pattern="*.md")
+
+# topic_path <- "../../website/archive"
+```
+
+```{r read-md, error=TRUE}
+b4_path                              %s%
+  b4_names                           -> old_files
+n_files <- length(old_files)
+tag_list <- data.frame(page_number=NULL, page_tags=NULL, page_date=NULL)
+dat_list <- rep("1900-09-09", n_files)
+ttl_list <- rep("No title", n_files)
+exc_list <- rep("No excerpt", n_files)
+for (i_file in 1:n_files) {
+  md_text <- readLines(old_files[i_file], warn=FALSE)
+  md_text                            %>% 
+    grep("^tags", ., value=TRUE)     %>%
+    sub("tags: ", "", .)             %>%
+    strsplit(", ")                   %>%
+    unlist                           -> blog_tags
+  md_text                            %>%
+    grep("^date: ", ., value=TRUE)   %>%
+    sub("date: ", "", .)             %>%
+    gsub('"', "", .)                 -> blog_date
+  md_text                            %>%
+    grep("^title: ", ., value=TRUE)  %>%
+    sub("title: ", "", .)            %>%
+    gsub('"', "", .)                 -> blog_title
+  line1 <- max(grep("---", md_text)[2], 1) + 2
+  line2 <- max(line1, grep("---More---", md_text) - 2)
+  blog_excerpt <- paste0(md_text[line1:line2], collapse="\n")
+  n_tags <- length(blog_tags)
+  if (length(blog_tags)== 0) {blog_tags <- "Untagged"; n_tags <- 1}
+  tag_list <- rbind(
+    tag_list, 
+    data.frame(
+      page_number=rep(i_file, n_tags), 
+      page_tags=blog_tags, 
+      page_date=rep(blog_date, n_tags),
+      stringsAsFactors=FALSE))
+  dat_list[i_file] <- blog_date
+  ttl_list[i_file] <- blog_title
+  exc_list[i_file] <- blog_excerpt
+  if (verbose & i_file <= 8) {
+    cat(b4_names[i_file], "\n")
+    cat(blog_date, "\n")
+    cat(paste0(blog_tags, collapse="\n"))
+    cat("\n", blog_excerpt, "\n\n", sep="")
+  }
+}
+data.frame(fil_list=1:n_files, dat_list)      %>%
+  arrange(desc(dat_list), fil_list)  -> dat_list
+tag_list %<>% arrange(desc(page_date), page_number, page_tags)
+if (verbose) dat_list[1:20, ]
+```
+
+```{r build-categories}
+category_path <- "../../c4/"
+tag_list$page_tags                  %>%
+  unique                            %>%
+  gsub('"', '', .)                  %>%
+  sort                              -> unique_tags
+for (i_tag in unique_tags) {
+  if (verbose) cat(i_tag, "\n")
+  md_title <- "Category: " %0% i_tag
+  yaml_header                          %1%
+    "title: "    %q% md_title          %1%
+    "author: "   %q% "Steve Simon"     %1%
+    "output: "   %0% "html_document"   %1%
+    yaml_header                        -> md_text
+  page_list <- grep(i_tag, tag_list$page_tags)
+  for (i_page in page_list) {
+    page_number <- tag_list$page_number[i_page]
+    page_date <- dat_list$dat_list[dat_list$fil_list==page_number]
+    page_title <- ttl_list[page_number]
+    page_name <- ".." %s% sub("md$", "html", b4_names[page_number])
+    page_excerpt <- exc_list[page_number]
+    page_link <- "[" %p% page_date %b% page_title %0% "]" %p% page_name
+    
+    md_text                            %2%
+      page_link                        %1%
+      page_excerpt                     -> md_text
+  }
+  if (verbose & i_tag <= "C") {cat(md_text, "\n")}
+  write_lines(md_text, category_path %0% i_tag %0% ".md")    
+}
+```
+
+```{r build-archive}
+archive_path <- "../../a4/"
+dat_list$dat_list                   %>%
+  substr(1, 7)                      %>%
+  unique                            %>%
+  sort                              -> mon_list
+for (i_mon in mon_list) {
+  md_title <- "Archive: " %0% i_mon
+  yaml_header                          %1%
+    "title: "    %q% md_title          %1%
+    "author: "   %q% "Steve Simon"     %1%
+    "output: "   %0% "html_document"   %1%
+    yaml_header                        -> md_text
+  page_list <- grep(i_mon, dat_list$dat_list)
+  for (i_page in page_list) {
+    page_date <- dat_list$dat_list[i_page]
+    page_number <- dat_list$fil_list[i_page]
+    page_title <- ttl_list[page_number]
+    page_name <- sub("md$", "html", b4_names[page_number])
+    page_excerpt <- exc_list[page_number]
+    page_link <- "[" %p% page_date %b% page_title %0% "]" %p% page_name
+    
+    md_text                            %2%
+      page_link                        %1%
+      page_excerpt                     -> md_text
+  }
+  write_lines(md_text, archive_path %0% i_mon %0% ".md")    
+}
+```
+
+```{r translate-to-html}
+x4_path <- "../../x4"
+x4_files <- list.files(path=x4_path)
+a4_path <- "../../a4"
+a4_files <- list.files(path=a4_path)
+for (i_file in x4_files) {
+  old_file <- x4_path %s% i_file
+  new_file <- "../website" %s% sub("md$", "html", i_file)
+  new_folder <- "../../website"
+  render(old_file, output_file=new_file)
+  if (verbose) cat(new_file, "\n")
+}
+for (i_file in a4_files) {
+  old_file <- a4_path %s% i_file
+  new_file <- "../website/archive" %s% sub("md$", "html", i_file)
+  render(old_file, output_file=new_file)
+  if (verbose) cat(new_file, "\n")
+}
+```
+
+
+```{r save-everything}
+save.image("../data/build-categories.RData")
+```

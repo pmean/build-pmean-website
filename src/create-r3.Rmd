@@ -5,11 +5,13 @@ date: "6/28/2019"
 output: html_document
 ---
 
-```{r setup, include=TRUE}
-knitr::opts_chunk$set(echo=FALSE)
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
 source(file="prelims.R", echo=FALSE)
 verbose <- TRUE
 ```
+
+## Step 1. Find the .bib files
 
 ```{r list-dirs}
 r1_path <- "c:/Users/steve/Dropbox/professional/web/r1/19/06"
@@ -17,11 +19,15 @@ r1_names <- list.files(r1_path, pattern = "*.bib")
 if (verbose) print(r1_names)
 n_files <- length(r1_names)
 r3_path <- "c:/Users/steve/Dropbox/professional/web/r3"
+bib_files <- r1_path %s% r1_names
+png_files <- r1_path %s% sub("bib$", "png", r1_names)
 ```
 
-```{r read-bib}
-png_files <- r1_path %s% sub("bib$", "png", r1_names)
-txt_original <- as.list(1:n_files)
+## Step 2. Read each .bib file and convert to .md file
+
+First, set up the general structure.
+
+```{r structure}
 yaml_divider <- '---'
 marks <- c(
   "title = ",
@@ -42,47 +48,102 @@ default_marks <- c(
   "No short name"
 )
 n_marks <- length(marks)
-bib_info <- 
-  matrix(
-    rep(default_marks, n_files), 
-    nrow=n_files, ncol=n_marks,
-    byrow=TRUE)
-for (i_file in 1:n_files) {
-  txt_original[[i_file]] <- readLines(r1_path %s% r1_names[i_file])
-  txt_original[[i_file]][1] %>%
-    sub("^.*\\{", "", .) %>%
-    sub(",$", "", .) -> md_name
-  if (verbose) {cat("\n\n", md_name, " ", sep="")}
-  for (i_mark in 1:n_marks) {
-    b <- select_txt(txt_original[[i_file]], marks[i_mark])
-    if (length(b)==1) {bib_info[i_file, i_mark] <- b}
-  }
-  yaml_divider                                           %1%
-    'title: '                    %q% bib_info[i_file, 1] %1%
-    'author: '                   %q% "Steve Simon"       %1%
-    'date: '                     %q% bib_info[i_file, 2] %1%
-    'category: '                 %0% 'Recommended'       %1%
-    'tags: '                     %q% bib_info[i_file, 3] %1%
-    'output: '                   %0% 'html_document'     %1%
-    yaml_divider                                         %2%
+```
 
-    bib_info[i_file, 4]                                  %2%
+Create bib_info, a matrix of information about the individual .bib files.
+
+```{create-info}
+bib_names <- c(
+  "ttl",
+  "dat",
+  "tag",
+  "not",
+  "url",
+  "pdf",
+  "nam",
+  "png"
+)
+n_names <- length(bib_names)
+bib_info <- matrix("<<empty>>", nrow=n_files, ncol=n_names)
+dimnames(bib_info)[[1]] <- bib_names
+```
+
+Populate bib_info
+
+```{r bib-functions}
+read_bib <- function(fn) {readLines(r1_path %s% r1_names[i_file])}
+select_txt <- function(txt, lab, def) {
+  txt %>% grep(lab, ., value=TRUE) -> lin 
+  if (length(lin) == 0) {
+    if (verbose) {cat(",", def)}
+    return(def)
+  }
+  lin %>%
+    gsub("{{", "{", .    , fixed=TRUE) %>%          # remove double bracket
+    gsub(" {", "{", .    , fixed=TRUE) %>%          # remove leading blank
+    remove_ch('article{' , fixed=TRUE) %>%
+    remove_ch('book{'    , fixed=TRUE) %>%
+    remove_ch('misc{'    , fixed=TRUE) %>%
+    remove_ch(',.*?$'    , fixed=TRUE) %>%          # remove from comma to end
+    remove_ch('"'        , fixed=TRUE) %>%          # remove quote marks
+    remove_ch('^\\s*'                ) %>%          # remove trailing spaces
+    remove_ch("^" %0% lab            ) %>%          # remove label
+    remove_ch('^\\{'                 ) %>%          # remove left curly bracket
+    remove_ch('\\}'                  ) %>%          # remove right curly bracket
+    remove_ch('\\s*$'                ) %>%          # remove trailing blanks
+    remove_ch(',$'                   ) -> selection # remove trailing comma
+  if (is.null(selection)) return("")
+  return(paste0(selection, collapse="; "))
+}
+
+```
+
+
+```{r read-bib}
+txt_original <- as.list(1:n_files)
+for (i_file in 1:n_files) {
+  tx <- readLines(bib_names[i_file])
+  txt_original[[i_file]]  <- tx
+  if (verbose) {cat("\n\n", md_name, " ", sep="")}
+
+  bib_info[i_file, "ttl"] <- select_txt(tx, "title = "        , "No title")
+  bib_info[i_file, "dat"] <- select_txt(tx, "urldate = "      , "No date")
+  bib_info[i_file, "tag"] <- select_txt(tx, "mendeley-tags = ", "No tags")
+  bib_info[i_file, "not"] <- select_txt(tx, "annote = "       , "No notes")
+  bib_info[i_file, "url"] <- select_txt(tx, "url = "          , "No html")
+  bib_info[i_file, "pdf"] <- select_txt(tx, "pdf = "          , "No pdf")
+  bib_info[i_file, "nam"] <- select_txt(tx, "@"               , "No name")
+  
+  bib_info[i_file, "png"] <- r1_path %s% sub("bib$", "png", r1_names)
+
+}
+```
+
+```{r build-md}
+for (i_file in 1:n_files) {
+  yaml_divider                                               %1%
+    'title: '                    %q% bib_info[i_file, "ttl"] %1%
+    'author: '                   %q% "Steve Simon"           %1%
+    'date: '                     %q% bib_info[i_file, "dat"] %1%
+    'category: '                 %0% 'Recommended'           %1%
+    'tags: '                     %q% bib_info[i_file, "tag"] %1%
+    'output: '                   %0% 'html_document'         %1%
+    yaml_divider                                             %2%
+
+    bib_info[i_file, not]                                    %2%
     
-    '<!---More--->'                                      %2%
+    '<!---More--->'                                          %2%
     
-    '![]'                        %p% png_files[i_file]   %2%
+    '![]'                        %p% bib_info[i_file, "png"] %2%
     
-    'Available in [html format]' %p% bib_info[i_file, 5] %0%
-    ' or [PDF format]'           %p% bib_info[i_file, 6] %0%
-    '.\n'                                                -> md_file
+    'Available in [html format]' %p% bib_info[i_file, "url"] %0%
+    ' or [PDF format]'           %p% bib_info[i_file, "pdf"] %0%
+    '.\n'                                                    -> md_file
   
   md_file %>%
-    sub(" or [PDF format]()",  "", ., fixed=TRUE)        %>%
-    sub(" [html format]() or", "", ., fixed=TRUE)        -> md_file
-  if (verbose) {
-    cat(new_names[i_file] %1% md_file)
-  }
-  new_name <- r3_path %s% bib_info[i_file, 7] %0% ".md"
+    sub(" or [PDF format](No pdf)",  "", ., fixed=TRUE)  %>%
+    sub(" [html format](No html) or", "", ., fixed=TRUE) -> md_file
+  new_name <- r3_path %s% bib_info[i_file, "nam"] %0% ".md"
   writeLines(md_file, new_name)  
 }
 ```
@@ -100,5 +161,5 @@ for (i in 1:bib_count) {
 Save everything.
 
 ```{r save-everything}
-save.image("../data/create-b3.RData")
+save.image("../data/create-r3.RData")
 ```

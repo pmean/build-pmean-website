@@ -12,9 +12,9 @@
 
 <meta name="author" content="Steve Simon" />
 
-<meta name="date" content="2019-07-06" />
+<meta name="date" content="2019-10-23" />
 
-<title>Extract images from files</title>
+<title>Build topic pages</title>
 
 <script>/*! jQuery v1.11.3 | (c) 2005, 2015 jQuery Foundation, Inc. | jquery.org/license */
 !function(a,b){"object"==typeof module&&"object"==typeof module.exports?module.exports=a.document?b(a,!0):function(a){if(!a.document)throw new Error("jQuery requires a window with a document");return b(a)}:b(a)}("undefined"!=typeof window?window:this,function(a,b){var c=[],d=c.slice,e=c.concat,f=c.push,g=c.indexOf,h={},i=h.toString,j=h.hasOwnProperty,k={},l="1.11.3",m=function(a,b){return new m.fn.init(a,b)},n=/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,o=/^-ms-/,p=/-([\da-z])/gi,q=function(a,b){return b.toUpperCase()};m.fn=m.prototype={jquery:l,constructor:m,selector:"",length:0,toArray:function(){return d.call(this)},get:function(a){return null!=a?0>a?this[a+this.length]:this[a]:d.call(this)},pushStack:function(a){var b=m.merge(this.constructor(),a);return b.prevObject=this,b.context=this.context,b},each:function(a,b){return m.each(this,a,b)},map:function(a){return this.pushStack(m.map(this,function(b,c){return a.call(b,c,b)}))},slice:function(){return this.pushStack(d.apply(this,arguments))},first:function(){return this.eq(0)},last:function(){return this.eq(-1)},eq:function(a){var b=this.length,c=+a+(0>a?b:0);return this.pushStack(c>=0&&b>c?[this[c]]:[])},end:function(){return this.prevObject||this.constructor(null)},push:f,sort:c.sort,splice:c.splice},m.extend=m.fn.extend=function(){var a,b,c,d,e,f,g=arguments[0]||{},h=1,i=arguments.length,j=!1;for("boolean"==typeof g&&(j=g,g=arguments[h]||{},h++),"object"==typeof g||m.isFunction(g)||(g={}),h===i&&(g=this,h--);i>h;h++)if(null!=(e=arguments[h]))for(d in e)a=g[d],c=e[d],g!==c&&(j&&c&&(m.isPlainObject(c)||(b=m.isArray(c)))?(b?(b=!1,f=a&&m.isArray(a)?a:[]):f=a&&m.isPlainObject(a)?a:{},g[d]=m.extend(j,f,c)):void 0!==c&&(g[d]=c));return g},m.extend({expando:"jQuery"+(l+Math.random()).replace(/\D/g,""),isReady:!0,error:function(a){throw new Error(a)},noop:function(){},isFunction:function(a){return"function"===m.type(a)},isArray:Array.isArray||function(a){return"array"===m.type(a)},isWindow:function(a){return null!=a&&a==a.window},isNumeric:function(a){return!m.isArray(a)&&a-parseFloat(a)+1>=0},isEmptyObject:function(a){var b;for(b in a)return!1;return!0},isPlainObject:function(a){var b;if(!a||"object"!==m.type(a)||a.nodeType||m.isWindow(a))return!1;try{if(a.constructor&&!j.call(a,"constructor")&&!j.call(a.constructor.prototype,"isPrototypeOf"))return!1}catch(c){return!1}if(k.ownLast)for(b in a)return j.call(a,b);for(b in a);return void 0===b||j.call(a,b)},type:function(a){return null==a?a+"":"object"==typeof a||"function"==typeof a?h[i.call(a)]||"object":typeof a},globalEval:function(b){b&&m.trim(b)&&(a.execScript||function(b){a.eval.call(a,b)})(b)},camelCase:function(a){return a.replace(o,"ms-").replace(p,q)},nodeName:function(a,b){return a.nodeName&&a.nodeName.toLowerCase()===b.toLowerCase()},each:function(a,b,c){var d,e=0,f=a.length,g=r(a);if(c){if(g){for(;f>e;e++)if(d=b.apply(a[e],c),d===!1)break}else for(e in a)if(d=b.apply(a[e],c),d===!1)break}else if(g){for(;f>e;e++)if(d=b.call(a[e],e,a[e]),d===!1)break}else for(e in a)if(d=b.call(a[e],e,a[e]),d===!1)break;return a},trim:function(a){return null==a?"":(a+"").replace(n,"")},makeArray:function(a,b){var c=b||[];return null!=a&&(r(Object(a))?m.merge(c,"string"==typeof a?[a]:a):f.call(c,a)),c},inArray:function(a,b,c){var d;if(b){if(g)return g.call(b,a,c);for(d=b.length,c=c?0>c?Math.max(0,d+c):c:0;d>c;c++)if(c in b&&b[c]===a)return c}return-1},merge:function(a,b){var c=+b.length,d=0,e=a.length;while(c>d)a[e++]=b[d++];if(c!==c)while(void 0!==b[d])a[e++]=b[d++];return a.length=e,a},grep:function(a,b,c){for(var d,e=[],f=0,g=a.length,h=!c;g>f;f++)d=!b(a[f],f),d!==h&&e.push(a[f]);return e},map:function(a,b,c){var d,f=0,g=a.length,h=r(a),i=[];if(h)for(;g>f;f++)d=b(a[f],f,c),null!=d&&i.push(d);else for(f in a)d=b(a[f],f,c),null!=d&&i.push(d);return e.apply([],i)},guid:1,proxy:function(a,b){var c,e,f;return"string"==typeof b&&(f=a[b],b=a,a=f),m.isFunction(a)?(c=d.call(arguments,2),e=function(){return a.apply(b||this,c.concat(d.call(arguments)))},e.guid=a.guid=a.guid||m.guid++,e):void 0},now:function(){return+new Date},support:k}),m.each("Boolean Number String Function Array Date RegExp Object Error".split(" "),function(a,b){h["[object "+b+"]"]=b.toLowerCase()});function r(a){var b="length"in a&&a.length,c=m.type(a);return"function"===c||m.isWindow(a)?!1:1===a.nodeType&&b?!0:"array"===c||0===b||"number"==typeof b&&b>0&&b-1 in a}var s=function(a){var b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u="sizzle"+1*new Date,v=a.document,w=0,x=0,y=ha(),z=ha(),A=ha(),B=function(a,b){return a===b&&(l=!0),0},C=1<<31,D={}.hasOwnProperty,E=[],F=E.pop,G=E.push,H=E.push,I=E.slice,J=function(a,b){for(var c=0,d=a.length;d>c;c++)if(a[c]===b)return c;return-1},K="checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",L="[\\x20\\t\\r\\n\\f]",M="(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+",N=M.replace("w","w#"),O="\\["+L+"*("+M+")(?:"+L+"*([*^$|!~]?=)"+L+"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|("+N+"))|)"+L+"*\\]",P=":("+M+")(?:\\((('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|((?:\\\\.|[^\\\\()[\\]]|"+O+")*)|.*)\\)|)",Q=new RegExp(L+"+","g"),R=new RegExp("^"+L+"+|((?:^|[^\\\\])(?:\\\\.)*)"+L+"+$","g"),S=new RegExp("^"+L+"*,"+L+"*"),T=new RegExp("^"+L+"*([>+~]|"+L+")"+L+"*"),U=new RegExp("="+L+"*([^\\]'\"]*?)"+L+"*\\]","g"),V=new RegExp(P),W=new RegExp("^"+N+"$"),X={ID:new RegExp("^#("+M+")"),CLASS:new RegExp("^\\.("+M+")"),TAG:new RegExp("^("+M.replace("w","w*")+")"),ATTR:new RegExp("^"+O),PSEUDO:new RegExp("^"+P),CHILD:new RegExp("^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\("+L+"*(even|odd|(([+-]|)(\\d*)n|)"+L+"*(?:([+-]|)"+L+"*(\\d+)|))"+L+"*\\)|)","i"),bool:new RegExp("^(?:"+K+")$","i"),needsContext:new RegExp("^"+L+"*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\("+L+"*((?:-\\d)?\\d*)"+L+"*\\)|)(?=[^-]|$)","i")},Y=/^(?:input|select|textarea|button)$/i,Z=/^h\d$/i,$=/^[^{]+\{\s*\[native \w/,_=/^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,aa=/[+~]/,ba=/'|\\/g,ca=new RegExp("\\\\([\\da-f]{1,6}"+L+"?|("+L+")|.)","ig"),da=function(a,b,c){var d="0x"+b-65536;return d!==d||c?b:0>d?String.fromCharCode(d+65536):String.fromCharCode(d>>10|55296,1023&d|56320)},ea=function(){m()};try{H.apply(E=I.call(v.childNodes),v.childNodes),E[v.childNodes.length].nodeType}catch(fa){H={apply:E.length?function(a,b){G.apply(a,I.call(b))}:function(a,b){var c=a.length,d=0;while(a[c++]=b[d++]);a.length=c-1}}}function ga(a,b,d,e){var f,h,j,k,l,o,r,s,w,x;if((b?b.ownerDocument||b:v)!==n&&m(b),b=b||n,d=d||[],k=b.nodeType,"string"!=typeof a||!a||1!==k&&9!==k&&11!==k)return d;if(!e&&p){if(11!==k&&(f=_.exec(a)))if(j=f[1]){if(9===k){if(h=b.getElementById(j),!h||!h.parentNode)return d;if(h.id===j)return d.push(h),d}else if(b.ownerDocument&&(h=b.ownerDocument.getElementById(j))&&t(b,h)&&h.id===j)return d.push(h),d}else{if(f[2])return H.apply(d,b.getElementsByTagName(a)),d;if((j=f[3])&&c.getElementsByClassName)return H.apply(d,b.getElementsByClassName(j)),d}if(c.qsa&&(!q||!q.test(a))){if(s=r=u,w=b,x=1!==k&&a,1===k&&"object"!==b.nodeName.toLowerCase()){o=g(a),(r=b.getAttribute("id"))?s=r.replace(ba,"\\$&"):b.setAttribute("id",s),s="[id='"+s+"'] ",l=o.length;while(l--)o[l]=s+ra(o[l]);w=aa.test(a)&&pa(b.parentNode)||b,x=o.join(",")}if(x)try{return H.apply(d,w.querySelectorAll(x)),d}catch(y){}finally{r||b.removeAttribute("id")}}}return i(a.replace(R,"$1"),b,d,e)}function ha(){var a=[];function b(c,e){return a.push(c+" ")>d.cacheLength&&delete b[a.shift()],b[c+" "]=e}return b}function ia(a){return a[u]=!0,a}function ja(a){var b=n.createElement("div");try{return!!a(b)}catch(c){return!1}finally{b.parentNode&&b.parentNode.removeChild(b),b=null}}function ka(a,b){var c=a.split("|"),e=a.length;while(e--)d.attrHandle[c[e]]=b}function la(a,b){var c=b&&a,d=c&&1===a.nodeType&&1===b.nodeType&&(~b.sourceIndex||C)-(~a.sourceIndex||C);if(d)return d;if(c)while(c=c.nextSibling)if(c===b)return-1;return a?1:-1}function ma(a){return function(b){var c=b.nodeName.toLowerCase();return"input"===c&&b.type===a}}function na(a){return function(b){var c=b.nodeName.toLowerCase();return("input"===c||"button"===c)&&b.type===a}}function oa(a){return ia(function(b){return b=+b,ia(function(c,d){var e,f=a([],c.length,b),g=f.length;while(g--)c[e=f[g]]&&(c[e]=!(d[e]=c[e]))})})}function pa(a){return a&&"undefined"!=typeof a.getElementsByTagName&&a}c=ga.support={},f=ga.isXML=function(a){var b=a&&(a.ownerDocument||a).documentElement;return b?"HTML"!==b.nodeName:!1},m=ga.setDocument=function(a){var b,e,g=a?a.ownerDocument||a:v;return g!==n&&9===g.nodeType&&g.documentElement?(n=g,o=g.documentElement,e=g.defaultView,e&&e!==e.top&&(e.addEventListener?e.addEventListener("unload",ea,!1):e.attachEvent&&e.attachEvent("onunload",ea)),p=!f(g),c.attributes=ja(function(a){return a.className="i",!a.getAttribute("className")}),c.getElementsByTagName=ja(function(a){return a.appendChild(g.createComment("")),!a.getElementsByTagName("*").length}),c.getElementsByClassName=$.test(g.getElementsByClassName),c.getById=ja(function(a){return o.appendChild(a).id=u,!g.getElementsByName||!g.getElementsByName(u).length}),c.getById?(d.find.ID=function(a,b){if("undefined"!=typeof b.getElementById&&p){var c=b.getElementById(a);return c&&c.parentNode?[c]:[]}},d.filter.ID=function(a){var b=a.replace(ca,da);return function(a){return a.getAttribute("id")===b}}):(delete d.find.ID,d.filter.ID=function(a){var b=a.replace(ca,da);return function(a){var c="undefined"!=typeof a.getAttributeNode&&a.getAttributeNode("id");return c&&c.value===b}}),d.find.TAG=c.getElementsByTagName?function(a,b){return"undefined"!=typeof b.getElementsByTagName?b.getElementsByTagName(a):c.qsa?b.querySelectorAll(a):void 0}:function(a,b){var c,d=[],e=0,f=b.getElementsByTagName(a);if("*"===a){while(c=f[e++])1===c.nodeType&&d.push(c);return d}return f},d.find.CLASS=c.getElementsByClassName&&function(a,b){return p?b.getElementsByClassName(a):void 0},r=[],q=[],(c.qsa=$.test(g.querySelectorAll))&&(ja(function(a){o.appendChild(a).innerHTML="<a id='"+u+"'></a><select id='"+u+"-\f]' msallowcapture=''><option selected=''></option></select>",a.querySelectorAll("[msallowcapture^='']").length&&q.push("[*^$]="+L+"*(?:''|\"\")"),a.querySelectorAll("[selected]").length||q.push("\\["+L+"*(?:value|"+K+")"),a.querySelectorAll("[id~="+u+"-]").length||q.push("~="),a.querySelectorAll(":checked").length||q.push(":checked"),a.querySelectorAll("a#"+u+"+*").length||q.push(".#.+[+~]")}),ja(function(a){var b=g.createElement("input");b.setAttribute("type","hidden"),a.appendChild(b).setAttribute("name","D"),a.querySelectorAll("[name=d]").length&&q.push("name"+L+"*[*^$|!~]?="),a.querySelectorAll(":enabled").length||q.push(":enabled",":disabled"),a.querySelectorAll("*,:x"),q.push(",.*:")})),(c.matchesSelector=$.test(s=o.matches||o.webkitMatchesSelector||o.mozMatchesSelector||o.oMatchesSelector||o.msMatchesSelector))&&ja(function(a){c.disconnectedMatch=s.call(a,"div"),s.call(a,"[s!='']:x"),r.push("!=",P)}),q=q.length&&new RegExp(q.join("|")),r=r.length&&new RegExp(r.join("|")),b=$.test(o.compareDocumentPosition),t=b||$.test(o.contains)?function(a,b){var c=9===a.nodeType?a.documentElement:a,d=b&&b.parentNode;return a===d||!(!d||1!==d.nodeType||!(c.contains?c.contains(d):a.compareDocumentPosition&&16&a.compareDocumentPosition(d)))}:function(a,b){if(b)while(b=b.parentNode)if(b===a)return!0;return!1},B=b?function(a,b){if(a===b)return l=!0,0;var d=!a.compareDocumentPosition-!b.compareDocumentPosition;return d?d:(d=(a.ownerDocument||a)===(b.ownerDocument||b)?a.compareDocumentPosition(b):1,1&d||!c.sortDetached&&b.compareDocumentPosition(a)===d?a===g||a.ownerDocument===v&&t(v,a)?-1:b===g||b.ownerDocument===v&&t(v,b)?1:k?J(k,a)-J(k,b):0:4&d?-1:1)}:function(a,b){if(a===b)return l=!0,0;var c,d=0,e=a.parentNode,f=b.parentNode,h=[a],i=[b];if(!e||!f)return a===g?-1:b===g?1:e?-1:f?1:k?J(k,a)-J(k,b):0;if(e===f)return la(a,b);c=a;while(c=c.parentNode)h.unshift(c);c=b;while(c=c.parentNode)i.unshift(c);while(h[d]===i[d])d++;return d?la(h[d],i[d]):h[d]===v?-1:i[d]===v?1:0},g):n},ga.matches=function(a,b){return ga(a,null,null,b)},ga.matchesSelector=function(a,b){if((a.ownerDocument||a)!==n&&m(a),b=b.replace(U,"='$1']"),!(!c.matchesSelector||!p||r&&r.test(b)||q&&q.test(b)))try{var d=s.call(a,b);if(d||c.disconnectedMatch||a.document&&11!==a.document.nodeType)return d}catch(e){}return ga(b,n,null,[a]).length>0},ga.contains=function(a,b){return(a.ownerDocument||a)!==n&&m(a),t(a,b)},ga.attr=function(a,b){(a.ownerDocument||a)!==n&&m(a);var e=d.attrHandle[b.toLowerCase()],f=e&&D.call(d.attrHandle,b.toLowerCase())?e(a,b,!p):void 0;return void 0!==f?f:c.attributes||!p?a.getAttribute(b):(f=a.getAttributeNode(b))&&f.specified?f.value:null},ga.error=function(a){throw new Error("Syntax error, unrecognized expression: "+a)},ga.uniqueSort=function(a){var b,d=[],e=0,f=0;if(l=!c.detectDuplicates,k=!c.sortStable&&a.slice(0),a.sort(B),l){while(b=a[f++])b===a[f]&&(e=d.push(f));while(e--)a.splice(d[e],1)}return k=null,a},e=ga.getText=function(a){var b,c="",d=0,f=a.nodeType;if(f){if(1===f||9===f||11===f){if("string"==typeof a.textContent)return a.textContent;for(a=a.firstChild;a;a=a.nextSibling)c+=e(a)}else if(3===f||4===f)return a.nodeValue}else while(b=a[d++])c+=e(b);return c},d=ga.selectors={cacheLength:50,createPseudo:ia,match:X,attrHandle:{},find:{},relative:{">":{dir:"parentNode",first:!0}," ":{dir:"parentNode"},"+":{dir:"previousSibling",first:!0},"~":{dir:"previousSibling"}},preFilter:{ATTR:function(a){return a[1]=a[1].replace(ca,da),a[3]=(a[3]||a[4]||a[5]||"").replace(ca,da),"~="===a[2]&&(a[3]=" "+a[3]+" "),a.slice(0,4)},CHILD:function(a){return a[1]=a[1].toLowerCase(),"nth"===a[1].slice(0,3)?(a[3]||ga.error(a[0]),a[4]=+(a[4]?a[5]+(a[6]||1):2*("even"===a[3]||"odd"===a[3])),a[5]=+(a[7]+a[8]||"odd"===a[3])):a[3]&&ga.error(a[0]),a},PSEUDO:function(a){var b,c=!a[6]&&a[2];return X.CHILD.test(a[0])?null:(a[3]?a[2]=a[4]||a[5]||"":c&&V.test(c)&&(b=g(c,!0))&&(b=c.indexOf(")",c.length-b)-c.length)&&(a[0]=a[0].slice(0,b),a[2]=c.slice(0,b)),a.slice(0,3))}},filter:{TAG:function(a){var b=a.replace(ca,da).toLowerCase();return"*"===a?function(){return!0}:function(a){return a.nodeName&&a.nodeName.toLowerCase()===b}},CLASS:function(a){var b=y[a+" "];return b||(b=new RegExp("(^|"+L+")"+a+"("+L+"|$)"))&&y(a,function(a){return b.test("string"==typeof a.className&&a.className||"undefined"!=typeof a.getAttribute&&a.getAttribute("class")||"")})},ATTR:function(a,b,c){return function(d){var e=ga.attr(d,a);return null==e?"!="===b:b?(e+="","="===b?e===c:"!="===b?e!==c:"^="===b?c&&0===e.indexOf(c):"*="===b?c&&e.indexOf(c)>-1:"$="===b?c&&e.slice(-c.length)===c:"~="===b?(" "+e.replace(Q," ")+" ").indexOf(c)>-1:"|="===b?e===c||e.slice(0,c.length+1)===c+"-":!1):!0}},CHILD:function(a,b,c,d,e){var f="nth"!==a.slice(0,3),g="last"!==a.slice(-4),h="of-type"===b;return 1===d&&0===e?function(a){return!!a.parentNode}:function(b,c,i){var j,k,l,m,n,o,p=f!==g?"nextSibling":"previousSibling",q=b.parentNode,r=h&&b.nodeName.toLowerCase(),s=!i&&!h;if(q){if(f){while(p){l=b;while(l=l[p])if(h?l.nodeName.toLowerCase()===r:1===l.nodeType)return!1;o=p="only"===a&&!o&&"nextSibling"}return!0}if(o=[g?q.firstChild:q.lastChild],g&&s){k=q[u]||(q[u]={}),j=k[a]||[],n=j[0]===w&&j[1],m=j[0]===w&&j[2],l=n&&q.childNodes[n];while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if(1===l.nodeType&&++m&&l===b){k[a]=[w,n,m];break}}else if(s&&(j=(b[u]||(b[u]={}))[a])&&j[0]===w)m=j[1];else while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if((h?l.nodeName.toLowerCase()===r:1===l.nodeType)&&++m&&(s&&((l[u]||(l[u]={}))[a]=[w,m]),l===b))break;return m-=e,m===d||m%d===0&&m/d>=0}}},PSEUDO:function(a,b){var c,e=d.pseudos[a]||d.setFilters[a.toLowerCase()]||ga.error("unsupported pseudo: "+a);return e[u]?e(b):e.length>1?(c=[a,a,"",b],d.setFilters.hasOwnProperty(a.toLowerCase())?ia(function(a,c){var d,f=e(a,b),g=f.length;while(g--)d=J(a,f[g]),a[d]=!(c[d]=f[g])}):function(a){return e(a,0,c)}):e}},pseudos:{not:ia(function(a){var b=[],c=[],d=h(a.replace(R,"$1"));return d[u]?ia(function(a,b,c,e){var f,g=d(a,null,e,[]),h=a.length;while(h--)(f=g[h])&&(a[h]=!(b[h]=f))}):function(a,e,f){return b[0]=a,d(b,null,f,c),b[0]=null,!c.pop()}}),has:ia(function(a){return function(b){return ga(a,b).length>0}}),contains:ia(function(a){return a=a.replace(ca,da),function(b){return(b.textContent||b.innerText||e(b)).indexOf(a)>-1}}),lang:ia(function(a){return W.test(a||"")||ga.error("unsupported lang: "+a),a=a.replace(ca,da).toLowerCase(),function(b){var c;do if(c=p?b.lang:b.getAttribute("xml:lang")||b.getAttribute("lang"))return c=c.toLowerCase(),c===a||0===c.indexOf(a+"-");while((b=b.parentNode)&&1===b.nodeType);return!1}}),target:function(b){var c=a.location&&a.location.hash;return c&&c.slice(1)===b.id},root:function(a){return a===o},focus:function(a){return a===n.activeElement&&(!n.hasFocus||n.hasFocus())&&!!(a.type||a.href||~a.tabIndex)},enabled:function(a){return a.disabled===!1},disabled:function(a){return a.disabled===!0},checked:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&!!a.checked||"option"===b&&!!a.selected},selected:function(a){return a.parentNode&&a.parentNode.selectedIndex,a.selected===!0},empty:function(a){for(a=a.firstChild;a;a=a.nextSibling)if(a.nodeType<6)return!1;return!0},parent:function(a){return!d.pseudos.empty(a)},header:function(a){return Z.test(a.nodeName)},input:function(a){return Y.test(a.nodeName)},button:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&"button"===a.type||"button"===b},text:function(a){var b;return"input"===a.nodeName.toLowerCase()&&"text"===a.type&&(null==(b=a.getAttribute("type"))||"text"===b.toLowerCase())},first:oa(function(){return[0]}),last:oa(function(a,b){return[b-1]}),eq:oa(function(a,b,c){return[0>c?c+b:c]}),even:oa(function(a,b){for(var c=0;b>c;c+=2)a.push(c);return a}),odd:oa(function(a,b){for(var c=1;b>c;c+=2)a.push(c);return a}),lt:oa(function(a,b,c){for(var d=0>c?c+b:c;--d>=0;)a.push(d);return a}),gt:oa(function(a,b,c){for(var d=0>c?c+b:c;++d<b;)a.push(d);return a})}},d.pseudos.nth=d.pseudos.eq;for(b in{radio:!0,checkbox:!0,file:!0,password:!0,image:!0})d.pseudos[b]=ma(b);for(b in{submit:!0,reset:!0})d.pseudos[b]=na(b);function qa(){}qa.prototype=d.filters=d.pseudos,d.setFilters=new qa,g=ga.tokenize=function(a,b){var c,e,f,g,h,i,j,k=z[a+" "];if(k)return b?0:k.slice(0);h=a,i=[],j=d.preFilter;while(h){(!c||(e=S.exec(h)))&&(e&&(h=h.slice(e[0].length)||h),i.push(f=[])),c=!1,(e=T.exec(h))&&(c=e.shift(),f.push({value:c,type:e[0].replace(R," ")}),h=h.slice(c.length));for(g in d.filter)!(e=X[g].exec(h))||j[g]&&!(e=j[g](e))||(c=e.shift(),f.push({value:c,type:g,matches:e}),h=h.slice(c.length));if(!c)break}return b?h.length:h?ga.error(a):z(a,i).slice(0)};function ra(a){for(var b=0,c=a.length,d="";c>b;b++)d+=a[b].value;return d}function sa(a,b,c){var d=b.dir,e=c&&"parentNode"===d,f=x++;return b.first?function(b,c,f){while(b=b[d])if(1===b.nodeType||e)return a(b,c,f)}:function(b,c,g){var h,i,j=[w,f];if(g){while(b=b[d])if((1===b.nodeType||e)&&a(b,c,g))return!0}else while(b=b[d])if(1===b.nodeType||e){if(i=b[u]||(b[u]={}),(h=i[d])&&h[0]===w&&h[1]===f)return j[2]=h[2];if(i[d]=j,j[2]=a(b,c,g))return!0}}}function ta(a){return a.length>1?function(b,c,d){var e=a.length;while(e--)if(!a[e](b,c,d))return!1;return!0}:a[0]}function ua(a,b,c){for(var d=0,e=b.length;e>d;d++)ga(a,b[d],c);return c}function va(a,b,c,d,e){for(var f,g=[],h=0,i=a.length,j=null!=b;i>h;h++)(f=a[h])&&(!c||c(f,d,e))&&(g.push(f),j&&b.push(h));return g}function wa(a,b,c,d,e,f){return d&&!d[u]&&(d=wa(d)),e&&!e[u]&&(e=wa(e,f)),ia(function(f,g,h,i){var j,k,l,m=[],n=[],o=g.length,p=f||ua(b||"*",h.nodeType?[h]:h,[]),q=!a||!f&&b?p:va(p,m,a,h,i),r=c?e||(f?a:o||d)?[]:g:q;if(c&&c(q,r,h,i),d){j=va(r,n),d(j,[],h,i),k=j.length;while(k--)(l=j[k])&&(r[n[k]]=!(q[n[k]]=l))}if(f){if(e||a){if(e){j=[],k=r.length;while(k--)(l=r[k])&&j.push(q[k]=l);e(null,r=[],j,i)}k=r.length;while(k--)(l=r[k])&&(j=e?J(f,l):m[k])>-1&&(f[j]=!(g[j]=l))}}else r=va(r===g?r.splice(o,r.length):r),e?e(null,g,r,i):H.apply(g,r)})}function xa(a){for(var b,c,e,f=a.length,g=d.relative[a[0].type],h=g||d.relative[" "],i=g?1:0,k=sa(function(a){return a===b},h,!0),l=sa(function(a){return J(b,a)>-1},h,!0),m=[function(a,c,d){var e=!g&&(d||c!==j)||((b=c).nodeType?k(a,c,d):l(a,c,d));return b=null,e}];f>i;i++)if(c=d.relative[a[i].type])m=[sa(ta(m),c)];else{if(c=d.filter[a[i].type].apply(null,a[i].matches),c[u]){for(e=++i;f>e;e++)if(d.relative[a[e].type])break;return wa(i>1&&ta(m),i>1&&ra(a.slice(0,i-1).concat({value:" "===a[i-2].type?"*":""})).replace(R,"$1"),c,e>i&&xa(a.slice(i,e)),f>e&&xa(a=a.slice(e)),f>e&&ra(a))}m.push(c)}return ta(m)}function ya(a,b){var c=b.length>0,e=a.length>0,f=function(f,g,h,i,k){var l,m,o,p=0,q="0",r=f&&[],s=[],t=j,u=f||e&&d.find.TAG("*",k),v=w+=null==t?1:Math.random()||.1,x=u.length;for(k&&(j=g!==n&&g);q!==x&&null!=(l=u[q]);q++){if(e&&l){m=0;while(o=a[m++])if(o(l,g,h)){i.push(l);break}k&&(w=v)}c&&((l=!o&&l)&&p--,f&&r.push(l))}if(p+=q,c&&q!==p){m=0;while(o=b[m++])o(r,s,g,h);if(f){if(p>0)while(q--)r[q]||s[q]||(s[q]=F.call(i));s=va(s)}H.apply(i,s),k&&!f&&s.length>0&&p+b.length>1&&ga.uniqueSort(i)}return k&&(w=v,j=t),r};return c?ia(f):f}return h=ga.compile=function(a,b){var c,d=[],e=[],f=A[a+" "];if(!f){b||(b=g(a)),c=b.length;while(c--)f=xa(b[c]),f[u]?d.push(f):e.push(f);f=A(a,ya(e,d)),f.selector=a}return f},i=ga.select=function(a,b,e,f){var i,j,k,l,m,n="function"==typeof a&&a,o=!f&&g(a=n.selector||a);if(e=e||[],1===o.length){if(j=o[0]=o[0].slice(0),j.length>2&&"ID"===(k=j[0]).type&&c.getById&&9===b.nodeType&&p&&d.relative[j[1].type]){if(b=(d.find.ID(k.matches[0].replace(ca,da),b)||[])[0],!b)return e;n&&(b=b.parentNode),a=a.slice(j.shift().value.length)}i=X.needsContext.test(a)?0:j.length;while(i--){if(k=j[i],d.relative[l=k.type])break;if((m=d.find[l])&&(f=m(k.matches[0].replace(ca,da),aa.test(j[0].type)&&pa(b.parentNode)||b))){if(j.splice(i,1),a=f.length&&ra(j),!a)return H.apply(e,f),e;break}}}return(n||h(a,o))(f,b,!p,e,aa.test(a)&&pa(b.parentNode)||b),e},c.sortStable=u.split("").sort(B).join("")===u,c.detectDuplicates=!!l,m(),c.sortDetached=ja(function(a){return 1&a.compareDocumentPosition(n.createElement("div"))}),ja(function(a){return a.innerHTML="<a href='#'></a>","#"===a.firstChild.getAttribute("href")})||ka("type|href|height|width",function(a,b,c){return c?void 0:a.getAttribute(b,"type"===b.toLowerCase()?1:2)}),c.attributes&&ja(function(a){return a.innerHTML="<input/>",a.firstChild.setAttribute("value",""),""===a.firstChild.getAttribute("value")})||ka("value",function(a,b,c){return c||"input"!==a.nodeName.toLowerCase()?void 0:a.defaultValue}),ja(function(a){return null==a.getAttribute("disabled")})||ka(K,function(a,b,c){var d;return c?void 0:a[b]===!0?b.toLowerCase():(d=a.getAttributeNode(b))&&d.specified?d.value:null}),ga}(a);m.find=s,m.expr=s.selectors,m.expr[":"]=m.expr.pseudos,m.unique=s.uniqueSort,m.text=s.getText,m.isXMLDoc=s.isXML,m.contains=s.contains;var t=m.expr.match.needsContext,u=/^<(\w+)\s*\/?>(?:<\/\1>|)$/,v=/^.[^:#\[\.,]*$/;function w(a,b,c){if(m.isFunction(b))return m.grep(a,function(a,d){return!!b.call(a,d,a)!==c});if(b.nodeType)return m.grep(a,function(a){return a===b!==c});if("string"==typeof b){if(v.test(b))return m.filter(b,a,c);b=m.filter(b,a)}return m.grep(a,function(a){return m.inArray(a,b)>=0!==c})}m.filter=function(a,b,c){var d=b[0];return c&&(a=":not("+a+")"),1===b.length&&1===d.nodeType?m.find.matchesSelector(d,a)?[d]:[]:m.find.matches(a,m.grep(b,function(a){return 1===a.nodeType}))},m.fn.extend({find:function(a){var b,c=[],d=this,e=d.length;if("string"!=typeof a)return this.pushStack(m(a).filter(function(){for(b=0;e>b;b++)if(m.contains(d[b],this))return!0}));for(b=0;e>b;b++)m.find(a,d[b],c);return c=this.pushStack(e>1?m.unique(c):c),c.selector=this.selector?this.selector+" "+a:a,c},filter:function(a){return this.pushStack(w(this,a||[],!1))},not:function(a){return this.pushStack(w(this,a||[],!0))},is:function(a){return!!w(this,"string"==typeof a&&t.test(a)?m(a):a||[],!1).length}});var x,y=a.document,z=/^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,A=m.fn.init=function(a,b){var c,d;if(!a)return this;if("string"==typeof a){if(c="<"===a.charAt(0)&&">"===a.charAt(a.length-1)&&a.length>=3?[null,a,null]:z.exec(a),!c||!c[1]&&b)return!b||b.jquery?(b||x).find(a):this.constructor(b).find(a);if(c[1]){if(b=b instanceof m?b[0]:b,m.merge(this,m.parseHTML(c[1],b&&b.nodeType?b.ownerDocument||b:y,!0)),u.test(c[1])&&m.isPlainObject(b))for(c in b)m.isFunction(this[c])?this[c](b[c]):this.attr(c,b[c]);return this}if(d=y.getElementById(c[2]),d&&d.parentNode){if(d.id!==c[2])return x.find(a);this.length=1,this[0]=d}return this.context=y,this.selector=a,this}return a.nodeType?(this.context=this[0]=a,this.length=1,this):m.isFunction(a)?"undefined"!=typeof x.ready?x.ready(a):a(m):(void 0!==a.selector&&(this.selector=a.selector,this.context=a.context),m.makeArray(a,this))};A.prototype=m.fn,x=m(y);var B=/^(?:parents|prev(?:Until|All))/,C={children:!0,contents:!0,next:!0,prev:!0};m.extend({dir:function(a,b,c){var d=[],e=a[b];while(e&&9!==e.nodeType&&(void 0===c||1!==e.nodeType||!m(e).is(c)))1===e.nodeType&&d.push(e),e=e[b];return d},sibling:function(a,b){for(var c=[];a;a=a.nextSibling)1===a.nodeType&&a!==b&&c.push(a);return c}}),m.fn.extend({has:function(a){var b,c=m(a,this),d=c.length;return this.filter(function(){for(b=0;d>b;b++)if(m.contains(this,c[b]))return!0})},closest:function(a,b){for(var c,d=0,e=this.length,f=[],g=t.test(a)||"string"!=typeof a?m(a,b||this.context):0;e>d;d++)for(c=this[d];c&&c!==b;c=c.parentNode)if(c.nodeType<11&&(g?g.index(c)>-1:1===c.nodeType&&m.find.matchesSelector(c,a))){f.push(c);break}return this.pushStack(f.length>1?m.unique(f):f)},index:function(a){return a?"string"==typeof a?m.inArray(this[0],m(a)):m.inArray(a.jquery?a[0]:a,this):this[0]&&this[0].parentNode?this.first().prevAll().length:-1},add:function(a,b){return this.pushStack(m.unique(m.merge(this.get(),m(a,b))))},addBack:function(a){return this.add(null==a?this.prevObject:this.prevObject.filter(a))}});function D(a,b){do a=a[b];while(a&&1!==a.nodeType);return a}m.each({parent:function(a){var b=a.parentNode;return b&&11!==b.nodeType?b:null},parents:function(a){return m.dir(a,"parentNode")},parentsUntil:function(a,b,c){return m.dir(a,"parentNode",c)},next:function(a){return D(a,"nextSibling")},prev:function(a){return D(a,"previousSibling")},nextAll:function(a){return m.dir(a,"nextSibling")},prevAll:function(a){return m.dir(a,"previousSibling")},nextUntil:function(a,b,c){return m.dir(a,"nextSibling",c)},prevUntil:function(a,b,c){return m.dir(a,"previousSibling",c)},siblings:function(a){return m.sibling((a.parentNode||{}).firstChild,a)},children:function(a){return m.sibling(a.firstChild)},contents:function(a){return m.nodeName(a,"iframe")?a.contentDocument||a.contentWindow.document:m.merge([],a.childNodes)}},function(a,b){m.fn[a]=function(c,d){var e=m.map(this,b,c);return"Until"!==a.slice(-5)&&(d=c),d&&"string"==typeof d&&(e=m.filter(d,e)),this.length>1&&(C[a]||(e=m.unique(e)),B.test(a)&&(e=e.reverse())),this.pushStack(e)}});var E=/\S+/g,F={};function G(a){var b=F[a]={};return m.each(a.match(E)||[],function(a,c){b[c]=!0}),b}m.Callbacks=function(a){a="string"==typeof a?F[a]||G(a):m.extend({},a);var b,c,d,e,f,g,h=[],i=!a.once&&[],j=function(l){for(c=a.memory&&l,d=!0,f=g||0,g=0,e=h.length,b=!0;h&&e>f;f++)if(h[f].apply(l[0],l[1])===!1&&a.stopOnFalse){c=!1;break}b=!1,h&&(i?i.length&&j(i.shift()):c?h=[]:k.disable())},k={add:function(){if(h){var d=h.length;!function f(b){m.each(b,function(b,c){var d=m.type(c);"function"===d?a.unique&&k.has(c)||h.push(c):c&&c.length&&"string"!==d&&f(c)})}(arguments),b?e=h.length:c&&(g=d,j(c))}return this},remove:function(){return h&&m.each(arguments,function(a,c){var d;while((d=m.inArray(c,h,d))>-1)h.splice(d,1),b&&(e>=d&&e--,f>=d&&f--)}),this},has:function(a){return a?m.inArray(a,h)>-1:!(!h||!h.length)},empty:function(){return h=[],e=0,this},disable:function(){return h=i=c=void 0,this},disabled:function(){return!h},lock:function(){return i=void 0,c||k.disable(),this},locked:function(){return!i},fireWith:function(a,c){return!h||d&&!i||(c=c||[],c=[a,c.slice?c.slice():c],b?i.push(c):j(c)),this},fire:function(){return k.fireWith(this,arguments),this},fired:function(){return!!d}};return k},m.extend({Deferred:function(a){var b=[["resolve","done",m.Callbacks("once memory"),"resolved"],["reject","fail",m.Callbacks("once memory"),"rejected"],["notify","progress",m.Callbacks("memory")]],c="pending",d={state:function(){return c},always:function(){return e.done(arguments).fail(arguments),this},then:function(){var a=arguments;return m.Deferred(function(c){m.each(b,function(b,f){var g=m.isFunction(a[b])&&a[b];e[f[1]](function(){var a=g&&g.apply(this,arguments);a&&m.isFunction(a.promise)?a.promise().done(c.resolve).fail(c.reject).progress(c.notify):c[f[0]+"With"](this===d?c.promise():this,g?[a]:arguments)})}),a=null}).promise()},promise:function(a){return null!=a?m.extend(a,d):d}},e={};return d.pipe=d.then,m.each(b,function(a,f){var g=f[2],h=f[3];d[f[1]]=g.add,h&&g.add(function(){c=h},b[1^a][2].disable,b[2][2].lock),e[f[0]]=function(){return e[f[0]+"With"](this===e?d:this,arguments),this},e[f[0]+"With"]=g.fireWith}),d.promise(e),a&&a.call(e,e),e},when:function(a){var b=0,c=d.call(arguments),e=c.length,f=1!==e||a&&m.isFunction(a.promise)?e:0,g=1===f?a:m.Deferred(),h=function(a,b,c){return function(e){b[a]=this,c[a]=arguments.length>1?d.call(arguments):e,c===i?g.notifyWith(b,c):--f||g.resolveWith(b,c)}},i,j,k;if(e>1)for(i=new Array(e),j=new Array(e),k=new Array(e);e>b;b++)c[b]&&m.isFunction(c[b].promise)?c[b].promise().done(h(b,k,c)).fail(g.reject).progress(h(b,j,i)):--f;return f||g.resolveWith(k,c),g.promise()}});var H;m.fn.ready=function(a){return m.ready.promise().done(a),this},m.extend({isReady:!1,readyWait:1,holdReady:function(a){a?m.readyWait++:m.ready(!0)},ready:function(a){if(a===!0?!--m.readyWait:!m.isReady){if(!y.body)return setTimeout(m.ready);m.isReady=!0,a!==!0&&--m.readyWait>0||(H.resolveWith(y,[m]),m.fn.triggerHandler&&(m(y).triggerHandler("ready"),m(y).off("ready")))}}});function I(){y.addEventListener?(y.removeEventListener("DOMContentLoaded",J,!1),a.removeEventListener("load",J,!1)):(y.detachEvent("onreadystatechange",J),a.detachEvent("onload",J))}function J(){(y.addEventListener||"load"===event.type||"complete"===y.readyState)&&(I(),m.ready())}m.ready.promise=function(b){if(!H)if(H=m.Deferred(),"complete"===y.readyState)setTimeout(m.ready);else if(y.addEventListener)y.addEventListener("DOMContentLoaded",J,!1),a.addEventListener("load",J,!1);else{y.attachEvent("onreadystatechange",J),a.attachEvent("onload",J);var c=!1;try{c=null==a.frameElement&&y.documentElement}catch(d){}c&&c.doScroll&&!function e(){if(!m.isReady){try{c.doScroll("left")}catch(a){return setTimeout(e,50)}I(),m.ready()}}()}return H.promise(b)};var K="undefined",L;for(L in m(k))break;k.ownLast="0"!==L,k.inlineBlockNeedsLayout=!1,m(function(){var a,b,c,d;c=y.getElementsByTagName("body")[0],c&&c.style&&(b=y.createElement("div"),d=y.createElement("div"),d.style.cssText="position:absolute;border:0;width:0;height:0;top:0;left:-9999px",c.appendChild(d).appendChild(b),typeof b.style.zoom!==K&&(b.style.cssText="display:inline;margin:0;border:0;padding:1px;width:1px;zoom:1",k.inlineBlockNeedsLayout=a=3===b.offsetWidth,a&&(c.style.zoom=1)),c.removeChild(d))}),function(){var a=y.createElement("div");if(null==k.deleteExpando){k.deleteExpando=!0;try{delete a.test}catch(b){k.deleteExpando=!1}}a=null}(),m.acceptData=function(a){var b=m.noData[(a.nodeName+" ").toLowerCase()],c=+a.nodeType||1;return 1!==c&&9!==c?!1:!b||b!==!0&&a.getAttribute("classid")===b};var M=/^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,N=/([A-Z])/g;function O(a,b,c){if(void 0===c&&1===a.nodeType){var d="data-"+b.replace(N,"-$1").toLowerCase();if(c=a.getAttribute(d),"string"==typeof c){try{c="true"===c?!0:"false"===c?!1:"null"===c?null:+c+""===c?+c:M.test(c)?m.parseJSON(c):c}catch(e){}m.data(a,b,c)}else c=void 0}return c}function P(a){var b;for(b in a)if(("data"!==b||!m.isEmptyObject(a[b]))&&"toJSON"!==b)return!1;
@@ -364,9 +364,9 @@ summary {
 
 
 
-<h1 class="title toc-ignore">Extract images from files</h1>
+<h1 class="title toc-ignore">Build topic pages</h1>
 <h4 class="author">Steve Simon</h4>
-<h4 class="date">2019-07-06</h4>
+<h4 class="date">2019-10-23</h4>
 
 </div>
 
@@ -374,542 +374,653 @@ summary {
 <pre class="r"><code>knitr::opts_chunk$set(echo=FALSE)
 source(file=&quot;prelims.R&quot;, echo=FALSE)
 verbose &lt;- TRUE</code></pre>
-<pre><code>## 
-## 17-years.md: 1 29 images/17-years.png
-## 8-tips.md: 1 20 images/8-tips.png
-## a-lot-longer.md: 0 
-## acceptable-response.md: 0 
-## accessible-r-markdown.md: 1 21 images/accessible-r-markdown.png
-## adjusted-survival-curves.md: 1 20 images/adjusted-survival-curves.png
-## adverse-events.md: 0 
-## ai-story.md: 1 26 images/ai-story.png
-## all-this-math-stuff.md: 0 
-## already-borderline.md: 0 
-## amy-cuddy.md: 1 75 images/amy-cuddy.png
-## anaconda.md: 1 21 images/anaconda.png
-## analysis-biological-data.md: 0 
-## analysis-of-continuous-variables.md: 0 
-## analysis-of-means.md: 0 
-## analysis-of-variance.md: 0 
-## analyzing-ordinal.md: 0 
-## anecdotal-quote.md: 0 
-## ansi-8601.md: 0 
-## applied-survival-analysis.md: 0 
-## archive-accrual.md: 0 
-## archiving.md: 1 29 images/archiving.png
-## areas-of-expertise.md: 0 
-## arrive-guidelines.md: 1 26 images/arrive-guidelines.png
-## artist.md: 1 20 images/artist.png
-## assignment-in-r.md: 1 28 images/assignment-in-r.png
-## attitude-survey.md: 1 24 images/attitude-survey.png
-## authorized-official.md: 0 
-## baby-walk.md: 0 
-## bad-prediction.md: 1 92 images/bad-prediction.png
-## basp-editorial.md: 1 37 images/basp-editorial.png
-## bayesian-book.md: 0 
-## bayesian-meta-analysis.md: 1 22 images/bayesian-meta-analysis.png
-## bayesian-statistics.md: 0 
-## be-more-effective.md: 1 23 images/be-more-effective.png
-## beanumber-repository.md: 1 25 images/beanumber-repository.png
-## beepr.md: 1 18 images/beepr.png
-## beginners-workshop.md: 2 167, 169 images/beginners-workshop.png images/beginners-workshop2.png
-## bending-the-rules.md: 1 24 images/bending-the-rules.png
-## biased-algorithms.md: 1 27 images/biased-algorithms.png
-## bibliographies-in-r-markdown.md: 1 20 images/bibliographies-in-r-markdown.png
-## big-data-goes-to-school.md: 1 20 images/big-data-goes-to-school.png
-## big-data-missouri.md: 0 
-## big-data-publication.md: 0 
-## big-data-training.md: 1 22 images/big-data-training.png
-## biggest-statistics-papers.md: 0 
-## billionaire-statistician.md: 1 23 images/billionaire-statistician.png
-## binary-imbalanced-learning.md: 1 28 images/binary-imbalanced-learning.png
-## biography-2016.md: 0 
-## biography-2019.md: 0 
-## bioinformatics-programming.md: 0 
-## biostatistician-effort.md: 1 34 images/biostatistician-effort.png
-## blow-the-whistle.md: 1 21 images/blow-the-whistle.png
-## book-review.md: 1 24 images/book-review.png
-## borderline-significance.md: 0 
-## breast-cancer-study.md: 0 
-## brief-research-interests.md: 0 
-## budgetary-measure.md: 0 
-## budgeting-time.md: 0 
-## business-essentials-2.md: 0 
-## business-essentials.md: 0 
-## cancer-testing.md: 1 18 images/cancer-testing.png
-## car-speeds.md: 0 
-## case-cohort-review.md: 1 28 images/case-cohort-review.png
-## cases-and-cohorts.md: 0 
-## cdcfluview.md: 1 25 images/cdcfluview.png
-## cdrmp-webinars.md: 1 24 images/cdrmp-webinars.png
-## census-geocoder.md: 1 19 images/census-geocoder.png
-## changes-to-classes.md: 0 
-## chapter-on-r.md: 1 30 images/chapter-on-r.png
-## charging-models.md: 0 
-## chart-review.md: 0 
-## christmas-carol.md: 0 
-## circle.md: 0 
-## citation-of-prior-research.md: 1 29 images/citation-of-prior-research.png
-## citing-my-web-pages.md: 0 
-## claims-lacking-specificity.md: 0 
-## clinical-research.md: 1 23 images/clinical-research.png
-## clinical-trial.md: 1 28 images/clinical-trial.png
-## clinical-trials-hype.md: 0 
-## clone-sd-cards.md: 1 22 images/clone-sd-cards.png
-## cluster-hat.md: 1 21 images/cluster-hat.png
-## cluster-randomized-trials.md: 0 
-## cluster-randomized.md: 1 26 images/cluster-randomized.png
-## coin-flip.md: 1 20 images/coin-flip.png
-## cold-call.md: 0 
-## combination-of-some-data.md: 0 
-## commas-in-sql.md: 0 
-## comments-feature.md: 0 
-## communicating-statistical-findings.md: 1 22 images/communicating-statistical-findings.png
-## company-sponsored-research.md: 1 27 images/company-sponsored-research.png
-## compare-project.md: 1 28 images/compare-project.png
-## comparing-diagnostic-tests.md: 0 
-## comparing-two-vectors.md: 0 
-## comparisons-within.md: 1 23 images/comparisons-within.png
-## competing-commtments.md: 1 24 images/competing-commtments.png
-## complex-trials.md: 1 22 images/complex-trials.png
-## conferences-for-learning-r.md: 0 
-## confusion-intervals.md: 1 21 images/confusion-intervals.png
-## consult-by-email.md: 0 
-## consulting-contract.md: 0 
-## consulting-trap.md: 0 
-## consulting-webinars.md: 0 
-## contributions-to-ebm.md: 0 
-## convert-powerpoint.md: 1 30 images/convert-powerpoint.png
-## copyright-data.md: 1 20 images/copyright-data.png
-## course-proposal.md: 0 
-## covariate-imbalance.md: 0 
-## cox-regression.md: 2 225, 314 images/cox-regression.png images/cox-regression2.png
-## crc.md: 0 
-## ctsa-grant.md: 0 
-## dark-side.md: 0 
-## dasl.md: 1 22 images/dasl.png
-## data-codebook.md: 0 
-## data-dictionaries.md: 1 18 images/data-dictionaries.png
-## data-doesnt-speak.md: 1 20 images/data-doesnt-speak.png
-## data-notes.md: 1 22 images/data-notes.png
-## data-presentation.md: 1 23 images/data-presentation.png
-## data-science-curriculum.md: 1 20 images/data-science-curriculum.png
-## databases-using-r.md: 1 18 images/databases-using-r.png
-## datamind.md: 1 25 images/datamind.png
-## dataset-search.md: 1 24 images/dataset-search.png
-## dates-in-r.md: 1 18 images/dates-in-r.png
-## deep-learning-mooc.md: 1 19 images/deep-learning-mooc.png
-## defining-urban.md: 1 24 images/defining-urban.png
-## design-monte-carlo-2.md: 3 78, 87, 100 images/design-monte-carlo-2.png images/design-monte-carlo-22.png images/design-monte-carlo-23.png
-## design-monte-carlo.md: 0 
-## developer-works.md: 1 20 images/developer-works.png
-## developing-grants.md: 1 25 images/developing-grants.png
-## developing-research.md: 0 
-## difference-of-two-exponentials.md: 0 
-## differing-versions.md: 0 
-## discussion-section.md: 1 23 images/discussion-section.png
-## documentation-standards.md: 0 
-## dogs-vs-cats.md: 1 20 images/dogs-vs-cats.png
-## dplyr-and-pipes.md: 1 23 images/dplyr-and-pipes.png
-## dryad.md: 1 19 images/dryad.png
-## early.md: 1 28 images/early.png
-## effect-size.md: 1 27 images/effect-size.png
-## effective-consulting.md: 1 24 images/effective-consulting.png
-## effective-quesitonnaires.md: 1 21 images/effective-quesitonnaires.png
-## effectiveness-vs-efficacy.md: 1 23 images/effectiveness-vs-efficacy.png
-## efficiency-of-block-design.md: 1 18 images/efficiency-of-block-design.png
-## ehr-fda-guidance.md: 1 22 images/ehr-fda-guidance.png
-## election-predictions.md: 0 
-## elsevier-vs-uc.md: 1 29 images/elsevier-vs-uc.png
-## encode.md: 1 25 images/encode.png
-## encyclopedia-of-big-data.md: 0 
-## end-of-sas.md: 1 25 images/end-of-sas.png
-## enigma-public.md: 1 18 images/enigma-public.png
-## enrichment-designs.md: 1 19 images/enrichment-designs.png
-## equivalence-talk.md: 0 
-## ethical-data-mining.md: 1 19 images/ethical-data-mining.png
-## evaluation-methods.md: 1 21 images/evaluation-methods.png
-## evidence-of-bias.md: 1 41 images/evidence-of-bias.png
-## excel-colors.md: 1 25 images/excel-colors.png
-## excel-users.md: 1 21 images/excel-users.png
-## experience-vs-memory.md: 1 27 images/experience-vs-memory.png
-## explain-ai.md: 1 24 images/explain-ai.png
-## exploits-of-a-mom.md: 0 
-## exploratory-data-analysis.md: 0 
-## exporting-sas.md: 0 
-## faculty-profile.md: 0 
-## failed-study.md: 0 
-## fair-principles.md: 1 31 images/fair-principles.png
-## false-positive-psychology.md: 1 23 images/false-positive-psychology.png
-## fancy-technologies.md: 0 
-## fda-r-ok.md: 1 22 images/fda-r-ok.png
-## fighting-sasism.md: 0 
-## finding-interesting-articles.md: 0 
-## finding-me.md: 0 
-## first-jags.md: 0 
-## five-safes.md: 1 21 images/five-safes.png
-## five-thirty-eight-data.md: 1 21 images/five-thirty-eight-data.png
-## fix-the-ehr.md: 1 24 images/fix-the-ehr.png
-## flipped-classroom.md: 1 46 images/flipped-classroom.png
-## font-size-in-r.md: 2 21, 33 images/font-size-in-r.png images/font-size-in-r2.png
-## font-size-in-rstudio.md: 1 20 images/font-size-in-rstudio.png
-## food-researcher.md: 1 21 images/food-researcher.png
-## for-profit-journals.md: 1 61 images/for-profit-journals.png
-## foreach.md: 1 19 images/foreach.png
-## forensic-bioinformatics.md: 1 25 images/forensic-bioinformatics.png
-## fourteen-points.md: 1 19 images/fourteen-points.png
-## framingham-contribution.md: 1 21 images/framingham-contribution.png
-## function-argumentsr.md: 0 
-## git-and-github.md: 0 
-## git.md: 1 46 images/git.png
-## github-standards.md: 0 
-## good-enough.md: 1 24 images/good-enough.png
-## google-scholar-profile.md: 1 22 images/google-scholar-profile.png
-## gpc-work.md: 0 
-## grade-point-averages.md: 0 
-## grading-rubric.md: 0 
-## grant-proposals.md: 1 26 images/grant-proposals.png
-## grant-training-2.md: 0 
-## grant-writing-styles.md: 1 27 images/grant-writing-styles.png
-## greece-prosecution.md: 1 20 images/greece-prosecution.png
-## greedy.md: 0 
-## grumpy-editorials.md: 0 
-## h-index.md: 0 
-## hadley-wickham.md: 1 20 images/hadley-wickham.png
-## hate-about-consulting.md: 0 
-## health-insurance-systems.md: 1 31 images/health-insurance-systems.png
-## hedis.md: 1 19 images/hedis.png
-## heron-i2b2-analytics.md: 0 
-## history-hadoop.md: 1 27 images/history-hadoop.png
-## history-of-r.md: 0 
-## history-of-sas.md: 0 
-## history-of-spss.md: 0 
-## homework-format.md: 0 
-## how-big-ehr.md: 0 
-## how-big.md: 0 
-## how-many-months.md: 0 
-## how-many-research-subjects.md: 1 17 images/how-many-research-subjects.png
-## how-much-missingness.md: 0 
-## hundred-data-sets.md: 1 20 images/hundred-data-sets.png
-## i2b2-ontology.md: 1 22 images/i2b2-ontology.png
-## idre.md: 1 27 images/idre.png
-## imbalanced-multi-center-trials.md: 0 
-## implementation-science.md: 1 27 images/implementation-science.png
-## important-packages-for-r.md: 0 
-## incentivizing.md: 0 
-## informed-consent.md: 0 
-## ingelfinger.md: 0 
-## inla.md: 1 21 images/inla.png
-## interesting-data-sets.md: 0 
-## interval-censored.md: 1 20 images/interval-censored.png
-## interval-regression.md: 1 19 images/interval-regression.png
-## interview-questions.md: 0 
-## introduction-section.md: 0 
-## introversion.md: 0 
-## irb-questions.md: 0 
-## john-gawalt.md: 1 20 images/john-gawalt.png
-## jupyterlab.md: 1 24 images/jupyterlab.png
-## justifying-assumptions.md: 1 28 images/justifying-assumptions.png
-## kableextra.md: 1 21 images/kableextra.png
-## kaggle-data.md: 1 19 images/kaggle-data.png
-## kaplan-meier.md: 1 102 images/kaplan-meier.png
-## large-negative.md: 0 
-## large-rcts.md: 1 49 images/large-rcts.png
-## lasso.md: 0 
-## latex-mathematics.md: 1 28 images/latex-mathematics.png
-## lavaan.md: 1 22 images/lavaan.png
-## leading-questions.md: 1 22 images/leading-questions.png
-## leaflet.md: 1 20 images/leaflet.png
-## learn-about-r.md: 0 
-## learning-health-system.md: 1 21 images/learning-health-system.png
-## learning-sas.md: 0 
-## least-important-variable.md: 0 
-## lending-false-credibility.md: 1 33 images/lending-false-credibility.png
-## limitations-alternative-strategies.md: 0 
-## limitations.md: 0 
-## line-style-r.md: 1 20 images/line-style-r.png
-## literature-review.md: 1 18 images/literature-review.png
-## looks-like-a-blank.md: 0 
-## loops-in-r.md: 1 20 images/loops-in-r.png
-## losing-track.md: 0 
-## loud-mistake.md: 0 
-## machine-learning-comparison.md: 1 28 images/machine-learning-comparison.png
-## machine-learning-vs-logistic-regression.md: 1 31 images/machine-learning-vs-logistic-regression.png
-## machine-learning.md: 0 
-## maternal-mortality.md: 1 20 images/maternal-mortality.png
-## measuring-pixels.md: 0 
-## meet-rothwell.md: 1 21 images/meet-rothwell.png
-## megabyte.md: 0 
-## merging-in-dplyr.md: 0 
-## meta-analysis-of-ordinal-data.md: 0 
-## mike-bostock.md: 1 24 images/mike-bostock.png
-## mining-ehr.md: 0 
-## missing-equals-zero.md: 0 
-## missing-values-in-r.md: 0 
-## misunderstanding-autism.md: 0 
-## mixed-up-names.md: 0 
-## mlpowsim.md: 1 21 images/mlpowsim.png
-## morbid-emphasis.md: 0 
-## more-kaplan-meier.md: 18 190, 250, 258, 266, 274, 282, 290, 298, 312, 320, 328, 336, 344, 354, 362, 370, 378, 386 images/more-kaplan-meier.png images/more-kaplan-meier2.png images/more-kaplan-meier3.png images/more-kaplan-meier4.png images/more-kaplan-meier5.png images/more-kaplan-meier6.png images/more-kaplan-meier7.png images/more-kaplan-meier8.png images/more-kaplan-meier9.png images/more-kaplan-meier10.png images/more-kaplan-meier1.png images/more-kaplan-meier12.png images/more-kaplan-meier13.png images/more-kaplan-meier14.png images/more-kaplan-meier15.png images/more-kaplan-meier16.png images/more-kaplan-meier17.png images/more-kaplan-meier18.png
-## mpi-tutorial.md: 1 20 images/mpi-tutorial.png
-## mpi4py.md: 1 22 images/mpi4py.png
-## my-research-one-page.md: 0 
-## my-research.md: 0 
-## my-teaching-approach.md: 0 
-## my-teaching-interests-one-page.md: 0 
-## negative-numers.md: 0 
-## network-analysis.md: 1 43 images/network-analysis.png
-## next-generation-phenotyping.md: 1 22 images/next-generation-phenotyping.png
-## next-stop-bmc.md: 0 
-## nicholas-volker.md: 1 20 images/nicholas-volker.png
-## nightingale-big-data.md: 1 24 images/nightingale-big-data.png
-## nih-big-data.md: 1 67 images/nih-big-data.png
-## nih-criteria.md: 1 23 images/nih-criteria.png
-## nis-standards.md: 1 25 images/nis-standards.png
-## non-technical-mcmc.md: 0 
-## nonfinancial-conflicts.md: 1 32 images/nonfinancial-conflicts.png
-## nonparametric-multifactor.md: 0 
-## noobs-installation.md: 1 21 images/noobs-installation.png
-## not-created-equal.md: 1 21 images/not-created-equal.png
-## numbers-mosteller.md: 1 24 images/numbers-mosteller.png
-## numerical-accuracy.md: 0 
-## nytimes-graph.md: 1 34 images/nytimes-graph.png
-## observational-recommendations.md: 1 23 images/observational-recommendations.png
-## one-small-grant.md: 0 
-## open-questions.md: 1 48 images/open-questions.png
-## open-source-km.md: 3 25, 31, 36 images/open-source-km.bmp images/open-source-km2.bmp images/open-source-km3.bmp
-## openrefine.md: 1 25 images/openrefine.png
-## optimistic-graphs.md: 0 
-## oracle-dates.md: 1 27 images/oracle-dates.png
-## orcid-database.md: 1 30 images/orcid-database.png
-## organizing-data.md: 1 22 images/organizing-data.png
-## origins-of-big-data.md: 1 24 images/origins-of-big-data.png
-## ozone-hole.md: 1 20 images/ozone-hole.png
-## p-value-of-0.md: 0 
-## part-timer.md: 0 
-## patient-accrual-models.md: 0 
-## pdf-accessibility.md: 1 24 images/pdf-accessibility.png
-## peer-grading.md: 0 
-## personal-biography.md: 0 
-## personal-statement.md: 0 
-## phase-ii.md: 0 
-## phekb.md: 1 24 images/phekb.png
-## physiological-statistics.md: 1 23 images/physiological-statistics.png
-## pilot-study-sample-size.md: 1 25 images/pilot-study-sample-size.png
-## pilot-study.md: 0 
-## pipes-in-r-2.md: 0 
-## pipes-in-r.md: 0 
-## plos-one-2015.md: 2 24, 26 images/plos-one-2015.png images/plos-one-20152.png
-## plos-one-reviewer.md: 2 25, 27 images/plos-one-reviewer.png images/plos-one-reviewer2.png
-## plotrix.md: 1 19 images/plotrix.png
-## pmean-analysis-plan.md: 0 
-## possibility-theory.md: 0 
-## post-hoc-sample-size.md: 0 
-## power-for-two-by-two-table.md: 8 45, 55, 61, 68, 73, 81, 88, 94 images/power-for-two-by-two-table.gif images/power-for-two-by-two-table2.gif images/power-for-two-by-two-table3.gif images/power-for-two-by-two-table4.gif images/power-for-two-by-two-table5.gif images/power-for-two-by-two-table6.gif images/power-for-two-by-two-table7.gif images/power-for-two-by-two-table8.gif
-## powerpoint-with-r-markdown.md: 1 22 images/powerpoint-with-r-markdown.png
-## practical-advice.md: 1 25 images/practical-advice.png
-## precursors-to-data-science.md: 1 20 images/precursors-to-data-science.png
-## predicting-trial-results.md: 1 41 images/predicting-trial-results.png
-## predictive-analytics-software.md: 1 10 images/predictive-analytics-software.jpeg
-## pretest-posttest.md: 0 
-## price-of-calculation.md: 0 
-## probability-of-a-probability-of-one.md: 4 38, 44, 54, 59 images/probability-of-a-probability-of-one.png images/probability-of-a-probability-of-one2.png images/probability-of-a-probability-of-one3.png images/probability-of-a-probability-of-one4.png
-## probonto.md: 1 25 images/probonto.png
-## proc-transpose.md: 0 
-## procrastination.md: 1 21 images/procrastination.png
-## program-evaluation.md: 1 21 images/program-evaluation.png
-## promotional-toolkit.md: 1 24 images/promotional-toolkit.png
-## propensity-monte-carlo.md: 1 48 images/propensity-monte-carlo.png
-## proving-null.md: 1 24 images/proving-null.png
-## ps-power-calculator.md: 1 23 images/ps-power-calculator.png
-## python-raspberry-pi.md: 0 
-## python-resources.md: 0 
-## qi-resources.md: 0 
-## qi-video.md: 1 20 images/qi-video.png
-## qualifications-for-teaching.md: 1 27 images/qualifications-for-teaching.png
-## quality-of-rct.md: 1 29 images/quality-of-rct.png
-## qualtrics.md: 0 
-## questionnaire-checklist.md: 1 21 images/questionnaire-checklist.png
-## quote-excel.md: 0 
-## r-and-sql-server.md: 1 22 images/r-and-sql-server.png
-## r-and-sqlserver.md: 1 25 images/r-and-sqlserver.png
-## r-class-2016.md: 0 
-## r-is-bad.md: 1 23 images/r-is-bad.png
-## r-is-sixth.md: 1 28 images/r-is-sixth.png
-## r-markdown-basics.md: 1 20 images/r-markdown-basics.png
-## r-syllabus.md: 0 
-## r-within-spss.md: 1 19 images/r-within-spss.png
-## r2d3.md: 1 26 images/r2d3.png
-## rainbows.md: 1 23 images/rainbows.png
-## randomization-techniques.md: 1 21 images/randomization-techniques.png
-## reader-pays.md: 0 
-## readmission-rates.md: 0 
-## ready-for-testing.md: 0 
-## recent-advances.md: 0 
-## recommended-data-sharing-network-shrine.md: 1 23 images/recommended-data-sharing-network-shrine.png
-## recommended-philosophy-news-network-postmodernism-special-report.md: 1 25 images/recommended-philosophy-news-network-postmodernism-special-report.png
-## recommended-research-vs-quality-improvement.md: 1 23 images/recommended-research-vs-quality-improvement.png
-## recommended-tinytex-a-lightweight-cross-platform-portable-and-easy-to-maintain-latex-distribution-based-on-tex-live.md: 1 29 images/recommended-tinytex-a-lightweight-cross-platform-portable-and-easy-to-maintain-latex-distribution-based-on-tex-live.png
-## red-text.md: 1 19 images/red-text.png
-## registry-differences.md: 1 25 images/registry-differences.png
-## reinhart-rogoff-error.md: 1 27 images/reinhart-rogoff-error.png
-## relationships-in-r.md: 9 266, 274, 312, 318, 324, 330, 340, 347, 354 images/relationships-in-r.png images/relationships-in-r2.png images/relationships-in-r3.png images/relationships-in-r4.png images/relationships-in-r5.png images/relationships-in-r6.png images/relationships-in-r7.png images/relationships-in-r8.png images/relationships-in-r9.png
-## reproducible-stata.md: 0 
-## reproductive-toxicology.md: 0 
-## research-interests.md: 0 
-## research-summary.md: 0 
-## research-waste.md: 1 33 images/research-waste.png
-## resolutions-for-2014.md: 0 
-## resources-for-r.md: 0 
-## review-missing-data.md: 1 20 images/review-missing-data.png
-## revised-standards.md: 1 37 images/revised-standards.png
-## riat.md: 1 27 images/riat.png
-## rich-data.md: 1 22 images/rich-data.png
-## risks-of-randomised-trials.md: 1 21 images/risks-of-randomised-trials.png
-## rogue-scientists.md: 1 21 images/rogue-scientists.png
-## rotating-text.md: 0 
-## row-over-screening.md: 1 26 images/row-over-screening.png
-## russell-waitman.md: 1 20 images/russell-waitman.png
-## safeguarding.md: 1 23 images/safeguarding.png
-## sample-grants.md: 1 22 images/sample-grants.png
-## sample-size-reproducibility.md: 0 
-## sas-blog.md: 1 18 images/sas-blog.png
-## sas-ods.md: 1 36 images/sas-ods.png
-## sas-university.md: 0 
-## sats.md: 0 
-## save-time.md: 0 
-## science-march.md: 0 
-## scientific-work.md: 0 
-## scientist-brain.md: 0 
-## screen-sharing.md: 0 
-## searching-files.md: 0 
-## select-variables.md: 0 
-## selection-of-controls.md: 1 26 images/selection-of-controls.png
-## semi-structured-interviews.md: 1 24 images/semi-structured-interviews.png
-## separating-unique.md: 1 22 images/separating-unique.png
-## sequence-variants.md: 1 29 images/sequence-variants.png
-## shiny-server.md: 1 22 images/shiny-server.png
-## short-bio.md: 0 
-## short-biography.md: 0 
-## short-course-consulting.md: 0 
-## shortening-survey.md: 0 
-## shut-the-heck-up.md: 0 
-## silver-interview.md: 1 35 images/silver-interview.png
-## simple-longitudinal-data-sets.md: 0 
-## simple-sample-size.md: 9 38, 43, 52, 56, 63, 73, 84, 101, 105 images/simple-sample-size.png images/simple-sample-size2.png images/simple-sample-size3.png images/simple-sample-size4.png images/simple-sample-size5.png images/simple-sample-size6.png images/simple-sample-size7.png images/simple-sample-size8.png images/simple-sample-size9.png
-## simulating-power.md: 6 24, 33, 38, 42, 46, 51 images/simulating-power.png images/simulating-power2.png images/simulating-power3.png images/simulating-power4.png images/simulating-power5.png images/simulating-power6.png
-## single-imputation.md: 0 
-## sins-against-science.md: 1 21 images/sins-against-science.png
-## skin-of-my-teeth.md: 1 66 images/skin-of-my-teeth.png
-## slide-rule-poster.md: 0 
-## slow-dget.md: 0 
-## smart-objectives.md: 1 21 images/smart-objectives.png
-## smr-example.md: 1 24 images/smr-example.png
-## social-media-for-scientists.md: 1 23 images/social-media-for-scientists.png
-## social-media.md: 1 21 images/social-media.png
-## space-center.md: 1 28 images/space-center.png
-## spam-data.md: 1 21 images/spam-data.png
-## spark-pi.md: 1 23 images/spark-pi.png
-## sparse-matrices.md: 0 
-## spreasheet-horror.md: 1 24 images/spreasheet-horror.png
-## spss-syllabus.md: 0 
-## sql-for-data-science.md: 1 19 images/sql-for-data-science.png
-## statistics-education.md: 1 23 images/statistics-education.png
-## stemming.md: 1 24 images/stemming.png
-## stop-saying-exponential.md: 1 19 images/stop-saying-exponential.png
-## string-substitutions.md: 0 
-## structure-for-documentation.md: 0 
-## structure-i2b2.md: 0 
-## study-development.md: 1 27 images/study-development.png
-## subjects-per-variable.md: 1 29 images/subjects-per-variable.png
-## summary-of-my-research.md: 0 
-## super-pi.md: 0 
-## support-for-research.md: 0 
-## survey-data-r.md: 1 19 images/survey-data-r.png
-## survey-newsletter.md: 1 21 images/survey-newsletter.png
-## survey-refusals.md: 1 30 images/survey-refusals.png
-## survey-research.md: 1 20 images/survey-research.png
-## switching-hypotheses.md: 1 39 images/switching-hypotheses.png
-## syllabus-r-2018a.md: 0 
-## syllabus-sas-2018a.md: 0 
-## synthetic-claims.md: 1 27 images/synthetic-claims.png
-## systematic-overview.md: 0 
-## systematic-overviews-reliable.md: 0 
-## talk-at-ku.md: 0 
-## teaching-and-research.md: 0 
-## teaching-bootstrap.md: 1 21 images/teaching-bootstrap.png
-## ten-simple-rules.md: 0 
-## tessera.md: 1 23 images/tessera.png
-## text-data-into-sas.md: 0 
-## text-mining-with-r.md: 1 19 images/text-mining-with-r.png
-## the-survey-statistician.md: 1 22 images/the-survey-statistician.png
-## think-positively.md: 0 
-## tibbles.md: 1 24 images/tibbles.png
-## tied-ranks.md: 1 30 images/tied-ranks.png
-## too-many-priors.md: 0 
-## tribute-altman.md: 1 22 images/tribute-altman.png
-## triple-blind.md: 1 23 images/triple-blind.png
-## tripod-statement.md: 1 26 images/tripod-statement.png
-## trump-tweets.md: 1 20 images/trump-tweets.png
-## tshs-resource-portal.md: 1 21 images/tshs-resource-portal.png
-## turning-off-large-blocks.md: 0 
-## twelve-things.md: 1 22 images/twelve-things.png
-## twenty-tips.md: 1 27 images/twenty-tips.png
-## two-questions.md: 0 
-## ucla-software.md: 1 40 images/ucla-software.png
-## understanding-sql.md: 1 23 images/understanding-sql.png
-## unfinished-studies.md: 1 23 images/unfinished-studies.png
-## unpredictability-paradox.md: 1 28 images/unpredictability-paradox.png
-## unpublished-data-audit.md: 1 29 images/unpublished-data-audit.png
-## unthinking-approach.md: 0 
-## use-of-ehr-data.md: 1 22 images/use-of-ehr-data.png
-## using-bad-examples.md: 0 
-## using-big-data.md: 1 22 images/using-big-data.png
-## using-bugs.md: 1 70 images/using-bugs.png
-## using-mathtype.md: 4 25, 30, 36, 41 images/using-mathtype.png images/using-mathtype2.gif images/using-mathtype3.gif images/using-mathtype4.gif
-## validating-diabetes.md: 0 
-## waste-acronym.md: 1 20 images/waste-acronym.png
-## weird-characters.md: 0 
-## what-day-is-it.md: 0 
-## what-i-did.md: 0 
-## what-i-like.md: 0 
-## which-r-package.md: 0 
-## why-coincidences-happen.md: 1 22 images/why-coincidences-happen.png
-## why-independent.md: 1 21 images/why-independent.png
-## without-data.md: 0 
-## women-in-analytics.md: 1 29 images/women-in-analytics.png
-## women-in-science.md: 1 24 images/women-in-science.png
-## word-vector-embeddings.md: 1 20 images/word-vector-embeddings.png
-## writing-methods-section.md: 0 
-## xkcd-p-values.md: 0 
-## you-can-now-register.md: 0 
-## zero-in-table.md: 0 
-## zero-or-infinity.md: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0 
-## NA: 0</code></pre>
+<pre><code>## 17-years.md 
+## 2015-01-15 
+## Untagged
+## A widely quoted statistic is that it takes 17 years for research to find
+## it&#39;s way from the initial discovery to clinical practice. That statistic
+## has always bothered me. How do you know that it takes this long? How
+## could you measure such a thing? Wouldn&#39;t it depend on the type of
+## discovery? Apparently, I&#39;m not the only one bothered by this statistic.
+## The authors of this research paper looked at all the publications that
+## purported to estimate the time lag between discovery and clinical
+## adoption. They found that different authors used different markers for
+## the date of discovery and the date of clinical adoption. Furthermore,
+## reporting is poor, with little discussion of the variation in the
+## estimated time lag.
+## 
+## 8-tips.md 
+## 2014-05-03 
+## Graphical display
+## This slide show includes some examples of really bad (and a few really
+## good) graphics with some explanations of general principles for data
+## display.
+## 
+## a-lot-longer.md 
+## 2016-12-17 
+## Human side of statistics
+## Observational studies
+## Someone posted a question noting that most of the statistical consulting
+## projects that they worked on finished in a reasonable time frame, a few
+## were outliers. They took a lot longer and required a lot more effort by
+## the statisticians. Were there any common features to these outliers they
+## wondered. So they asked if anyone else had identified methodological
+## features of projects that went overtime. I only had a subjective
+## impression, but thought it was still worth sharing.
+## 
+## academic-consulting-centers.md 
+## 2019-06-08 
+## &quot;Human side of statistics&quot;
+## Over the years, some academic consulting centers have prospered and others have sputtered and faltered. Dr. Vance offers some thoughts on what consulting centers need to do in order to thrive in a changing world.
+## 
+## acceptable-response.md 
+## 2015-03-30 
+## Observational studies
+## Survey design
+## Dear Professor Mean, I review a lot of observational studies in the
+## literature, and I am concerned about the response rates and when they
+## fall so low that they tend to produce problems with selection bias. I&#39;ve
+## heard that anything lower than 80% is a problem. Is that
+## correct?
+## 
+## accessible-r-markdown.md 
+## 2018-10-23 
+## R software
+## Teaching resources
+## A class covering on-line teaching has reminded me about accessibility
+## issues. This includes accessibility for blind students who rely on
+## screen readers. This webpage post covers some of the very simple things
+## you can do that would make life a lot easier for students with impaired
+## vision.
+## 
+## adjusted-survival-curves.md 
+## 2018-05-20 
+## R software
+## Survival analysis
+## This is a nice overview of how to use R to adjust survival curves in an
+## observational study. It covers weighting and modeling with covariates
+## and criticizes several approaches.
+## 
+## adverse-events.md 
+## 2011-01-01 
+## Adverse events
+## &lt;div&gt;</code></pre>
+<pre><code>##    fil_list   dat_list
+## 1       268 2019-06-25
+## 2       382 2019-06-24
+## 3        70 2019-06-23
+## 4        72 2019-06-23
+## 5       205 2019-06-23
+## 6       483 2019-06-23
+## 7       491 2019-06-23
+## 8        71 2019-06-22
+## 9       118 2019-06-12
+## 10      225 2019-06-12
+## 11      533 2019-06-11
+## 12      232 2019-06-10
+## 13      504 2019-06-10
+## 14      146 2019-06-09
+## 15      413 2019-06-09
+## 16        4 2019-06-08
+## 17      420 2019-06-08
+## 18      418 2019-06-07
+## 19      505 2019-06-07
+## 20      106 2019-06-06</code></pre>
+<pre><code>## Accrual 
+## ---
+## title: &quot;Category: Accrual&quot;
+## author: &quot;Steve Simon&quot;
+## output: html_document
+## ---
+## 
+## [(2017-05-05) PMean: Extremely imbalanced multi-center trials](../imbalanced-multi-center-trials.html)
+## There was some recent discussion of issues with multi-center trials
+## where one center dominates, contributing as much as 94% of all the
+## patients. What does this do to the generalizability of the study. I
+## wanted to summarize these comments here, because it relates to some of
+## the issues I&#39;m looking at right now in accrual models for multi-center
+## trials.
+## 
+## [(2017-05-05) Recommended: One in Five Clinical Trials for Adults with Cancer Never Finish](../unfinished-studies.html)
+## This is a research summary of a study that found one out of every five
+## cancer trials that &quot;did not finish&quot; which actually means that they
+## stopped early for futility, if I am reading between the lines properly.
+## Of those studies, 40% stopped early because of poor
+## accrual.
+## 
+## [(2015-09-21) PMean: A non-technical answer to why we need Markov Chain Monte Carlo](../non-technical-mcmc.html)
+## Someone was looking for examples of illustrative examples to help
+## explain to people without a statistical background how MCMC methods can
+## be applied to help solve real world problems. I offered up some general
+## advice and some of my own research as an example.
+## 
+## [(2014-02-15) PMean: Summary of my research interest in patient accrual in clinical trials.](../summary-of-my-research.html)
+## My boss at UMKC (I&#39;m part-time at UMKC and part-time independent
+## statistical consultant) asked me for one of those &quot;summarize the
+## research you&#39;ve been working on&quot; so she could mention all the work being
+## done by our Department for a talk she&#39;s giving. Recently, I&#39;ve been
+## focused almost exclusively on one thing, and although she knew it very
+## well, I sent her a summary anyway. Then, I thought, why not share the
+## same summary on my blog. Maybe you&#39;re curious or maybe you might be
+## interested in collaborating. So here&#39;s my summary about my work on
+## Bayesian models for patient accrual in clinical trials.
+## 
+## [(2011-01-01) Archive: Accrual problems in clinical trials](../archive-accrual.html)
+## You can find my blog posts about accrual problems at: 
+## Adverse events 
+## ---
+## title: &quot;Category: Adverse events&quot;
+## author: &quot;Steve Simon&quot;
+## output: html_document
+## ---
+## 
+## [(2011-01-01) Archive: Adverse events in clinical trials](../adverse-events.html)
+## &lt;div&gt; 
+## Analysis of means 
+## ---
+## title: &quot;Category: Analysis of means&quot;
+## author: &quot;Steve Simon&quot;
+## output: html_document
+## ---
+## 
+## [(2011-01-01) Archive: Analysis of Means](../analysis-of-means.html)
+## &lt;div&gt; 
+## Analysis of variance 
+## ---
+## title: &quot;Category: Analysis of variance&quot;
+## author: &quot;Steve Simon&quot;
+## output: html_document
+## ---
+## 
+## [(2014-03-12) PMean: Estimating the efficiency of a completely randomized block design](../efficiency-of-block-design.html)
+## I needed to look up a formula for the estimating the relative efficiency
+## to a completely randomized block design to a design without blocking.
+## 
+## 
+## [(2011-01-01) Archive: Analysis of variance](../analysis-of-variance.html)
+## You can find my blog posts about analysis of variance (ANOVA) at 
+## Bayesian statistics 
+## ---
+## title: &quot;Category: Bayesian statistics&quot;
+## author: &quot;Steve Simon&quot;
+## output: html_document
+## ---
+## 
+## [(2018-07-05) Recommended: Bayesian meta-analysis of two proportions in random control trials](../bayesian-meta-analysis.html)
+## I got a question about Bayesian meta-analysis and found this nice
+## teaching example. I&#39;m not sure if the graphs are from the [R package
+## bayesmeta](https://arxiv.org/abs/1711.08683), but it looks like
+## it.
+## 
+## [(2017-01-28) PMean: How to run your first Bayesian analysis using jags software in R](../first-jags.html)
+## Someone wanted to know how to run a Bayesian data analysis for a two
+## group longitudinal study. There are several ways you can do this, but I
+## had to confess I did not have an immediate answer. So I took some time
+## to figure out how to do this using jags software inside of R. I&#39;ve done
+## a fair amount of stuff in jags, but not anything close to a longitudinal
+## design. The general principle is to start with something easy and work
+## your way slowly up to the final analysis.
+## 
+## [(2016-06-13) PMean: Can you recommend an introductory book on Bayesian Statistics](../bayesian-book.html)
+## I got an email asking for a recommendation for an introductory book on
+## Bayesian Statistics from someone who recently graduated from our
+## program. It&#39;s kind of a difficult request because the mathematical
+## demands needed to understand Bayesian statistics are not trivial. Here&#39;s
+## what I recommended.
+## 
+## [(2016-05-31) PMean: Too many different prior choices for the hierarchical beta binomial model](../too-many-priors.html)
+## I&#39;m interested in studying how Bayesian hierarchical models work and I
+## want to start with what seems like the simplest case, the hierarchical
+## beta-binomial model. It&#39;s actually not that simple, it seems. There are
+## too many choices for the hyperprior that you use in this
+## setting.
+## 
+## [(2016-04-28) Recommended: Bayesian computing with INLA](../inla.html)
+## This page promotes a new approach to a broad class of models
+## (spatio-temporal models, latent variable models, mixed models) using a
+## fast approximation to the Bayesian solution. It runs under R and appears
+## to handle very large datasets. I have not had a chance to try this, but
+## it looks very interesting.
+## 
+## [(2015-02-24) Recommended: Editorial (Basic and Applied Social Psychology)](../basp-editorial.html)
+## Recommended does not always mean that I agree with what&#39;s written. In
+## this case, it means that this is something that is important to read
+## because it offers an important perspective. And this editorial offers
+## the perspective that all p-values and all confidence intervals are so
+## fatally flawed that they are banned from all future publications in this
+## journal. The editorial goes further to criticize most Bayesian methods
+## because of the problems with the &quot;Laplacian assumption.&quot; The editorial
+## authors have trouble with some of the ambiguities associated with
+## creating a non-informative prior distribution that is, a prior
+## distribution that represents a &quot;state of ignorance.&quot; They will accept
+## Bayesian analyses on a case by case basis. Throwing out most Bayesian
+## analyses, all p-values, and all confidence intervals makes you wonder
+## what they will accept. They suggest larger than typical sample sizes,
+## strong descriptive statistics (which they fail to define), and effect
+## sizes. They believe that by &quot;banning the NHSTP will have the effect of
+## increasing the quality of submitted manuscripts by liberating authors
+## from the stultified structure of NHSTP thinking thereby eliminating an
+## important obstacle to creative thinking.&quot; It&#39;s worth debating this
+## issue, though I think that these recommendations are far too
+## extreme.
+## 
+## [(2014-07-24) PMean: What is the probability of a probability of one](../probability-of-a-probability-of-one.html)
+## Someone wrote asking me about a variation of the &quot;Rule of Three&quot;. This
+## rule says that if you observe zero events out of n, an upper 95%
+## confidence limit for n is approximately 3/n. So suppose you operated on
+## 10 patients and none of them died after surgery. Then you would be 95%
+## confident that the mortality rate would be 30% (3/10) or less. This
+## person asked &quot;Suppose I repeatedly sample from a population and every
+## patient in the sample was a G. What is the how likely is it that the
+## entire population is Gs?&quot; This flips the problem around, and is
+## equivalent to saying that the probability of survival is 97% or greater.
+## But this person wanted an estimate of the probability that the
+## probability in the population is 1.
+## 
+## [(2014-05-03) PMean: Using BUGS within the R programming environment](../using-bugs.html)
+## I am giving a talk today for the Kansas City R Users group about BUGS
+## (Bayes Using Gibbs Sampler). I have already written extensively about
+## BUGS and the interface to BUGS from within the R programming
+## environment, and you can find these on [my category page for Bayesian
+## statistics](http://www.pmean.com/category/BayesianStatistics.html). Here
+## is a quick overview of why you might want to use BUGS and how you would
+## use it. I&#39;ve included links to the relevant pages on my website so you
+## can explore this topic further on your own.
+## 
+## [(2013-12-09) PMean: Is Possibility Theory better than Probability Theory?](../possibility-theory.html)
+## Someone on a LinkedIn group posted a question about &quot;Possibility
+## Theory.&quot; The question itself had a lot of hype, claiming that &quot;time has
+## expired for Probability Theory.&quot; Still, it is an interesting question
+## and here&#39;s how I responded.
+## 
+## [(2013-12-04) PMean: The cost of a bad prediction](../bad-prediction.html)
+## Paul Krugman wrote up an interesting application of Bayes Theorem on his
+## blog on the New York Times. I want to adapt his example and expand it a
+## bit.
+## 
+## [(2013-11-28) Recommended: Revised standards for statistical evidence](../revised-standards.html)
+## This article compares the Bayesian standard of what constitutes
+## convincing evidence to the frequentist reliance on the p-value to
+## measure evidence. The author concludes that a much smaller p-value
+## (0.005 or 0.001) is needed to be consistent with the Bayesian standard.
+## 
+## 
+## [(2011-01-01) Archive: Bayesian statistics](../bayesian-statistics.html)
+## You can find my blog posts about Bayesian statistics at 
+## Big data 
+## ---
+## title: &quot;Category: Big data&quot;
+## author: &quot;Steve Simon&quot;
+## output: html_document
+## ---
+## 
+## [(2019-04-25) Recommended: Data science curriculum roadmap](../data-science-curriculum.html)
+## How do you teach data science? That&#39;s not an easy question, because data
+## science means different things to different people. This site shows
+## different curricula depending on what you want your program to
+## emphasize.
+## 
+## [(2019-04-16) Recommended: When Big Data goes to school](../big-data-goes-to-school.html)
+## File this under the &quot;dark side&quot; of data science. Alfie Kohn is a critic
+## of many of the motivational methods used in business and education, and
+## he makes many good points in this blog post about relying on readily
+## available data without questioning its quality.
+## 
+## [(2019-03-25) Recommended: Data Science Has Become About Lending False Credibility To Decisions We&#39;ve Already Made](../lending-false-credibility.html)
+## A rather harsh and cynical take on data science, but still worth
+## reading. Let me share a story about this. Back in my college days (that
+## would be the 1970s), someone found a New Yorker cartoon and shared it
+## with me. It showed a politician, obviously a very powerful politician
+## because his office had a view of the Washington Monument. He was
+## speaking to his aide &quot;That&#39;s the gist of what I want to say. Now go and
+## find me some statistics to base it on.&quot; So the issues that this person
+## brings up are no different than those from four decades ago. There&#39;s no
+## easy solution to the problem. You can&#39;t say, &quot;I&#39;ll only work with people
+## who have a commitment to the truth, no matter where it might lead&quot;
+## because even people without strong overt biases still have subtle biases
+## that can profoundly skew the results. Requiring a priori specifications
+## and reserving a hold out sample for a final quality check can help, but
+## mostly it is just being careful and detail oriented and transparent in
+## all your work.
+## 
+## [(2019-03-15) Recommended: A systematic review shows no performance benefit of machine learning over logistic regression for clinical prediction models](../machine-learning-vs-logistic-regression.html)
+## This is one of those articles where you have to restrain yourself. Its
+## message, that good old statistical tools like logistic regression can
+## perform as well as these new fangled machine learning approaches that
+## you haven&#39;t taken the time to learn, is quite tempting. But I&#39;d be
+## cautious here. Maybe logistic regression is still competitive, but maybe
+## the systematic overview got a bunch of biased studies. It&#39;s worthwhile
+## to cite this whenever someone makes an overly strong claim about machine
+## learning models, but don&#39;t use this as an excuse to keep from learning
+## the new stuff yourself. This article is stuck behind a paywall.
+## Sorry!
+## 
+## [(2019-02-14) Cartoon: Some good predictive analytics software...](../predictive-analytics-software.html)
+## ![Screenshot of article/website](images/predictive-analytics-software.jpeg)
+## 
+## [(2019-01-20) Quote: In a world where the price of calculation continues to decrease rapidly...](../price-of-calculation.html)
+## &quot;In a world where the price of calculation continues to decrease
+## 
+## [(2019-01-09) Recommended: How a Feel-Good AI Story Went Wrong in Flint](../ai-story.html)
+## Building a great statistical model does no one any good if it doesn&#39;t
+## pay attention to non-statistical issues. This story talks about a
+## machine learning model to identify which houses in Flint Michagan that
+## were the best candidates for removal of lead pipes. The model worked
+## fairly well, but came up against problems like individual city council
+## members wanting to assure their constituents that enough was being done
+## in their district. I&#39;m not sure what the actual moral of this story is,
+## but it does serve as a warning to be careful when you are modeling data
+## in a contentous area.
+## 
+## [(2018-08-13) PMean: The Dark Side of Data Science](../dark-side.html)
+## I&#39;m planning to give a talk on &quot;The Dark Side of Data Science&quot; and I&#39;m
+## hoping to get some interesting references and articles from my
+## colleagues. Here is a first draft of my abstract, with a few references
+## that I am already familiar with.
+## 
+## [(2018-08-01) Recommended: Practical deep learning for coders](../deep-learning-mooc.html)
+## This is a MOOC (Massive Open Online Course) covering deep learning
+## models. I have not taken it, but it comes highly recommended by others.
+## It uses Python as the underlying language.
+## 
+## [(2018-08-01) Recommended: GloVe word vector embeddings](../word-vector-embeddings.html)
+## When you are working with text mining, you might want to reduce the
+## dimensionality of your problem. The word2vec algorithm, developed by
+## Tomas Mikolov and others at Google, offers a nice approach. This page
+## shows how to apply this algorithm within R.
+## 
+## [(2018-06-28) Recommended: Microsoft is creating an oracle for catching biased AI algorithms](../biased-algorithms.html)
+## Artificial Intelligence (AI) algorithms that are used for crime
+## detection, loan approvals, and employee evaluations are considered by
+## many to be objective, but they can sometimes have many of the same
+## prejudices and biases that human evaluators have. Given the opacity of
+## many black box approaches to AI, this could lead to serious problems
+## with fairness and equity. This article discusses an admittedly imperfect
+## approach by Microsoft to evaluate these AI algorithms using (surprise!)
+## an AI algorithm. It flags situations where an algorithm appears to have
+## problems with unfair differential treatmentsÂ  based on race, gender, or
+## age.
+## 
+## [(2018-06-09) PMean: Big data groups at UMKC and UM/Columbia](../big-data-missouri.html)
+## I was at a meeting where I learned about some recent efforts with big
+## data at the University of Missouri-Kansas City and the University of
+## Missouri/Columbia. Here&#39;s a brief description along with
+## links.
+## 
+## [(2018-04-03) Recommended: Statistical and Machine Learning forecasting methods: Concerns and ways forward](../machine-learning-comparison.html)
+## At first glance, you might think that this article looks like a
+## vindication of traditional statistics. Classical time series models
+## (methods that were available in the 1960â€²s) outperform newer machine
+## language forecasting models. Then, you might worry that the comparisons
+## were unfair. But neither viewpoint is accurate. The classical time
+## series models have certain structural advantages for certain types of
+## problems, but you might be better off with machine learning if you use
+## classical time series as a preprocessing step, such as de-seasonalizing
+## your data. If nothing else, this article provides a nice overview of
+## some of the major machine learning methods.
+## 
+## [(2018-03-25) PMean: Two articles published in the Encyclopedia of Big Data](../encyclopedia-of-big-data.html)
+## I don&#39;t call myself a &quot;big data&quot; analyst, but when a call went out
+## seeking authors for various topics for the Encyclopedia of Big Data, I
+## volunteered to write two articles. Here are the details.
+## 
+## [(2018-03-23) Recommended: Welcome to developerWorks](../developer-works.html)
+## I got this recommendation from a friend. IBM has a large number of free
+## resources explaining things like cloud computing and blockchain. I&#39;m
+## most interested in their section on analytics. There&#39;s a nice
+## introduction, for example, to natural language processing.
+## 
+## [(2018-01-26) PMean: My work on a CTSA grant](../ctsa-grant.html)
+## I&#39;m on a [Clincal and Translational Science Award
+## (CTSA)](https://en.wikipedia.org/wiki/Clinical_and_Translational_Science_Award)
+## research grant ([5UL1TR000001-05, formerly
+## 1U54RR031295-01A1](https://projectreporter.nih.gov/project_info_description.cfm?aid=8869065&amp;icde=37857866&amp;ddparam=&amp;ddvalue=&amp;ddsub=&amp;cr=1&amp;csb=default&amp;cs=ASC&amp;MMOpt=)),
+## which is pretty cool. My name is even mentioned a few times in the
+## grant. I thought that as I plan what I would do for this grant, I would
+## see what the grant promised and write down what, exactly, that those
+## promises mean. As I talk with various people (especially [Russ
+## Waitman](http://www.kumc.edu/ea-mi/faculty-and-staff-directory/director-of-medical-informatics-russ-waitman-phd.html),
+## who is supervising my work on this grant), I will revise and update my
+## plans. Still, I thought it would be valuable to put some thoughts down
+## now, both to help me focus on what I should be doing and to offer an
+## early draft of those ideas to the various people that I will end up
+## interacting with.
+## 
+## [(2018-01-02) Recommended: The Origins of &#39;Big Data&#39;](../origins-of-big-data.html)
+## I&#39;m not a big fan of the term &quot;big data&quot; but I&#39;ve been applying for a
+## couple of jobs that ask for expertise in big data instead of expertise
+## in Statistics. So in one of the cover letters, I wrote that I was doing
+## big data analysis before the term was even coined. That forced me to do
+## a quick fact check, and it looks like the term first came into wide use
+## in the late 1990s. Here&#39;s an article on the person who first coined the
+## term &quot;big data.&quot;
+## 
+## [(2017-11-27) Recommended: Can A.I. be taught to explain itself](../explain-ai.html)
+## This is a nice article in the popular press that talks about some of the
+## problems with &quot;black box&quot; models (in particular deep neural nets) used
+## extensively in many big data projects. It is a bit shy on technical
+## details, which is understandable for a paper like the New York Times.
+## Even so, the stories are quite intriguing. This is a wake up call for
+## those people who fail to recognize the serious problems with many big
+## data models.
+## 
+## [(2017-11-15) Recommended: beanumber repository](../beanumber-repository.html)
+## This is the github repository of Ben Baumer. He is one of the co-authors
+## of &quot;Modern Data Science with R&quot; and the data and code from that book is
+## available here. He also provides code and data for OpenWAR, an open
+## source method for calculating a baseball statistic, Wins Above
+## Replacement. Finally, there is an R library for extracting,
+## transforming, and loading &quot;medium&quot; sized datasets into SQL. Medium here
+## means multi-gigabyte sized files. Related to this are a couple of
+## &quot;medium&quot; sized data sets from the Internet Movie Database and from the
+## NYC CitiBike dataset.
+## 
+## [(2017-11-15) Recommended: Teaching precursors to data science in introductory and second courses in statistics](../precursors-to-data-science.html)
+## This paper talks about how to get students to think about large
+## databases in an introductory class that normally uses &quot;toy&quot; problems
+## with a few dozen rows of data.
+## 
+## [(2017-05-18) Recommended: This is your machine learning system?](../machine-learning.html)
+## ![](../../imgs.xkcd.com/comics/machine_learning.png)
+## 
+## [(2017-05-02) Recommended: ROSE: A package for binary imbalanced learning](../binary-imbalanced-learning.html)
+## Logistic regression and other statistical methods for predicting a
+## binary outcome run into problems when the outcome being tested is very
+## rare, even in data sets big enough to insure that the rare outcome
+## occurs hundreds or thousands of times. The problem is that attempts to
+## optimize the model across all of the data will end up looking
+## predominantly at optimizing the negative cases, and could easily ignore
+## and misclassify all or almost all of the positive cases since they
+## consistute such a small percentage of the data. The ROSE package
+## generates artificial balanced samples to allow for better estimation and
+## better evaluation of the accuracy of the model.
+## 
+## [(2017-04-13) Recommended: How Bright Promise in Cancer Testing Fell Apart](../cancer-testing.html)
+## A nice overview of the problems with shoddy research in genetics
+## testing. It highlights the work of &quot;forensic statistics&quot; of Keith
+## Baggerly and Kevin Coombes.
+## 
+## [(2017-04-13) Recommended: Genetics: Clues in the code](../nicholas-volker.html)
+## If you want to understand the value of genomic medicine, you can learn a
+## lot by reviewing the case of Nicholas Volker, one of the first success
+## stories in this area. Here&#39;s a nice review.
+## 
+## [(2017-04-13) Recommended: Standards and guidelines for the interpretation of sequence variants](../sequence-variants.html)
+## This article outlines a standardized way to describe genetic variants.
+## 
+## 
+## 
+## [(2017-02-23) Recommended: Text Mining with R](../text-mining-with-r.html)
+## This is an O&#39;Reilly book (cute animal on the cover is a rabbit) that is
+## available online for free. It&#39;s a great resource for someone just
+## getting started with text mining.
+## 
+## [(2016-05-16) PMean: Examining the storage format for sparse matrices in R](../sparse-matrices.html)
+## I&#39;ve been working with sparse matrices a bit for my work with the
+## Greater Plains Collaborative. They are a very useful way of storing
+## matrices where most of the entries are zero. This occurs quite often in
+## medical data. There are thousands of medical procedures that you can
+## torture your patients with, so any matrix that has indicator variables
+## for every medical procedure will be quite big. Fortunately, both for us
+## and for the patients, the number of procedures that a particular patient
+## has to endure is quite a bit smaller. So for each row of the matrix, the
+## number of non-zero entries will be very small, probably in the single
+## digits. A sparse matrix will be much smaller because it stores only the
+## location of the non-zero entries. Here&#39;s some R code that shows how this
+## works. I have the [code](https://github.com/pmean/sparse-matrices)
+## available at my [new github
+## site](https://github.com/pmean).
+## 
+## [(2015-01-12) Recommended: Tessera. Open source environment for deep analysis of large complex data](../tessera.html)
+## I have not had time to preview this software, but it looks very
+## interesting, It takes large problems and converts them to a form for
+## parallel processing, not by changing the underlying algorithm, which
+## would be very messy, but by splitting the data into subsets, analyzing
+## each subset, and recombining these results. Such a method &quot;Divide and
+## Recombine&quot; should work well for some analysis, but perhaps not so well
+## for others. It is based on the R programming language. If I get a chance
+## to work with this software, I&#39;ll let you know what I think.
+## 
+## [(2014-07-14) Recommended: Special issue--Using Big Data to Transform Care](../using-big-data.html)
+## The July 2014 issue of Health Affairs is devoted entirely to &quot;big
+## data&quot;.Â  The articles provide a general overview to big data, several
+## applications of big data, big data and genomics, use of electronic
+## health records, and ethical issues including privacy concerns. For now,
+## at least, the articles are available for free to any user.
+## 
+## [(2014-04-08) Recommended: More on Big Data Training for the Scientific Workforce](../big-data-training.html)
+## The United States National Institutes for Health is very interested in
+## big data and has developed a working group, Big Data to Knowledge
+## (BD2K). This blog post from Sally Rockey, the Deputy Director for
+## Extramural Research, summarizes some of the recent activity of
+## BD2K.
+## 
+## [(2014-02-24) PMean: NIH is interested in big data](../nih-big-data.html)
+## The National Institutes of Health has shown a recent interest in &quot;big
+## data.&quot; You can define big data in several ways, but a common
+## characteristic is the three V&#39;s. Big data takes up a lot of space
+## (volume) and/or it comes at you very rapidly (velocity) and/or it comes
+## in a wide range of differing formats (variety). One of the recent
+## Requests for Applications (RFAs) from NIH spells out what types of
+## research into big data that they are interested in seeing. I might be
+## interested in applying, and would love to find some collaborators.
+## Here&#39;s a summary of what the RFA is all about. 
+## Blinding in research 
+## ---
+## title: &quot;Category: Blinding in research&quot;
+## author: &quot;Steve Simon&quot;
+## output: html_document
+## ---
+## 
+## [(2017-04-11) Recommended: Blind analysis: Hide results to seek the truth](../triple-blind.html)
+## This paper advocates something I would call a triple blind, keeping the
+## doctor, the patient, and the statistician who analyzes the data in the
+## dark as to which treatment group is which. This avoids problems where
+## the people analyzing the data will either consciously or subconsciously
+## manipulate the data to get a preferred result. Interesting idea, though
+## it represents an awful amount of work to pull it off.
+## 
+## [(2015-12-02) Recommended: Safeguarding Patients in Clinical Trials with High Mortality Rates](../safeguarding.html)
+## This is an article the I would trot out if anyone tried to argue that a
+## Data Safety and Monitoring Board should, like the investigators, be
+## blinded as to treatment status during their deliberations. 
+## Bootstrap 
+## ---
+## title: &quot;Category: Bootstrap&quot;
+## author: &quot;Steve Simon&quot;
+## output: html_document
+## ---
+## 
+## [(2014-11-24) Recommended: What Teachers Should Know about the Bootstrap: Resampling in the Undergraduate Statistics Curriculum](../teaching-bootstrap.html)
+## Tim Hesterberg has been a long time advocate of the use of the
+## bootstrap. In this article, he provides a nice general overview of the
+## bootstrap with examples of how it works in several common settings that
+## might be covered in an introductory level statistics class. 
+## Cheat sheet 
+## Clinical importance 
+## Cluster computing 
+## Complex surveys 
+## Confidence intervals 
+## Critical appraisal 
+## Data management 
+## Data quality 
+## Data sharing 
+## Datasets 
+## Dates 
+## Diagnostic testing 
+## Early stopping 
+## Electronic health records 
+## Epidemiology 
+## Ethics in research 
+## Exploratory data analysis 
+## Fraud in research 
+## Geocoding 
+## Grant writing 
+## Graphical display 
+## Graphical display 
+## Human side of statistics 
+## Human side of statistics 
+## Humor 
+## Hypothesis testing 
+## i2b2 
+## Important statisticians 
+## Important statisticians 
+## Informatics 
+## Integrated development environment 
+## Linear regression 
+## Logistic regression 
+## Longitudinal data 
+## Measuring agreement 
+## Measuring benefit and risk 
+## Missing data 
+## Multilevel models 
+## Network analysis 
+## nonlinear regression 
+## Nonparametric tests 
+## Observational studies 
+## Open source 
+## Ordinal data 
+## Outliers 
+## Personal details 
+## Pilot studies 
+## Placebos 
+## Post hoc power 
+## Presenting research data 
+## Probability concepts 
+## Professional details 
+## Publication bias 
+## Python 
+## Qualitative research 
+## Qualitative research 
+## Quality improvement 
+## Quality improvement 
+## R programming 
+## R programming,SAS programming 
+## R software 
+## Randomization 
+## Raspberry Pi 
+## Reproducible research 
+## Research design 
+## Risk adjustment 
+## Sample size 
+## SAS programming 
+## SAS software 
+## Secondary data analysis 
+## SPSS 
+## SPSS software 
+## SQL 
+## Stata software 
+## Statistical computing 
+## Statistical models 
+## Structural Equation Modeling 
+## Survey design 
+## Survival analysis 
+## Systematic overviews 
+## Teaching resources 
+## Teaching resources 
+## Text mining 
+## Untagged 
+## Writing research papers</code></pre>
 
 
 
