@@ -148,6 +148,8 @@ for (i_file in 1:n_files) {
 }
 ```
 
+## Step 3. Produce an index
+
 ```{r produce index, eval=FALSE} 
 o <- rev(order(bib_dates))
 bib_dates <- bib_dates[o]
@@ -157,6 +159,10 @@ for (i in 1:bib_count) {
   txt_full[[i]] <- txt_original[[o[i]]]
 }
 ```
+
+## Step 4. Add a footer
+
+## Step 5. Convert to html
 
 Save everything.
 
