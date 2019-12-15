@@ -369,70 +369,266 @@ summary {
 </div>
 
 
-<pre class="r"><code>knitr::opts_chunk$set(echo=FALSE)
-source(file=&quot;prelims.R&quot;, echo=FALSE)
-verbose &lt;- TRUE</code></pre>
-<pre><code>##  [1] &quot;bates-nodate.bib&quot;     &quot;broman-2013.bib&quot;      &quot;brooks-2015.bib&quot;     
-##  [4] &quot;damschroder-2009.bib&quot; &quot;flottorp-2013.bib&quot;    &quot;foy-2007.bib&quot;        
-##  [7] &quot;hemedinger-2016.bib&quot;  &quot;hemken-2019.bib&quot;      &quot;kirk-1991.bib&quot;       
-## [10] &quot;legler-2010.bib&quot;      &quot;matloff-2014.bib&quot;     &quot;mcculloch-1985.bib&quot;  
-## [13] &quot;morganstein-2014.bib&quot; &quot;nilsen-2015.bib&quot;      &quot;niu-2016.bib&quot;        
-## [16] &quot;sas-2019.bib&quot;         &quot;sas-2019a.bib&quot;        &quot;simkin-1987.bib&quot;     
-## [19] &quot;umkc-2019.bib&quot;        &quot;umkc-2019a.bib&quot;       &quot;vance-2014.bib&quot;      
-## [22] &quot;vance-2014a.bib&quot;      &quot;vance-2015.bib&quot;       &quot;weiner-2009.bib&quot;     
-## [25] &quot;wu-2018.bib&quot;</code></pre>
+<div id="step-1.-find-the-.bib-files" class="section level2">
+<h2>Step 1. Find the .bib files</h2>
+<pre class="r"><code>bib_names &lt;- NULL
+r1_names &lt;- NULL
+r1_root &lt;- &quot;c:/Users/steve/Dropbox/professional/web/r1/19&quot;
+for (i_month in c(&quot;05&quot;, &quot;06&quot;, &quot;07&quot;, &quot;10&quot;, &quot;11&quot;, &quot;12&quot;)) {
+  r1_path &lt;- r1_root %s% i_month
+  f0 &lt;- list.files(path=r1_path, pattern=&quot;*.nbib&quot;)
+  f1 &lt;- list.files(path=r1_path, pattern=&quot;*.bib&quot;)
+  fn &lt;- setdiff(f1, f0)
+  r1_names %&lt;&gt;% append(fn)
+  bib_names %&lt;&gt;% append(r1_path %s% fn)
+}
+if (verbose) print(r1_names)</code></pre>
+<pre><code>##  [1] &quot;imsdb.bib&quot;                       &quot;krishevsky2017.bib&quot;             
+##  [3] &quot;liu2016.bib&quot;                     &quot;bates-nodate.bib&quot;               
+##  [5] &quot;broman-2013.bib&quot;                 &quot;brooks-2015.bib&quot;                
+##  [7] &quot;damschroder-2009.bib&quot;            &quot;flottorp-2013.bib&quot;              
+##  [9] &quot;foy-2007.bib&quot;                    &quot;hemedinger-2016.bib&quot;            
+## [11] &quot;hemken-2019.bib&quot;                 &quot;kirk-1991.bib&quot;                  
+## [13] &quot;legler-2010.bib&quot;                 &quot;matloff-2014.bib&quot;               
+## [15] &quot;mcculloch-1985.bib&quot;              &quot;morganstein-2014.bib&quot;           
+## [17] &quot;nilsen-2015.bib&quot;                 &quot;niu-2016.bib&quot;                   
+## [19] &quot;sas-2019.bib&quot;                    &quot;sas-2019a.bib&quot;                  
+## [21] &quot;simkin-1987.bib&quot;                 &quot;umkc-2019.bib&quot;                  
+## [23] &quot;umkc-2019a.bib&quot;                  &quot;vance-2014.bib&quot;                 
+## [25] &quot;vance-2014a.bib&quot;                 &quot;vance-2015.bib&quot;                 
+## [27] &quot;weiner-2009.bib&quot;                 &quot;wu-2018.bib&quot;                    
+## [29] &quot;machine-learning-repository.bib&quot; &quot;sharma-2002.bib&quot;                
+## [31] &quot;war-data.bib&quot;                    &quot;gill-2018.bib&quot;                  
+## [33] &quot;li-2007.bib&quot;                     &quot;lundberg-2017.bib&quot;              
+## [35] &quot;lundberg-2018.bib&quot;               &quot;ribeiro-2016.bib&quot;               
+## [37] &quot;shihipar 2019.bib&quot;               &quot;singer-2019.bib&quot;                
+## [39] &quot;cook-2008.bib&quot;                   &quot;data-builder.bib&quot;               
+## [41] &quot;davenport-2012.bib&quot;              &quot;dwivedi 2019.bib&quot;               
+## [43] &quot;gamble 2017.bib&quot;                 &quot;nightingale-day.bib&quot;            
+## [45] &quot;recurrent-neural-networks.bib&quot;</code></pre>
+<pre class="r"><code>n_names &lt;- length(r1_names)
+r3_path &lt;- &quot;c:/Users/steve/Dropbox/professional/web/r3&quot;</code></pre>
+</div>
+<div id="step-2.-read-each-.bib-file-and-convert-to-.md-file" class="section level2">
+<h2>Step 2. Read each .bib file and convert to .md file</h2>
+<p>First, set up the general structure.</p>
+<pre class="r"><code>yaml_divider &lt;- &#39;---&#39;
+marks &lt;- c(
+  &quot;title = &quot;,
+  &quot;urldate = &quot;,
+  &quot;mendeley-tags = &quot;,
+  &quot;annote = &quot;,
+  &quot;url = &quot;,
+  &quot;pdf = &quot;,
+  &quot;@&quot;
+)
+default_marks &lt;- c(
+  &quot;No title&quot;,
+  &quot;1999-09-09&quot;,
+  &quot;Untagged&quot;,
+  &quot;No commentary&quot;,
+  &quot;No html link&quot;,
+  &quot;No PDF link&quot;,
+  &quot;No short name&quot;
+)
+n_marks &lt;- length(marks)</code></pre>
+<p>Create bib_info, a matrix of information about the individual .bib files.</p>
+<pre class="r"><code>bib_cats &lt;- c(
+  &quot;ttl&quot;,
+  &quot;dat&quot;,
+  &quot;tag&quot;,
+  &quot;not&quot;,
+  &quot;url&quot;,
+  &quot;pdf&quot;,
+  &quot;nam&quot;,
+  &quot;png&quot;
+)
+n_cats &lt;- length(bib_cats)
+bib_info &lt;- matrix(&quot;&lt;&lt;empty&gt;&gt;&quot;, nrow=n_names, ncol=n_cats)
+dimnames(bib_info)[[2]] &lt;- bib_cats</code></pre>
+<p>Populate bib_info</p>
+<pre class="r"><code>read_bib &lt;- function(fn) {readLines(r1_path %s% r1_names[i_file])}
+
+select_txt &lt;- function(txt, lab, def) {
+  txt %&gt;% 
+    gsub(&quot;{{&quot;, &quot;{&quot;, .    , fixed=TRUE) %&gt;%          # remove double bracket
+    gsub(&quot; {&quot;, &quot;{&quot;, .    , fixed=TRUE) %&gt;%          # remove leading blank
+    gsub(&quot; =&quot;, &quot;=&quot;, .    , fixed=TRUE) %&gt;%          # remove leading blank
+    gsub(&quot;= &quot;, &quot;=&quot;, .    , fixed=TRUE) %&gt;%          # remove trailing blank
+    grep(lab, ., value=TRUE) -&gt; lin 
+  if (length(lin) == 0) {
+    if (verbose) {cat(&quot;,&quot;, def)}
+    return(def)
+  }
+  lin %&gt;%
+    remove_ch(&#39;article{&#39; , fixed=TRUE) %&gt;%
+    remove_ch(&#39;book{&#39;    , fixed=TRUE) %&gt;%
+    remove_ch(&#39;misc{&#39;    , fixed=TRUE) %&gt;%
+    remove_ch(&#39;,.*?$&#39;    , fixed=TRUE) %&gt;%          # remove from comma to end
+    remove_ch(&#39;&quot;&#39;        , fixed=TRUE) %&gt;%          # remove quote marks
+    remove_ch(&#39;^\\s*&#39;                ) %&gt;%          # remove trailing spaces
+    remove_ch(&quot;^&quot; %0% lab            ) %&gt;%          # remove label
+    remove_ch(&#39;^\\{&#39;                 ) %&gt;%          # remove left curly bracket
+    remove_ch(&#39;\\}&#39;                  ) %&gt;%          # remove right curly bracket
+    remove_ch(&#39;\\s*$&#39;                ) %&gt;%          # remove trailing blanks
+    remove_ch(&#39;,$&#39;                   ) -&gt; selection # remove trailing comma
+  if (is.null(selection)) return(&quot;&quot;)
+  return(paste0(selection, collapse=&quot;; &quot;))
+}</code></pre>
+<pre class="r"><code>txt_original &lt;- as.list(1:n_names)
+for (i_file in 1:n_names) {
+  if (verbose) {cat(&quot;\n&quot;, r1_names[i_file], sep=&quot;&quot;)}
+  tx &lt;- readLines(bib_names[i_file])
+  txt_original[[i_file]]  &lt;- tx
+
+  bib_info[i_file, &quot;ttl&quot;] &lt;- select_txt(tx, &quot;title=&quot;        , &quot;No title&quot;)
+  bib_info[i_file, &quot;dat&quot;] &lt;- select_txt(tx, &quot;urldate=&quot;      , &quot;No date&quot;)
+  bib_info[i_file, &quot;tag&quot;] &lt;- select_txt(tx, &quot;mendeley-tags=&quot;, &quot;No tags&quot;)
+  bib_info[i_file, &quot;not&quot;] &lt;- select_txt(tx, &quot;annote=&quot;       , &quot;No notes&quot;)
+  bib_info[i_file, &quot;url&quot;] &lt;- select_txt(tx, &quot;url=&quot;          , &quot;No html&quot;)
+  bib_info[i_file, &quot;pdf&quot;] &lt;- select_txt(tx, &quot;pdf=&quot;          , &quot;No pdf&quot;)
+  bib_info[i_file, &quot;nam&quot;] &lt;- select_txt(tx, &quot;@&quot;             , &quot;No name&quot;)
+  
+  bib_info[i_file, &quot;png&quot;] &lt;- r1_path %s% sub(&quot;bib$&quot;, &quot;png&quot;, r1_names[i_file])
+
+}</code></pre>
 <pre><code>## 
-## 
-## meeting-mistakes 
-## 
-## consulting-thoughts 
-## 
-## template-analysis 
-## 
-## cfir-construct 
-## 
-## ticd-checklist 
-## 
-## change-models 
-## 
-## sas-on-jupyter 
-## 
-## sas-inside-r 
-## 
-## university-consulting 
-## 
-## undergraduate-research 
-## 
-## losing-ground 
-## 
-## educating-consultants 
-## 
-## improve-consulting-skills 
-## 
-## change-taxonomies 
-## 
-## consulting-life 
-## 
-## sas-university-edition 
-## 
-## sas-workspace 
-## 
-## graph-perception 
-## 
-## sas-at-umkc 
-## 
-## umkc-computer-labs 
-## 
-## zahn-interview 
-## 
-## dallas-interview 
-## 
-## academic-consulting-centers 
-## 
-## readiness-for-change 
-## 
-## html-to-markdown</code></pre>
+## imsdb.bib, No title, No date, No tags, No notes, No html
+## krishevsky2017.bib, No date, No tags, No notes
+## liu2016.bib, No title, No date, No tags, No notes, No html
+## bates-nodate.bib, No pdf
+## broman-2013.bib, No pdf
+## brooks-2015.bib, No pdf
+## damschroder-2009.bib, No pdf
+## flottorp-2013.bib, No pdf
+## foy-2007.bib, No pdf
+## hemedinger-2016.bib, No pdf
+## hemken-2019.bib, No pdf
+## kirk-1991.bib, No html
+## legler-2010.bib, No html
+## matloff-2014.bib, No pdf
+## mcculloch-1985.bib, No html
+## morganstein-2014.bib, No html
+## nilsen-2015.bib, No pdf
+## niu-2016.bib, No pdf
+## sas-2019.bib, No pdf
+## sas-2019a.bib, No pdf
+## simkin-1987.bib, No html
+## umkc-2019.bib, No pdf
+## umkc-2019a.bib, No pdf
+## vance-2014.bib, No html
+## vance-2014a.bib, No html
+## vance-2015.bib, No html
+## weiner-2009.bib, No pdf
+## wu-2018.bib, No pdf
+## machine-learning-repository.bib, No pdf
+## sharma-2002.bib, No date, No tags, No notes, No html, No pdf
+## war-data.bib, No pdf
+## gill-2018.bib, No date, No tags, No html, No pdf
+## li-2007.bib, No date, No pdf
+## lundberg-2017.bib, No date, No html, No pdf
+## lundberg-2018.bib, No notes, No html, No pdf
+## ribeiro-2016.bib, No title, No date, No notes, No html, No pdf
+## shihipar 2019.bib, No notes, No pdf
+## singer-2019.bib, No date, No pdf
+## cook-2008.bib, No pdf
+## data-builder.bib, No pdf
+## davenport-2012.bib, No pdf
+## dwivedi 2019.bib, No date, No tags, No notes, No pdf
+## gamble 2017.bib, No date, No tags, No notes, No pdf
+## nightingale-day.bib, No pdf
+## recurrent-neural-networks.bib, No pdf</code></pre>
+<pre class="r"><code>for (i_file in 1:n_names) {
+  yaml_divider                                               %1%
+    &#39;title: &#39;                    %q% bib_info[i_file, &quot;ttl&quot;] %1%
+    &#39;author: &#39;                   %q% &quot;Steve Simon&quot;           %1%
+    &#39;date: &#39;                     %q% bib_info[i_file, &quot;dat&quot;] %1%
+    &#39;category: &#39;                 %0% &#39;Recommended&#39;           %1%
+    &#39;tags: &#39;                     %q% bib_info[i_file, &quot;tag&quot;] %1%
+    &#39;output: &#39;                   %0% &#39;html_document&#39;         %1%
+    yaml_divider                                             %2%
+
+    bib_info[i_file, &quot;not&quot;]                                  %2%
+    
+    &#39;&lt;!---More---&gt;&#39;                                          %2%
+    
+    &#39;![]&#39;                        %p% bib_info[i_file, &quot;png&quot;] %2%
+    
+    &#39;Available in [html format]&#39; %p% bib_info[i_file, &quot;url&quot;] %0%
+    &#39; or [PDF format]&#39;           %p% bib_info[i_file, &quot;pdf&quot;] %0%
+    &#39;.\n&#39;                                                    -&gt; md_file
+  
+  md_file %&gt;%
+    sub(&quot; or [PDF format](No pdf)&quot;,  &quot;&quot;, ., fixed=TRUE)  %&gt;%
+    sub(&quot; [html format](No html) or&quot;, &quot;&quot;, ., fixed=TRUE) -&gt; md_file
+  new_name &lt;- r3_path %s% bib_info[i_file, &quot;nam&quot;] %0% &quot;.md&quot;
+  if (verbose) {&quot;Writing&quot; %b% cat(new_name %b% &quot;.\n&quot;)}
+  writeLines(md_file, new_name)
+}</code></pre>
+<pre><code>## c:/Users/steve/Dropbox/professional/web/r3/imsdb.md .
+## c:/Users/steve/Dropbox/professional/web/r3/krizhevsky2017.md .
+## c:/Users/steve/Dropbox/professional/web/r3/inproceedings{liu2016.md .
+## c:/Users/steve/Dropbox/professional/web/r3/meeting-mistakes.md .
+## c:/Users/steve/Dropbox/professional/web/r3/consulting-thoughts.md .
+## c:/Users/steve/Dropbox/professional/web/r3/template-analysis.md .
+## c:/Users/steve/Dropbox/professional/web/r3/cfir-construct.md .
+## c:/Users/steve/Dropbox/professional/web/r3/ticd-checklist.md .
+## c:/Users/steve/Dropbox/professional/web/r3/change-models.md .
+## c:/Users/steve/Dropbox/professional/web/r3/sas-on-jupyter.md .
+## c:/Users/steve/Dropbox/professional/web/r3/sas-inside-r.md .
+## c:/Users/steve/Dropbox/professional/web/r3/university-consulting.md .
+## c:/Users/steve/Dropbox/professional/web/r3/undergraduate-research.md .
+## c:/Users/steve/Dropbox/professional/web/r3/losing-ground.md .
+## c:/Users/steve/Dropbox/professional/web/r3/educating-consultants.md .
+## c:/Users/steve/Dropbox/professional/web/r3/improve-consulting-skills.md .
+## c:/Users/steve/Dropbox/professional/web/r3/change-taxonomies.md .
+## c:/Users/steve/Dropbox/professional/web/r3/consulting-life.md .
+## c:/Users/steve/Dropbox/professional/web/r3/sas-university-edition.md .
+## c:/Users/steve/Dropbox/professional/web/r3/sas-workspace.md .
+## c:/Users/steve/Dropbox/professional/web/r3/graph-perception.md .
+## c:/Users/steve/Dropbox/professional/web/r3/sas-at-umkc.md .
+## c:/Users/steve/Dropbox/professional/web/r3/umkc-computer-labs.md .
+## c:/Users/steve/Dropbox/professional/web/r3/zahn-interview.md .
+## c:/Users/steve/Dropbox/professional/web/r3/dallas-interview.md .
+## c:/Users/steve/Dropbox/professional/web/r3/academic-consulting-centers.md .
+## c:/Users/steve/Dropbox/professional/web/r3/readiness-for-change.md .
+## c:/Users/steve/Dropbox/professional/web/r3/html-to-markdown.md .
+## c:/Users/steve/Dropbox/professional/web/r3/machine-learning-repository.md .
+## c:/Users/steve/Dropbox/professional/web/r3/sharma2002effect.md .
+## c:/Users/steve/Dropbox/professional/web/r3/war-data.md .
+## c:/Users/steve/Dropbox/professional/web/r3/Gill2018.md .
+## c:/Users/steve/Dropbox/professional/web/r3/Li2007.md .
+## c:/Users/steve/Dropbox/professional/web/r3/inproceedings{Lundberg2017.md .
+## c:/Users/steve/Dropbox/professional/web/r3/inproceedings{Lundberg2017.md .
+## c:/Users/steve/Dropbox/professional/web/r3/ribeiro2016.md .
+## c:/Users/steve/Dropbox/professional/web/r3/ï»¿@Shihipar2019.md .
+## c:/Users/steve/Dropbox/professional/web/r3/singer2019{.md .
+## c:/Users/steve/Dropbox/professional/web/r3/Cook.md .
+## c:/Users/steve/Dropbox/professional/web/r3/data-builder.md .
+## c:/Users/steve/Dropbox/professional/web/r3/sexiest-job.md .
+## c:/Users/steve/Dropbox/professional/web/r3/ï»¿@sambr-checklist.md .
+## c:/Users/steve/Dropbox/professional/web/r3/ï»¿@statistical-analysis-plans.md .
+## c:/Users/steve/Dropbox/professional/web/r3/nightingale-day.md .
+## c:/Users/steve/Dropbox/professional/web/r3/recurrent-neural-networks.md .</code></pre>
+</div>
+<div id="step-3.-produce-an-index" class="section level2">
+<h2>Step 3. Produce an index</h2>
+<pre class="r"><code>o &lt;- rev(order(bib_dates))
+bib_dates &lt;- bib_dates[o]
+bib_names &lt;- bib_names[o]
+txt_full &lt;- as.list(1:bib_count)
+for (i in 1:bib_count) {
+  txt_full[[i]] &lt;- txt_original[[o[i]]]
+}</code></pre>
+</div>
+<div id="step-4.-add-a-footer" class="section level2">
+<h2>Step 4. Add a footer</h2>
+</div>
+<div id="step-5.-convert-to-html" class="section level2">
+<h2>Step 5. Convert to html</h2>
 <p>Save everything.</p>
+<pre class="r"><code>save.image(&quot;../data/create-r3.RData&quot;)</code></pre>
+</div>
 
 
 

@@ -7,6 +7,7 @@ output: html_document
 
 ```{r setup, echo=FALSE}
 knitr::opts_chunk$set(echo=TRUE)
+knitr::opts_chunk$set(error=TRUE)
 source(file="prelims.R", echo=FALSE)
 verbose <- TRUE
 ```
@@ -14,13 +15,20 @@ verbose <- TRUE
 ## Step 1. Find the .bib files
 
 ```{r list-dirs}
-r1_path <- "c:/Users/steve/Dropbox/professional/web/r1/19/06"
-r1_names <- list.files(r1_path, pattern = "*.bib")
+bib_names <- NULL
+r1_names <- NULL
+r1_root <- "c:/Users/steve/Dropbox/professional/web/r1/19"
+for (i_month in c("05", "06", "07", "10", "11", "12")) {
+  r1_path <- r1_root %s% i_month
+  f0 <- list.files(path=r1_path, pattern="*.nbib")
+  f1 <- list.files(path=r1_path, pattern="*.bib")
+  fn <- setdiff(f1, f0)
+  r1_names %<>% append(fn)
+  bib_names %<>% append(r1_path %s% fn)
+}
 if (verbose) print(r1_names)
-n_files <- length(r1_names)
+n_names <- length(r1_names)
 r3_path <- "c:/Users/steve/Dropbox/professional/web/r3"
-bib_files <- r1_path %s% r1_names
-png_files <- r1_path %s% sub("bib$", "png", r1_names)
 ```
 
 ## Step 2. Read each .bib file and convert to .md file
@@ -52,8 +60,8 @@ n_marks <- length(marks)
 
 Create bib_info, a matrix of information about the individual .bib files.
 
-```{create-info}
-bib_names <- c(
+```{r create-info}
+bib_cats <- c(
   "ttl",
   "dat",
   "tag",
@@ -63,24 +71,29 @@ bib_names <- c(
   "nam",
   "png"
 )
-n_names <- length(bib_names)
-bib_info <- matrix("<<empty>>", nrow=n_files, ncol=n_names)
-dimnames(bib_info)[[1]] <- bib_names
+n_cats <- length(bib_cats)
+bib_info <- matrix("<<empty>>", nrow=n_names, ncol=n_cats)
+dimnames(bib_info)[[2]] <- bib_cats
 ```
 
 Populate bib_info
 
 ```{r bib-functions}
+
 read_bib <- function(fn) {readLines(r1_path %s% r1_names[i_file])}
+
 select_txt <- function(txt, lab, def) {
-  txt %>% grep(lab, ., value=TRUE) -> lin 
+  txt %>% 
+    gsub("{{", "{", .    , fixed=TRUE) %>%          # remove double bracket
+    gsub(" {", "{", .    , fixed=TRUE) %>%          # remove leading blank
+    gsub(" =", "=", .    , fixed=TRUE) %>%          # remove leading blank
+    gsub("= ", "=", .    , fixed=TRUE) %>%          # remove trailing blank
+    grep(lab, ., value=TRUE) -> lin 
   if (length(lin) == 0) {
     if (verbose) {cat(",", def)}
     return(def)
   }
   lin %>%
-    gsub("{{", "{", .    , fixed=TRUE) %>%          # remove double bracket
-    gsub(" {", "{", .    , fixed=TRUE) %>%          # remove leading blank
     remove_ch('article{' , fixed=TRUE) %>%
     remove_ch('book{'    , fixed=TRUE) %>%
     remove_ch('misc{'    , fixed=TRUE) %>%
@@ -100,27 +113,27 @@ select_txt <- function(txt, lab, def) {
 
 
 ```{r read-bib}
-txt_original <- as.list(1:n_files)
-for (i_file in 1:n_files) {
+txt_original <- as.list(1:n_names)
+for (i_file in 1:n_names) {
+  if (verbose) {cat("\n", r1_names[i_file], sep="")}
   tx <- readLines(bib_names[i_file])
   txt_original[[i_file]]  <- tx
-  if (verbose) {cat("\n\n", md_name, " ", sep="")}
 
-  bib_info[i_file, "ttl"] <- select_txt(tx, "title = "        , "No title")
-  bib_info[i_file, "dat"] <- select_txt(tx, "urldate = "      , "No date")
-  bib_info[i_file, "tag"] <- select_txt(tx, "mendeley-tags = ", "No tags")
-  bib_info[i_file, "not"] <- select_txt(tx, "annote = "       , "No notes")
-  bib_info[i_file, "url"] <- select_txt(tx, "url = "          , "No html")
-  bib_info[i_file, "pdf"] <- select_txt(tx, "pdf = "          , "No pdf")
-  bib_info[i_file, "nam"] <- select_txt(tx, "@"               , "No name")
+  bib_info[i_file, "ttl"] <- select_txt(tx, "title="        , "No title")
+  bib_info[i_file, "dat"] <- select_txt(tx, "urldate="      , "No date")
+  bib_info[i_file, "tag"] <- select_txt(tx, "mendeley-tags=", "No tags")
+  bib_info[i_file, "not"] <- select_txt(tx, "annote="       , "No notes")
+  bib_info[i_file, "url"] <- select_txt(tx, "url="          , "No html")
+  bib_info[i_file, "pdf"] <- select_txt(tx, "pdf="          , "No pdf")
+  bib_info[i_file, "nam"] <- select_txt(tx, "@"             , "No name")
   
-  bib_info[i_file, "png"] <- r1_path %s% sub("bib$", "png", r1_names)
+  bib_info[i_file, "png"] <- r1_path %s% sub("bib$", "png", r1_names[i_file])
 
 }
 ```
 
 ```{r build-md}
-for (i_file in 1:n_files) {
+for (i_file in 1:n_names) {
   yaml_divider                                               %1%
     'title: '                    %q% bib_info[i_file, "ttl"] %1%
     'author: '                   %q% "Steve Simon"           %1%
@@ -130,7 +143,7 @@ for (i_file in 1:n_files) {
     'output: '                   %0% 'html_document'         %1%
     yaml_divider                                             %2%
 
-    bib_info[i_file, not]                                    %2%
+    bib_info[i_file, "not"]                                  %2%
     
     '<!---More--->'                                          %2%
     
@@ -144,16 +157,17 @@ for (i_file in 1:n_files) {
     sub(" or [PDF format](No pdf)",  "", ., fixed=TRUE)  %>%
     sub(" [html format](No html) or", "", ., fixed=TRUE) -> md_file
   new_name <- r3_path %s% bib_info[i_file, "nam"] %0% ".md"
-  writeLines(md_file, new_name)  
+  if (verbose) {"Writing" %b% cat(new_name %b% ".\n")}
+  writeLines(md_file, new_name)
 }
 ```
 
 ## Step 3. Produce an index
 
-```{r produce index, eval=FALSE} 
+```{r produce-index, eval=FALSE} 
 o <- rev(order(bib_dates))
 bib_dates <- bib_dates[o]
-bib_files <- bib_files[o]
+bib_names <- bib_names[o]
 txt_full <- as.list(1:bib_count)
 for (i in 1:bib_count) {
   txt_full[[i]] <- txt_original[[o[i]]]
