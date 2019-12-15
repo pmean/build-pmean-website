@@ -84,27 +84,28 @@ read_bib <- function(fn) {readLines(r1_path %s% r1_names[i_file])}
 
 select_txt <- function(txt, lab, def) {
   txt %>% 
-    gsub("{{", "{", .    , fixed=TRUE) %>%          # remove double bracket
-    gsub(" {", "{", .    , fixed=TRUE) %>%          # remove leading blank
-    gsub(" =", "=", .    , fixed=TRUE) %>%          # remove leading blank
-    gsub("= ", "=", .    , fixed=TRUE) %>%          # remove trailing blank
+    gsub("{{", "{", .    , fixed=TRUE) %>%          # double bracket
+    gsub(" {", "{", .    , fixed=TRUE) %>%          # leading blank
+    gsub(" =", "=", .    , fixed=TRUE) %>%          # leading blank
+    gsub("= ", "=", .    , fixed=TRUE) %>%          # trailing blank
     grep(lab, ., value=TRUE) -> lin 
   if (length(lin) == 0) {
     if (verbose) {cat(",", def)}
     return(def)
   }
   lin %>%
-    remove_ch('article{' , fixed=TRUE) %>%
-    remove_ch('book{'    , fixed=TRUE) %>%
-    remove_ch('misc{'    , fixed=TRUE) %>%
-    remove_ch(',.*?$'    , fixed=TRUE) %>%          # remove from comma to end
-    remove_ch('"'        , fixed=TRUE) %>%          # remove quote marks
-    remove_ch('^\\s*'                ) %>%          # remove trailing spaces
-    remove_ch("^" %0% lab            ) %>%          # remove label
-    remove_ch('^\\{'                 ) %>%          # remove left curly bracket
-    remove_ch('\\}'                  ) %>%          # remove right curly bracket
-    remove_ch('\\s*$'                ) %>%          # remove trailing blanks
-    remove_ch(',$'                   ) -> selection # remove trailing comma
+    remove_ch('article{'       , fixed=TRUE) %>%
+    remove_ch('book{'          , fixed=TRUE) %>%
+    remove_ch('inproceedings{' , fixed=TRUE) %>%
+    remove_ch('misc{'          , fixed=TRUE) %>%
+    remove_ch(',.*?$'          , fixed=TRUE) %>%          # from comma to end
+    remove_ch('"'              , fixed=TRUE) %>%          # quote marks
+    remove_ch('^\\s*'                      ) %>%          # trailing spaces
+    remove_ch("^" %0% lab                  ) %>%          # label
+    remove_ch('^\\{'                       ) %>%          # left curly bracket
+    remove_ch('\\}'                        ) %>%          # right curly bracket
+    remove_ch('\\s*$'                      ) %>%          # trailing blanks
+    remove_ch(',$'                         ) -> selection # trailing comma
   if (is.null(selection)) return("")
   return(paste0(selection, collapse="; "))
 }
@@ -177,6 +178,23 @@ for (i in 1:bib_count) {
 ## Step 4. Add a footer
 
 ## Step 5. Convert to html
+
+## Step 6. List incomplete areas
+
+```{r incomplete}
+bib_df <- data.frame(bib_info, stringsAsFactors=FALSE)
+bib_df %>%
+  filter(tag=="No tags") %>%
+  mutate(png=substr(png, 47, 99)) %>%
+  mutate(png=sub(".png", "", png)) %>%
+  select(tag, png)
+bib_df %>%
+  filter(tag=="") %>%
+  mutate(png=substr(png, 47, 99)) %>%
+  mutate(png=sub(".png", "", png)) %>%
+  select(tag, png)
+```
+
 
 Save everything.
 

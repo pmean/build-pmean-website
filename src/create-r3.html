@@ -405,7 +405,7 @@ if (verbose) print(r1_names)</code></pre>
 ## [39] &quot;cook-2008.bib&quot;                   &quot;data-builder.bib&quot;               
 ## [41] &quot;davenport-2012.bib&quot;              &quot;dwivedi 2019.bib&quot;               
 ## [43] &quot;gamble 2017.bib&quot;                 &quot;nightingale-day.bib&quot;            
-## [45] &quot;recurrent-neural-networks.bib&quot;</code></pre>
+## [45] &quot;recurrent-neural-networks.bib&quot;   &quot;wickham-2015.bib&quot;</code></pre>
 <pre class="r"><code>n_names &lt;- length(r1_names)
 r3_path &lt;- &quot;c:/Users/steve/Dropbox/professional/web/r3&quot;</code></pre>
 </div>
@@ -451,27 +451,28 @@ dimnames(bib_info)[[2]] &lt;- bib_cats</code></pre>
 
 select_txt &lt;- function(txt, lab, def) {
   txt %&gt;% 
-    gsub(&quot;{{&quot;, &quot;{&quot;, .    , fixed=TRUE) %&gt;%          # remove double bracket
-    gsub(&quot; {&quot;, &quot;{&quot;, .    , fixed=TRUE) %&gt;%          # remove leading blank
-    gsub(&quot; =&quot;, &quot;=&quot;, .    , fixed=TRUE) %&gt;%          # remove leading blank
-    gsub(&quot;= &quot;, &quot;=&quot;, .    , fixed=TRUE) %&gt;%          # remove trailing blank
+    gsub(&quot;{{&quot;, &quot;{&quot;, .    , fixed=TRUE) %&gt;%          # double bracket
+    gsub(&quot; {&quot;, &quot;{&quot;, .    , fixed=TRUE) %&gt;%          # leading blank
+    gsub(&quot; =&quot;, &quot;=&quot;, .    , fixed=TRUE) %&gt;%          # leading blank
+    gsub(&quot;= &quot;, &quot;=&quot;, .    , fixed=TRUE) %&gt;%          # trailing blank
     grep(lab, ., value=TRUE) -&gt; lin 
   if (length(lin) == 0) {
     if (verbose) {cat(&quot;,&quot;, def)}
     return(def)
   }
   lin %&gt;%
-    remove_ch(&#39;article{&#39; , fixed=TRUE) %&gt;%
-    remove_ch(&#39;book{&#39;    , fixed=TRUE) %&gt;%
-    remove_ch(&#39;misc{&#39;    , fixed=TRUE) %&gt;%
-    remove_ch(&#39;,.*?$&#39;    , fixed=TRUE) %&gt;%          # remove from comma to end
-    remove_ch(&#39;&quot;&#39;        , fixed=TRUE) %&gt;%          # remove quote marks
-    remove_ch(&#39;^\\s*&#39;                ) %&gt;%          # remove trailing spaces
-    remove_ch(&quot;^&quot; %0% lab            ) %&gt;%          # remove label
-    remove_ch(&#39;^\\{&#39;                 ) %&gt;%          # remove left curly bracket
-    remove_ch(&#39;\\}&#39;                  ) %&gt;%          # remove right curly bracket
-    remove_ch(&#39;\\s*$&#39;                ) %&gt;%          # remove trailing blanks
-    remove_ch(&#39;,$&#39;                   ) -&gt; selection # remove trailing comma
+    remove_ch(&#39;article{&#39;       , fixed=TRUE) %&gt;%
+    remove_ch(&#39;book{&#39;          , fixed=TRUE) %&gt;%
+    remove_ch(&#39;inproceedings{&#39; , fixed=TRUE) %&gt;%
+    remove_ch(&#39;misc{&#39;          , fixed=TRUE) %&gt;%
+    remove_ch(&#39;,.*?$&#39;          , fixed=TRUE) %&gt;%          # from comma to end
+    remove_ch(&#39;&quot;&#39;              , fixed=TRUE) %&gt;%          # quote marks
+    remove_ch(&#39;^\\s*&#39;                      ) %&gt;%          # trailing spaces
+    remove_ch(&quot;^&quot; %0% lab                  ) %&gt;%          # label
+    remove_ch(&#39;^\\{&#39;                       ) %&gt;%          # left curly bracket
+    remove_ch(&#39;\\}&#39;                        ) %&gt;%          # right curly bracket
+    remove_ch(&#39;\\s*$&#39;                      ) %&gt;%          # trailing blanks
+    remove_ch(&#39;,$&#39;                         ) -&gt; selection # trailing comma
   if (is.null(selection)) return(&quot;&quot;)
   return(paste0(selection, collapse=&quot;; &quot;))
 }</code></pre>
@@ -537,7 +538,8 @@ for (i_file in 1:n_names) {
 ## dwivedi 2019.bib, No date, No tags, No notes, No pdf
 ## gamble 2017.bib, No date, No tags, No notes, No pdf
 ## nightingale-day.bib, No pdf
-## recurrent-neural-networks.bib, No pdf</code></pre>
+## recurrent-neural-networks.bib, No pdf
+## wickham-2015.bib, No pdf</code></pre>
 <pre class="r"><code>for (i_file in 1:n_names) {
   yaml_divider                                               %1%
     &#39;title: &#39;                    %q% bib_info[i_file, &quot;ttl&quot;] %1%
@@ -567,7 +569,7 @@ for (i_file in 1:n_names) {
 }</code></pre>
 <pre><code>## c:/Users/steve/Dropbox/professional/web/r3/imsdb.md .
 ## c:/Users/steve/Dropbox/professional/web/r3/krizhevsky2017.md .
-## c:/Users/steve/Dropbox/professional/web/r3/inproceedings{liu2016.md .
+## c:/Users/steve/Dropbox/professional/web/r3/liu2016.md .
 ## c:/Users/steve/Dropbox/professional/web/r3/meeting-mistakes.md .
 ## c:/Users/steve/Dropbox/professional/web/r3/consulting-thoughts.md .
 ## c:/Users/steve/Dropbox/professional/web/r3/template-analysis.md .
@@ -598,8 +600,8 @@ for (i_file in 1:n_names) {
 ## c:/Users/steve/Dropbox/professional/web/r3/war-data.md .
 ## c:/Users/steve/Dropbox/professional/web/r3/Gill2018.md .
 ## c:/Users/steve/Dropbox/professional/web/r3/Li2007.md .
-## c:/Users/steve/Dropbox/professional/web/r3/inproceedings{Lundberg2017.md .
-## c:/Users/steve/Dropbox/professional/web/r3/inproceedings{Lundberg2017.md .
+## c:/Users/steve/Dropbox/professional/web/r3/Lundberg2017.md .
+## c:/Users/steve/Dropbox/professional/web/r3/Lundberg2017.md .
 ## c:/Users/steve/Dropbox/professional/web/r3/ribeiro2016.md .
 ## c:/Users/steve/Dropbox/professional/web/r3/ï»¿@Shihipar2019.md .
 ## c:/Users/steve/Dropbox/professional/web/r3/singer2019{.md .
@@ -609,7 +611,8 @@ for (i_file in 1:n_names) {
 ## c:/Users/steve/Dropbox/professional/web/r3/ï»¿@sambr-checklist.md .
 ## c:/Users/steve/Dropbox/professional/web/r3/ï»¿@statistical-analysis-plans.md .
 ## c:/Users/steve/Dropbox/professional/web/r3/nightingale-day.md .
-## c:/Users/steve/Dropbox/professional/web/r3/recurrent-neural-networks.md .</code></pre>
+## c:/Users/steve/Dropbox/professional/web/r3/recurrent-neural-networks.md .
+## c:/Users/steve/Dropbox/professional/web/r3/creating-r-packages.md .</code></pre>
 </div>
 <div id="step-3.-produce-an-index" class="section level2">
 <h2>Step 3. Produce an index</h2>
@@ -626,6 +629,30 @@ for (i in 1:bib_count) {
 </div>
 <div id="step-5.-convert-to-html" class="section level2">
 <h2>Step 5. Convert to html</h2>
+</div>
+<div id="step-6.-list-incomplete-areas" class="section level2">
+<h2>Step 6. List incomplete areas</h2>
+<pre class="r"><code>bib_df &lt;- data.frame(bib_info, stringsAsFactors=FALSE)
+bib_df %&gt;%
+  filter(tag==&quot;No tags&quot;) %&gt;%
+  mutate(png=substr(png, 47, 99)) %&gt;%
+  mutate(png=sub(&quot;.png&quot;, &quot;&quot;, png)) %&gt;%
+  select(tag, png)</code></pre>
+<pre><code>##       tag               png
+## 1 No tags          12/imsdb
+## 2 No tags 12/krishevsky2017
+## 3 No tags        12/liu2016
+## 4 No tags    12/sharma-2002
+## 5 No tags      12/gill-2018
+## 6 No tags   12/dwivedi 2019
+## 7 No tags    12/gamble 2017</code></pre>
+<pre class="r"><code>bib_df %&gt;%
+  filter(tag==&quot;&quot;) %&gt;%
+  mutate(png=substr(png, 47, 99)) %&gt;%
+  mutate(png=sub(&quot;.png&quot;, &quot;&quot;, png)) %&gt;%
+  select(tag, png)</code></pre>
+<pre><code>##   tag               png
+## 1     12/davenport-2012</code></pre>
 <p>Save everything.</p>
 <pre class="r"><code>save.image(&quot;../data/create-r3.RData&quot;)</code></pre>
 </div>
