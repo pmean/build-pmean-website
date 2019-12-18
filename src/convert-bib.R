@@ -22,7 +22,7 @@ for (i_month in month_list) {
 short_names <- r1_dirs %s% sub(".bib", "", r1_names)
 bib_names <- r1_root %s% r1_dirs %s% r1_names
 if (verbose) print(short_names)
-n_names <- length(r1_names)
+n_files <- length(r1_names)
 r3_path <- "c:/Users/steve/Dropbox/professional/web/r3"
 
 ## Step 2. Read each .bib file and convert to .md file
@@ -64,7 +64,7 @@ bib_cats <- c(
   "brf"
 )
 n_cats <- length(bib_cats)
-bib_info <- matrix("<<empty>>", nrow=n_names, ncol=n_cats)
+bib_info <- matrix("<<empty>>", nrow=n_files, ncol=n_cats)
 dimnames(bib_info)[[2]] <- bib_cats
 
 ### Clean bib file functions
@@ -113,8 +113,8 @@ select_txt <- function(txt, lab, def) {
 
 ### Populate bib_info
 
-txt_original <- as.list(1:n_names)
-for (i_file in 1:n_names) {
+txt_original <- as.list(1:n_files)
+for (i_file in 1:n_files) {
   if (verbose) {cat("\n", short_names[i_file], sep="")}
   tx <- readLines(bib_names[i_file])
   txt_original[[i_file]]  <- tx
@@ -134,20 +134,20 @@ for (i_file in 1:n_names) {
 
 ### Build brief page
 
-brief_template <- 
-  '<a href="../blog/%nam%.html">%ttl% (created %dat%)</a>%not%'
+brief_template <-
+  '[%ttl% (created %dat%)](../blog/%nam%.html) %not%'
 
-for (i_file in 1:n_names) {
+for (i_file in 1:n_files) {
   brief_template %>%
-    sub("%nam%", bib_info[i_file, "nam"], .) %>%
     sub("%ttl%", bib_info[i_file, "ttl"], .) %>%
     sub("%dat%", bib_info[i_file, "dat"], .) %>%
+    sub("%nam%", bib_info[i_file, "nam"], .) %>%
     sub("%not%", bib_info[i_file, "not"], .) -> bib_info[i_file, "brf"]
 }
 
 ### Build main page
 
-for (i_file in 1:n_names) {
+for (i_file in 1:n_files) {
   yaml_divider                                               %1%
     'title: '                    %q% bib_info[i_file, "ttl"] %1%
     'author: '                   %q% "Steve Simon"           %1%
@@ -186,51 +186,35 @@ for (i_file in 1:n_names) {
 
 ## Step 3. Produce an index
 
-### Build main page
-
 yaml_divider                                               %1%
   'title: '                    %q% 'All blog entries'      %1%
   'author: '                   %q% "Steve Simon"           %1%
   'date: '                     %q% bib_info[i_file, "dat"] %1%
-  'category: '                 %0% 'Recommended'           %1%
-  'tags: '                     %q% bib_info[i_file, "tag"] %1%
   'output: '                   %0% 'html_document'         %1%
-  'source: '                   %0% bib_info[i_file, "fil"] %1%
-  yaml_divider                                             -> md_file
-  
-for (i_file in 1:n_names) {
-      
-    bib_info[i_file, "not"]                                  %2%
-    
-    '<!---More--->'                                          %2%
-    
-    '![]'                        %p% bib_info[i_file, "png"] %2%
-    
-    'Available in [html format]' %p% bib_info[i_file, "url"] %0%
-    ' or [PDF format]'           %p% bib_info[i_file, "pdf"] %0%
-    '.\n'                                                    -> md_file
-  
-  md_file %>%
-    sub(" or [PDF format](No pdf)",  "", ., fixed=TRUE)  %>%
-    sub(" [html format](No html) or", "", ., fixed=TRUE) -> md_file
-  new_name <- r3_path %s% bib_info[i_file, "nam"] %0% ".md"
+  yaml_divider                                             -> md_file_header
+
+bib_info %>%
+  data.frame(stringsAsFactors=FALSE) %>%
+  arrange(desc(dat)) %>%
+  pull(brf) %>%
+  sub("../blog/", "", ., fixed=TRUE) %>%
+  paste0("\n\nB-", n_files:1, ". ", .) %>%
+  paste0(collapse="") -> md_file_body
+
+  new_name <- r3_path %s% "index.md"
   if (verbose) {
-    "\nStep" %b%
-      i_file %b%
-      ": writing" %b% 
-      bib_info[i_file, "fil"] %b%
-      "to" %b%
-      bib_info[i_file, "nam"] %0%
+    "\nWriting  index.md"
       "." %>% cat
   }
-  writeLines(md_file, new_name)
-}
+writeLines(paste0(md_file_header, md_file_body), new_name)
 
 ## Step 4. Add a footer
 
 ## Step 5. Convert to html
 
 r4_path <- sub("/r3", "/r4", r3_path)
+md_file <- r3_path %s% "index.md"
+render(md_file, output_dir=r4_path)
 for (i_file in 13:14) {
   md_file <- r3_path %s% bib_info[i_file, "nam"] %0% ".md"
   render(md_file, output_dir=r4_path)
