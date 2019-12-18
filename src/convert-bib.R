@@ -57,31 +57,34 @@ bib_cats <- c(
   "ttl",
   "dat",
   "tag",
-  "not",
   "url",
   "pdf",
-  "png"
+  "png",
+  "not",
+  "brf"
 )
 n_cats <- length(bib_cats)
 bib_info <- matrix("<<empty>>", nrow=n_names, ncol=n_cats)
 dimnames(bib_info)[[2]] <- bib_cats
 
-### Populate bib_info
+### Clean bib file functions
 
 read_bib <- function(fn) {readLines(r1_path %s% r1_names[i_file])}
 
-select_txt <- function(txt, lab, def) {
-  txt %>% 
-    gsub("{{", "{", .    , fixed=TRUE) %>%          # double bracket
-    gsub(" {", "{", .    , fixed=TRUE) %>%          # leading blank
-    gsub(" =", "=", .    , fixed=TRUE) %>%          # leading blank
-    gsub("= ", "=", .    , fixed=TRUE) %>%          # trailing blank
-    grep(lab, ., value=TRUE) -> lin 
-  if (length(lin) == 0) {
-    if (verbose) {cat(",", def)}
-    return(def)
-  }
-  lin %>%
+strip_blanks <- function(x) {
+  # Some of the files also have some silly garbage characters
+  # before the @ sign on the first line of text.
+  x %>%
+    gsub("^*.@", "@", .                ) %>%          # @ silliness
+    gsub("{{"  , "{", .    , fixed=TRUE) %>%          # double bracket
+    gsub(" {"  , "{", .    , fixed=TRUE) %>%          # leading blank
+    gsub(" ="  , "=", .    , fixed=TRUE) %>%          # leading blank
+    gsub("= "  , "=", .    , fixed=TRUE) %>%          # trailing blank
+    return
+}
+
+clean_line <- function(x, lab) {
+  x%>%
     remove_ch('^.*@'      ) %>%          # from beginning to @
     remove_ch('^.*\\{'    ) %>%          # from beginning to {
     remove_ch(',.*?$'     ) %>%          # from comma to end
@@ -91,10 +94,24 @@ select_txt <- function(txt, lab, def) {
     remove_ch('^\\{'      ) %>%          # left curly bracket
     remove_ch('\\}'       ) %>%          # right curly bracket
     remove_ch('\\s*$'     ) %>%          # trailing blanks
-    remove_ch(',$'        ) -> selection # trailing comma
+    remove_ch(',$'        ) %>%          # trailing comma
+    return
+}
+
+select_txt <- function(txt, lab, def) {
+  txt %>% 
+    strip_blanks %>%
+    grep(lab, ., value=TRUE) -> lin 
+  if (length(lin) == 0) {
+    if (verbose) {cat(",", def)}
+    return(def)
+  }
+  lin %>% clean_line(lab) -> selection
   if (is.null(selection)) return("")
   return(paste0(selection, collapse="; "))
 }
+
+### Populate bib_info
 
 txt_original <- as.list(1:n_names)
 for (i_file in 1:n_names) {
@@ -114,6 +131,21 @@ for (i_file in 1:n_names) {
   bib_info[i_file, "png"] <- sub("bib$", "png", bib_names[i_file])
 
 }
+
+### Build brief page
+
+brief_template <- 
+  '<a href="../blog/%nam%.html">%ttl% (created %dat%)</a>%not%'
+
+for (i_file in 1:n_names) {
+  brief_template %>%
+    sub("%nam%", bib_info[i_file, "nam"], .) %>%
+    sub("%ttl%", bib_info[i_file, "ttl"], .) %>%
+    sub("%dat%", bib_info[i_file, "dat"], .) %>%
+    sub("%not%", bib_info[i_file, "not"], .) -> bib_info[i_file, "brf"]
+}
+
+### Build main page
 
 for (i_file in 1:n_names) {
   yaml_divider                                               %1%
@@ -154,6 +186,46 @@ for (i_file in 1:n_names) {
 
 ## Step 3. Produce an index
 
+### Build main page
+
+yaml_divider                                               %1%
+  'title: '                    %q% 'All blog entries'      %1%
+  'author: '                   %q% "Steve Simon"           %1%
+  'date: '                     %q% bib_info[i_file, "dat"] %1%
+  'category: '                 %0% 'Recommended'           %1%
+  'tags: '                     %q% bib_info[i_file, "tag"] %1%
+  'output: '                   %0% 'html_document'         %1%
+  'source: '                   %0% bib_info[i_file, "fil"] %1%
+  yaml_divider                                             -> md_file
+  
+for (i_file in 1:n_names) {
+      
+    bib_info[i_file, "not"]                                  %2%
+    
+    '<!---More--->'                                          %2%
+    
+    '![]'                        %p% bib_info[i_file, "png"] %2%
+    
+    'Available in [html format]' %p% bib_info[i_file, "url"] %0%
+    ' or [PDF format]'           %p% bib_info[i_file, "pdf"] %0%
+    '.\n'                                                    -> md_file
+  
+  md_file %>%
+    sub(" or [PDF format](No pdf)",  "", ., fixed=TRUE)  %>%
+    sub(" [html format](No html) or", "", ., fixed=TRUE) -> md_file
+  new_name <- r3_path %s% bib_info[i_file, "nam"] %0% ".md"
+  if (verbose) {
+    "\nStep" %b%
+      i_file %b%
+      ": writing" %b% 
+      bib_info[i_file, "fil"] %b%
+      "to" %b%
+      bib_info[i_file, "nam"] %0%
+      "." %>% cat
+  }
+  writeLines(md_file, new_name)
+}
+
 ## Step 4. Add a footer
 
 ## Step 5. Convert to html
@@ -180,4 +252,4 @@ bib_df %>%
 
 ## Save everything
 
-save.image("data/create-r3.RData")
+save.image("data/convert-bib.RData")
