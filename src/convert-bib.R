@@ -216,7 +216,7 @@ writeLines(paste0(md_file_header, md_file_body), new_name)
 r4_path <- sub("/r3", "/r4", r3_path)
 md_file <- r3_path %s% "index.md"
 render(md_file, output_dir=r4_path)
-for (i_file in 13:14) {
+for (i_file in 1:n_files) {
   md_file <- r3_path %s% bib_info[i_file, "nam"] %0% ".md"
   render(md_file, output_dir=r4_path)
 }
