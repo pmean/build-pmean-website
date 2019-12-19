@@ -75,6 +75,7 @@ strip_blanks <- function(x) {
   # Some of the files also have some silly garbage characters
   # before the @ sign on the first line of text.
   x %>%
+    gsub("\\s", " " , .                ) %>%          # multiple blanks
     gsub("^*.@", "@", .                ) %>%          # @ silliness
     gsub("{{"  , "{", .    , fixed=TRUE) %>%          # double bracket
     gsub(" {"  , "{", .    , fixed=TRUE) %>%          # leading blank
@@ -101,7 +102,7 @@ clean_line <- function(x, lab) {
 select_txt <- function(txt, lab, def) {
   txt %>% 
     strip_blanks %>%
-    grep(lab, ., value=TRUE) -> lin 
+    grep(lab, ., value=TRUE, ignore.case=TRUE) -> lin 
   if (length(lin) == 0) {
     if (verbose) {cat(",", def)}
     return(def)
