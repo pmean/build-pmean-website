@@ -19,13 +19,17 @@ for (i_month in month_list) {
   r1_names %<>% append(fn)
   r1_dirs %<>% append(rep(i_month, length(fn))) 
 }
+
+### Get variants of file names
+
+n_files <- length(r1_names)
+r3_path <- "c:/Users/steve/Dropbox/professional/web/r3"
 short_names <- r1_dirs %s% sub(".bib", "", r1_names)
 bib_names <- r1_root %s% r1_dirs %s% r1_names
 if (verbose) print(short_names)
-n_files <- length(r1_names)
-r3_path <- "c:/Users/steve/Dropbox/professional/web/r3"
 
 ## Step 2. Read each .bib file and convert to .md file
+
 ### First, set up the general structure.
 
 yaml_divider <- '---'
@@ -88,13 +92,12 @@ clean_line <- function(x, lab) {
   x%>%
     remove_ch('^.*@'      ) %>%          # from beginning to @
     remove_ch('^.*\\{'    ) %>%          # from beginning to {
-    remove_ch(',.*?$'     ) %>%          # from comma to end
-    remove_ch('\\"'       ) %>%          # quote marks
     remove_ch('^\\s*'     ) %>%          # leading spaces
-    remove_ch("^" %0% lab ) %>%          # label
+    remove_ch('\\s*$'     ) %>%          # trailing blanks
+    remove_ch(',$'        ) %>%          # trailing comma
+    remove_ch('\\"'       ) %>%          # quote marks
     remove_ch('^\\{'      ) %>%          # left curly bracket
     remove_ch('\\}'       ) %>%          # right curly bracket
-    remove_ch('\\s*$'     ) %>%          # trailing blanks
     remove_ch(',$'        ) %>%          # trailing comma
     return
 }
@@ -146,6 +149,8 @@ for (i_file in 1:n_files) {
     sub("%not%", bib_info[i_file, "not"], .) -> bib_info[i_file, "brf"]
 }
 
+bib_info[ , "ttl"] <- "Recommended:" %s% bib_info[ , "ttl"]
+
 ### Build main page
 
 for (i_file in 1:n_files) {
@@ -184,32 +189,6 @@ for (i_file in 1:n_files) {
   }
   writeLines(md_file, new_name)
 }
-
-## Step 3. Produce an index
-
-yaml_divider                                               %1%
-  'title: '                    %q% 'All blog entries'      %1%
-  'author: '                   %q% "Steve Simon"           %1%
-  'date: '                     %q% bib_info[i_file, "dat"] %1%
-  'output: '                   %0% 'html_document'         %1%
-  yaml_divider                                             -> md_file_header
-
-bib_info %>%
-  data.frame(stringsAsFactors=FALSE) %>%
-  arrange(desc(dat)) %>%
-  pull(brf) %>%
-  sub("../blog/", "", ., fixed=TRUE) %>%
-  paste0("\n\nB-", n_files:1, ". ", .) %>%
-  paste0(collapse="") -> md_file_body
-
-  new_name <- r3_path %s% "index.md"
-  if (verbose) {
-    "\nWriting  index.md"
-      "." %>% cat
-  }
-writeLines(paste0(md_file_header, md_file_body), new_name)
-
-## Step 4. Add a footer
 
 ## Step 5. Convert to html
 

@@ -17,9 +17,14 @@ yaml_header <- "---"
 "%1%" <- function(x, y) {paste0(x, "\n", y)}
 "%2%" <- function(x, y) {paste0(x, "\n\n", y)}
 "%b%" <- function(x, y) {paste0(x, ' ', y)}
+"%s%" <- function(x, y) {paste0(x, "/", y)}
+
 "%p%" <- function(x, y) {paste0(x, '(', y, ')')}
 "%q%" <- function(x, y) {paste0(x, '"', y, '"')}
-"%s%" <- function(x, y) {paste0(x, "/", y)}
+"%[%" <- function(x, y) {paste0(x, "[", y, "]")}
+
+brack <- function(x) {"" %[% x}
+paren <- function(x) {"" %p% x}
 
 add_line_breaks <- function(s1, n=1) {
   v <- c(s1, rep("\n", n))
