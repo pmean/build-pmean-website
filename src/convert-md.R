@@ -22,10 +22,18 @@ r3_names <- list.files(path=r3_root, pattern="*.md")
 ## Step 2. Read each .md file and extract information
 
 extract_field <- function(x, field_name) {
-  grep(field_name, x, value=TRUE, ignore.case=TRUE) %>%
-    sub(field_name, "", .) %>%
-    sub("^\\s", "", .) %>%
+  str_subset(x, fixed(field_name, ignore_case=TRUE) %>%
+    str_remove(field_name) %>%
+    str_remove(fixed('"')) %>%
+    str_trim %>%
     return
+}
+
+add_v <- function(x, v) {ifelse(exists(v), c(v, x), x)}
+add_l <- function(x, l) {list(l, x)}
+
+build_link <- function(x, p="../archive/") {
+  link1 <- brack(x) %0% "(" %0% p %0% gsub(" ", "-", x) %0% ".html)"
 }
 
 nam <- NULL
@@ -37,31 +45,50 @@ ctg <- NULL
 page_link <- NULL
 
 yaml_divider <- '---'
+more_divider <- "<---More--->"
 
 file_list <- c(b3_root %s% b3_names, r3_root %s% r3_names)
-for (i_file in file_list) {
+n_files <- length(file_list)
+
+nam <- rep("no data", n_files)
+ttl <- rep("no data", n_files)
+dat <- rep("no data", n_files)
+tag <- rep("no data", n_files)
+ctg <- rep("no data", n_files)
+
+orig_tx <- as.list(rep("no data", n_files))
+head_tx <- as.list(rep("no data", n_files))
+shrt_tx <- as.list(rep("no data", n_files))
+full_tx <- as.list(rep("no data", n_files))
+
+for (i in 1:n_files {
+  i_file <- file_list[i]
   tx <- readLines(i_file)
-  if (verbose) {print(tx[2])}
-  div1 <-     grep(yaml_divider  , tx)[2] + 1
-  div2 <- min(grep("<---More--->", tx), length(tx))
-  div3 <- length(tx)
-  shrt_tx <- tx[div1:div2]
-  full_tx <- tx[div1:div3]
-  hd <- tx[2:(div1-2)]
-  i_file %>% sub(".md", "", .) %>% append(nam)    -> nam
-  tx %>% extract_field("title: "    ) %>% append(ttl) -> ttl
-  tx %>% extract_field("date: "     ) %>% append(dat) -> dat
-  tx %>% extract_field("tags: "     ) %>% append(dat) -> tag
-  tx %>% extract_field("category: " ) %>% append(ctg) -> ctg
   
+  tx %>% str_which(yaml_divider) %>% min %>% add(1)      -> div0
+  tx %>% str_which(yaml_divider) %>% max %>% subtract(1) -> div1
+  tx %>% str_which(yaml_divider) %>% max %>% add(1)      -> div2
+  tx %>% str_which(more_divider) %>% max(length(tx))     -> div3
+  tx %>% length                                          -> div4
+
+  orig_tx[[i]] <- tx
+  head_tx[[i]] <- tx[div0:div1]
+  shrt_tx[[i]] <- tx[div2:div3]
+  full_tx[[i]] <- tx[div2:div4]
+  
+  i_file %>% str_remove(fixed(".md")) %>% str_remove("^.*/") -> nam[i]
+  tx %>% extract_field("title: "   ) %>% stash(ttl)          -> ttl[i]
+  tx %>% extract_field("date: "    ) %>% stash(dat)          -> dat[i]
+  tx %>% extract_field("tags: "    ) %>% stash(tag)          -> tag[i]
+  tx %>% extract_field("category: ") %>% stash(ctg)          -> ctg[i]
+}
+
+for (i in 1:n_files) {
+  i_file <- file_list[i]
   ctg[i_file] %<>% tolower
   ctg[i_file] <- sub("statistics", "blog entry", ctg[i_file])
   
   mnt <- substr(dat[i_file], 1, 7)
-  
-  build_link <- function(x, p="../archive/") {
-    link1 <- brack(x) %0% "(" %0% p %0% gsub(" ", "-", x) %0% ".html)"
-  }
   
   gsub(", ", "; ", tag[i_file]) %>%
     strsplit("; ") %>%
@@ -84,7 +111,7 @@ for (i_file in file_list) {
     writeLines(md_root %s% "blog" %s% nam[i_file] %0% ".md")
     
   build_link(nam[i_file], "../blog") %b% 
-    shrt_tx %>% append(page_link) -> page_link
+    shrt_tx %>% stash(page_link) -> page_link
 }
 
 ## Step 4. Produce an index
