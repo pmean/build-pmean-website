@@ -26,17 +26,64 @@ yaml_header <- "---"
 brack <- function(x) {"" %[% x}
 paren <- function(x) {"" %p% x}
 
-add_line_breaks <- function(s1, n=1) {
-  v <- c(s1, rep("\n", n))
-  paste0(v, collapse="")
+extract_field <- function(x, field_name) {
+  str_subset(x, fixed(field_name, ignore_case=TRUE)) %>%
+    str_remove(field_name) %>%
+    str_remove_all(fixed('"')) %>%
+    str_trim %>%
+    str_c(collapse=", ") -> extracted_text
+  if (length(extracted_text) == 0) {return("Not found")}
+  return(extracted_text)
 }
 
-add_quotes <- function(s1, s2) {
-  paste0(s1, '"', s2, '"')
+if (verbose) {
+  tst <- c(
+    "author: \"Steve Simon\"", 
+    "date: \"2015-01-15\"", 
+    "category: Statistics",
+    "tags: \"Human side of statistics, Observational studies\"")
+  tst %>% extract_field("tags: ") %>% print
+  tst %>% extract_field("date: ") %>% print
+  tst %>% extract_field("category: ") %>% print
+  tst %>% extract_field("improper: ") %>% print
 }
 
-add_parentheses <- function(s1, s2) {
-  paste0(s1, '(', s2, ')')
+build_link <- function(x, p="../archive") {
+  p %s% x %>% 
+    tolower %>% 
+    str_replace_all(" ", "-") %0% ".html" -> added_dashes
+  link1 <- brack(x) %0% paren(added_dashes)
+}
+
+if (verbose) {
+  tst %>% extract_field("category: ") %>% build_link %>% print
+}
+
+build_footer <- function(tag_txt, ctg_txt, dat_txt) {
+  "This" %b% build_link(ctg_txt) %b% "was added to this website on" -> ctg_link
+  
+  dat_txt %>% str_sub(1, 7) -> mo
+  dat_txt %>% str_sub(8, 10) -> da
+  
+  mo %>% build_link %0% da %0% "." -> dat_link
+  
+  tag_txt %>%
+    strsplit(", ") %>%
+    unlist %>%
+    build_link %>%
+    paste(collapse=", ") -> tag_link
+  
+  "You can find similar pages at" %b% tag_link %0% "." -> tag_link
+  
+  return(ctg_link %1% dat_link %1% tag_link)
+}
+
+if (verbose) {
+  build_footer(
+    extract_field(tst, "tags: "),
+    extract_field(tst, "category: "),
+    extract_field(tst, "date: ")
+  ) %>% print
 }
 
 read_text <- function(fn, path=default_path, char_max=999999) {
