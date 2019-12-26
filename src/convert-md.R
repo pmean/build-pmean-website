@@ -87,7 +87,8 @@ for (i in 1:n_files) {
     yaml_divider                   %>%
     str_c(collapse="\n")                       -> newh_tx[i]
   build_footer(tag[i], ctg[i], dat[i])         -> foot_tx[i]
-  build_link(nam[i], "../blog") %b% shrt_tx[i] -> summ_tx[i]
+  brack(ttl[i] %0% " " %p% dat[i]) %0%
+    paren("../blog" %s% nam[i] %0% ".html")    -> summ_tx[i]
   
 }
 
@@ -99,33 +100,16 @@ for (i in 1:n_files) {
   comp_tx[i] %>% writeLines(fn)
 }
 
-## Step 4. Produce an index
+## Step 4. Save information for building an archive.
 
-if (verbose) {"\nWriting index.md." %>% cat}
+o <- rev(order(dat, ttl))
 
-yaml_divider                                               %1%
-  'title: '                    %q% 'All blog entries'      %1%
-  'output: '                   %0% 'html_document'         %1%
-  yaml_divider                                             -> md_file_header
+dat <- dat[o]
+mnt <- mnt[o]
+tag <- tag[o]
+summ_tx <- summ_tx[o]
 
-n_files <- length(dat)
-o <- rev(order(dat)) 
-summ_tx[o] %>%
-  paste0("\n\nB-", n_files:1, ". ", .) %>%
-  paste0(collapse="") -> md_file_body
-
-new_name <- md_root %s% "archive" %s% "index.md"
-writeLines(paste0(md_file_header, md_file_body), new_name)
-
-## Step 5. Convert to html
-
-# r4_path <- sub("/r3", "/r4", r3_path)
-# md_file <- r3_path %s% "index.md"
-# render(md_file, output_dir=r4_path)
-# for (i_file in 1:n_files) {
-  # md_file <- r3_path %s% bib_info[i_file, "nam"] %0% ".md"
-  # render(md_file, output_dir=r4_path)
-# }
+save(dat, mnt, tag, summ_tx, file="data/summaries.RData")
 
 ## Save everything
 
