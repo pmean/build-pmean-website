@@ -107,9 +107,10 @@ o <- rev(order(dat, ttl))
 dat <- dat[o]
 mnt <- mnt[o]
 tag <- tag[o]
+ctg <- ctg[o]
 summ_tx <- summ_tx[o]
 
-save(dat, mnt, tag, summ_tx, file="data/summaries.RData")
+save(ctg, dat, mnt, tag, summ_tx, file="data/summaries.RData")
 
 ## Save everything
 
