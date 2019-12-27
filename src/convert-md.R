@@ -81,10 +81,10 @@ dat %>% str_sub(8, 10) -> day
 
 for (i in 1:n_files) {
 
-  yaml_divider                     %1%
-    "title:" %s% ttl[i] %p% dat[i] %1%
-    "output: html_document"        %1%
-    yaml_divider                   %>%
+  yaml_divider                               %1%
+    'title: "' %0% ttl[i] %p% dat[i] %0% '"' %1%
+    'output: html_document'                  %1%
+    yaml_divider                             %>%
     str_c(collapse="\n")                       -> newh_tx[i]
   build_footer(tag[i], ctg[i], dat[i])         -> foot_tx[i]
   brack(ttl[i] %0% " " %p% dat[i]) %0%

@@ -29,10 +29,11 @@ writeLines(paste0(md_file_header, md_file_body), new_name)
 
 for (i_month in sort(unique(mnt))) {
   if (verbose) {"\nWriting" %b% i_month %0% "." %>% cat}
-  yaml_divider                                               %1%
-    'title: '                    %q% 'Archive:' %b% i_month  %1%
-    'output: '                   %0% 'html_document'         %1%
-    yaml_divider                                             -> md_file_header
+
+  yaml_divider                                     %1%
+    'title: "Archive:' %b% i_month         %0% '"' %1%
+    'output: '         %0% 'html_document'         %1%
+    yaml_divider                                   -> md_file_header
   
   sb <- mnt==i_month
   n_sb <- sum(sb)
@@ -51,10 +52,11 @@ tag %>% str_split(", ") %>% unlist %>% unique -> tag_list
 
 for (i_tag in tag_list) {
   if (verbose) {"\nWriting" %b% i_tag %0% "." %>% cat}
-  yaml_divider                                               %1%
-    'title: '                    %q% 'Archive:' %b% i_tag    %1%
-    'output: '                   %0% 'html_document'         %1%
-    yaml_divider                                             -> md_file_header
+
+  yaml_divider                                     %1%
+    'title: "Archive:' %b% i_tag           %0% '"' %1%
+    'output: '         %0% 'html_document'         %1%
+    yaml_divider                                   -> md_file_header
   
   tag %>% str_detect(i_tag) -> sb
   n_sb <- sum(sb)
@@ -71,10 +73,11 @@ for (i_tag in tag_list) {
 
 for (i_ctg in sort(unique(ctg))) {
   if (verbose) {"\nWriting" %b% i_ctg %0% "." %>% cat}
-  yaml_divider                                               %1%
-    'title: '                    %q% 'Archive:' %b% i_month  %1%
-    'output: '                   %0% 'html_document'         %1%
-    yaml_divider                                             -> md_file_header
+
+  yaml_divider                                     %1%
+    'title: "Archive:' %b% i_ctg           %0% '"' %1%
+    'output: '         %0% 'html_document'         %1%
+    yaml_divider                                   -> md_file_header
   
   sb <- ctg==i_ctg
   n_sb <- sum(sb)
@@ -86,16 +89,6 @@ for (i_ctg in sort(unique(ctg))) {
   new_name <- md_root %s% "archive" %s% i_ctg %0% ".md"
   writeLines(paste0(md_file_header, md_file_body), new_name)
 }
-
-## Step 4. Convert to html
-
-# r4_path <- sub("/r3", "/r4", r3_path)
-# md_file <- r3_path %s% "index.md"
-# render(md_file, output_dir=r4_path)
-# for (i_file in 1:n_files) {
-  # md_file <- r3_path %s% bib_info[i_file, "nam"] %0% ".md"
-  # render(md_file, output_dir=r4_path)
-# }
 
 ## Save everything
 
