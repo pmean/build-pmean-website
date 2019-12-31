@@ -5,6 +5,7 @@
 ## Step 0. Preliminaries
 
 source(file="src/prelims.R", echo=FALSE)
+
 ## Step 1. Find the .md files
 
 wb_root <- "c:/Users/steve/Dropbox/professional/web"
@@ -21,6 +22,25 @@ r3_names <- list.files(path=r3_root, pattern="*.md")
 file_list <- c(b3_root %s% b3_names, r3_root %s% r3_names)
 n_files <- length(file_list)
 
+## Step 1a. Search for files not needing updates
+
+bl_root <- wb_root %s% "md/blog"
+
+bl_files <- list.files(path=bl_root, pattern="*.md")
+
+changed_list <- NULL
+for (i_file in file_list) {
+  t0 <- file.info(i_file)$mtime
+  i_file %>%
+    str_replace("^.*/", bl_root %0% "/") %>%
+    file.info %>%
+    pull(mtime) -> t1
+  if (t1-t0 > 0) next
+  changed_list %<>% append(i_file)
+  if (verbose) {
+    "\n" %0% t1 %b% t0 %b% str_remove(i_file, "^.*/") %>% cat
+  }
+}
 
 ## Step 2. Read each .md file and extract information
 
