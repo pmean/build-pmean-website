@@ -86,6 +86,34 @@ if (verbose) {
   ) %>% print
 }
 
+compare_dates <- function(path0, path1, pattern0="md", pattern1="md") {
+  wb_root <- "c:/Users/steve/Dropbox/professional/web"
+  
+  f0_root <- wb_root %s% path0
+  f1_root <- wb_root %s% path1
+  
+  f0_names <- list.files(path=f0_root, pattern="*." %0% pattern0)
+  f1_names <- list.files(path=f1_root, pattern="*." %0% pattern1)
+
+  f0_names %<>% str_remove(pattern0)
+  f1_names %<>% str_remove(pattern1)
+  
+  # First, add files that are found in f0 but not f1.  
+  changed_list <- setdiff(f0_names, f1_names)
+  
+  common_files <- intersect(f0_names, f1_names)
+  for (i_file in common_files) {
+    t0 <- file.info(f0_root %s% i_file %0% "." %0% pattern0)$mtime
+    t1 <- file.info(f1_root %s% i_file %0% "." %0% pattern1)$mtime
+      if (t1-t0 > 0) next
+      changed_list %<>% append(i_file)
+      if (verbose) {
+        "\n" %0% t1 %b% t0 %b% str_remove(i_file, "^.*/") %>% cat
+      }
+  }
+  return(changed_list)
+}
+
 read_text <- function(fn, path=default_path, char_max=999999) {
   path %>%
     paste0("/") %>%

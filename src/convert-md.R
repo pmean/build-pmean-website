@@ -29,8 +29,16 @@ bl_root <- wb_root %s% "md/blog"
 bl_files <- list.files(path=bl_root, pattern="*.md")
 
 changed_list <- NULL
-for (i_file in file_list) {
+for (i in 1:length(bl_files)) {
+  i_file <- bl_names[i]
+  wb_file <- wb_names[i]
+  for (i_file in file_list) {
   t0 <- file.info(i_file)$mtime
+  if (!file.exists(wb_file)) {
+    changed_list %<>% append(bl_files[i])
+    if (verbose) "\n" %0% bl_files[i] %b% "not matched." %>% cat
+    next
+  }
   i_file %>%
     str_replace("^.*/", bl_root %0% "/") %>%
     file.info %>%
