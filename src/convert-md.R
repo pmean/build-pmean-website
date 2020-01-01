@@ -13,42 +13,21 @@ wb_root <- "c:/Users/steve/Dropbox/professional/web"
 
 b3_root <- wb_root %s% "b3"
 r3_root <- wb_root %s% "r3"
-md_root <- wb_root %s% "md"
+bl_root <- wb_root %s% "md/blog"
 
-b3_names <- list.files(path=b3_root, pattern="*.md")
-
-r3_names <- list.files(path=r3_root, pattern="*.md")
+b3_names <- compare_dates(b3_root, bl_root)
+r3_names <- compare_dates(r3_root, bl_root)
 
 file_list <- c(b3_root %s% b3_names, r3_root %s% r3_names)
 n_files <- length(file_list)
 
+if (n_files==0) {stop("No files need to be updated.")}
 ## Step 1a. Search for files not needing updates
 
 bl_root <- wb_root %s% "md/blog"
 
 bl_files <- list.files(path=bl_root, pattern="*.md")
 
-changed_list <- NULL
-for (i in 1:length(bl_files)) {
-  i_file <- bl_names[i]
-  wb_file <- wb_names[i]
-  for (i_file in file_list) {
-  t0 <- file.info(i_file)$mtime
-  if (!file.exists(wb_file)) {
-    changed_list %<>% append(bl_files[i])
-    if (verbose) "\n" %0% bl_files[i] %b% "not matched." %>% cat
-    next
-  }
-  i_file %>%
-    str_replace("^.*/", bl_root %0% "/") %>%
-    file.info %>%
-    pull(mtime) -> t1
-  if (t1-t0 > 0) next
-  changed_list %<>% append(i_file)
-  if (verbose) {
-    "\n" %0% t1 %b% t0 %b% str_remove(i_file, "^.*/") %>% cat
-  }
-}
 
 ## Step 2. Read each .md file and extract information
 
@@ -109,13 +88,14 @@ dat %>% str_sub(8, 10) -> day
 
 for (i in 1:n_files) {
 
+  full_title <- ttl[i] %0% " " %q% dat[i]
   yaml_divider                               %1%
-    'title: "' %0% ttl[i] %p% dat[i] %0% '"' %1%
+    'title:' %b% full_title                  %1%
     'output: html_document'                  %1%
     yaml_divider                             %>%
     str_c(collapse="\n")                       -> newh_tx[i]
   build_footer(tag[i], ctg[i], dat[i])         -> foot_tx[i]
-  brack(ttl[i] %0% " " %p% dat[i]) %0%
+  brack(full_title) %0%
     paren("../blog" %s% nam[i] %0% ".html")    -> summ_tx[i]
   
 }

@@ -95,11 +95,16 @@ compare_dates <- function(path0, path1, pattern0="md", pattern1="md") {
   f0_names <- list.files(path=f0_root, pattern="*." %0% pattern0)
   f1_names <- list.files(path=f1_root, pattern="*." %0% pattern1)
 
-  f0_names %<>% str_remove(pattern0)
-  f1_names %<>% str_remove(pattern1)
+  f0_names %<>% str_remove(fixed("." %s% pattern0))
+  f1_names %<>% str_remove(fixed("." %s% pattern1))
   
   # First, add files that are found in f0 but not f1.  
   changed_list <- setdiff(f0_names, f1_names)
+  if (verbose & length(changed_list > 0)) {
+    str_c(changed_list, " not found in ", path1, collapse="\n") %>% cat
+  }
+  
+  # Compare dates for those files found in both f0 and f1
   
   common_files <- intersect(f0_names, f1_names)
   for (i_file in common_files) {
