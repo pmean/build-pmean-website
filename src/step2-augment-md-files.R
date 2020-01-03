@@ -1,4 +1,4 @@
-#  convert-md.R
+#  step2-augment-md-files.R
 ## written by Steve Simon
 ## created 2019-12-21
 

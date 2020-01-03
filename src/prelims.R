@@ -14,6 +14,8 @@ suppressMessages(suppressWarnings(library(tidyverse)))
 verbose <- TRUE
 yaml_header <- "---"
 
+# These functions join strings in various ways.
+
 "%0%" <- function(x, y) {paste0(x, y)}
 "%1%" <- function(x, y) {paste0(x, "\n", y)}
 "%2%" <- function(x, y) {paste0(x, "\n\n", y)}
@@ -27,6 +29,24 @@ yaml_header <- "---"
 brack <- function(x) {"" %[% x}
 paren <- function(x) {"" %p% x}
 
+# Test these functions
+if (verbose) {
+  x <- "abc"
+  y <- "def"
+  "\n%0% produces: " %1% x %0% y %>% cat
+  "\n%1% produces: " %1% x %1% y %>% cat
+  "\n%2% produces: " %1% x %2% y %>% cat
+  "\n%p% produces: " %1% x %p% y %>% cat
+  "\n%q% produces: " %1% x %q% y %>% cat
+  "\n%[% produces: " %1% x %[% y %>% cat
+  
+  "\n\nbrack produces: " %1% brack(x) %>% cat
+  "\nparen produces: " %1% paren(x) %>% cat
+}
+
+# This function extracts information from
+# a yaml header for a markdown file.
+
 extract_field <- function(x, field_name) {
   str_subset(x, fixed(field_name, ignore_case=TRUE)) %>%
     str_trim %>%
@@ -39,6 +59,7 @@ extract_field <- function(x, field_name) {
   return(extracted_text)
 }
 
+# Test this function
 if (verbose) {
   tst <- c(
     "author: \"Steve Simon\"", 
