@@ -5,6 +5,7 @@
 ## Step 0. Preliminaries
 
 source(file="src/prelims.R", echo=FALSE)
+update_all <- TRUE
 
 ## Step 1. Find the .md files
 
@@ -16,6 +17,15 @@ bl_root <- wb_root %s% "md/blog"
 
 b3_names <- compare_dates(b3_root, bl_root)
 r3_names <- compare_dates(r3_root, bl_root)
+
+if (update_all) {
+  b3_root %>%
+    list.files(pattern="*.md") %>%
+    str_remove(fixed(".md")) -> b3_names
+  r3_root %>%
+    list.files(pattern="*.md") %>%
+    str_remove(fixed(".md")) -> r3_names
+}
 
 file_list <- character(0)
 
@@ -94,7 +104,7 @@ for (i in 1:n_files) {
   full_title <- ttl[i] %0% " " %p% dat[i]
 
   yaml_divider                                                  %1%
-    'title:' %b% full_title                                     %1%
+    'title: ' %q% full_title                                    %1%
     'output: html_document'                                     %1%
     yaml_divider                                                %>%
     str_c(collapse="\n")                                        -> newh_tx[i]
@@ -119,7 +129,7 @@ for (i in 1:n_files) {
 o <- rev(order(dat, ttl))
 
 dat <- dat[o]
-mnt <- mnt[o]
+mnt <- mnt[o]  
 tag <- tag[o]
 ctg <- ctg[o]
 summ_tx <- summ_tx[o]

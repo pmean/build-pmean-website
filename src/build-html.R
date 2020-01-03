@@ -1,4 +1,4 @@
-#  convert-md.R
+#  build-html.R
 ## written by Steve Simon
 ## created 2019-12-21
 
@@ -51,26 +51,22 @@ for (i in 1:length(bl_names)) {
 ## Step 4. Convert to html
 
 for (i_file in changed_list) {
-  if (verbose) {"\nConverting" %b% i_file %>% cat}
   md_file <- bl_root %s% i_file
+  if (verbose) {
+    "\nConverting" %b% md_file %>% cat
+  }
   html_path <- wb_root %s% "website/blog"
   render(md_file, output_dir=html_path)
 }
 
 for (i_file in ar_names) {
-  if (verbose) {"/nConverting" %b% i_file %>% cat}
   md_file <- ar_root %s% i_file
+  if (verbose) {
+    "/nConverting" %b% md_file %>% cat
+  }
   html_path <- wb_root %s% "website/archive"
   render(md_file, output_dir=html_path)
 }
-
-# r4_path <- sub("/r3", "/r4", r3_path)
-# md_file <- r3_path %s% "index.md"
-# render(md_file, output_dir=r4_path)
-# for (i_file in 1:n_files) {
-  # md_file <- r3_path %s% bib_info[i_file, "nam"] %0% ".md"
-  # render(md_file, output_dir=r4_path)
-# }
 
 ## Save everything
 

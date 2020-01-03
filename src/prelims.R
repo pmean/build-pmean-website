@@ -10,6 +10,7 @@ suppressMessages(suppressWarnings(library(magrittr)))
 suppressMessages(suppressWarnings(library(rmarkdown)))
 suppressMessages(suppressWarnings(library(stringr)))
 suppressMessages(suppressWarnings(library(tidyverse)))
+
 verbose <- TRUE
 yaml_header <- "---"
 
@@ -28,6 +29,8 @@ paren <- function(x) {"" %p% x}
 
 extract_field <- function(x, field_name) {
   str_subset(x, fixed(field_name, ignore_case=TRUE)) %>%
+    str_trim %>%
+    str_remove(",$") %>%
     str_remove(field_name) %>%
     str_remove_all(fixed('"')) %>%
     str_trim %>%
@@ -136,29 +139,29 @@ remove_ch <- function(txt, ch, fixed_flag=FALSE) {
 
 select_name <- function(txt) {
   txt %>%
-    grep('\\@', ., value=TRUE) %>%
-    remove_ch('@') %>%
-    remove_ch(',') %>%
+    str_subset('\\@') %>%
+    str_remove(fixed('@')) %>%
+    str_remove(fixed(',')) %>%
     strsplit("\\{") %>%
     unlist %>%
     return
 }
 
-select_txt <- function(txt, lab) {
+select_txt <- function(txt, lab, def="No data") {
   txt %>%
-    grep(lab, ., value=TRUE) %>%
-    gsub("{{", "{", ., fixed=TRUE) %>%
-    remove_ch('article{', fixed=TRUE) %>%
-    remove_ch('article {', fixed=TRUE) %>%
-    remove_ch('misc{', fixed=TRUE) %>%
-    remove_ch(',.*?$', fixed=TRUE) %>%
-    remove_ch('"', fixed=TRUE) %>%
-    remove_ch('^\\s*') %>%
-    remove_ch(paste0("^",lab)) %>%
-    remove_ch('^\\{') %>%
-    remove_ch('\\}') %>%
-    remove_ch('\\s*$') %>%
-    remove_ch(',$') -> selection
+    str_subset(lab) %>%
+    str_replace(fixed("{{"), "{") %>%
+    str_trim %>%
+    str_remove(fixed('article{')) %>%
+    str_remove(fixed('article {')) %>%
+    str_remove(fixed('misc{')) %>%
+    str_remove(',$') %>%
+    str_remove(fixed('"')) %>%
+    str_remove(paste0("^",lab)) %>%
+    str_remove('^\\{') %>%
+    str_remove('\\}') %>%
+    str_remove('\\s*$') %>%
+    str_remove(',$') -> selection
   if (is.null(selection)) return("")
   return(paste0(selection, collapse="; "))
 }

@@ -369,43 +369,122 @@ summary {
 </div>
 
 
+<pre><code>## [1] &quot;Human side of statistics, Observational studies&quot;
+## [1] &quot;2015-01-15&quot;
+## [1] &quot;Statistics&quot;
+## [1] &quot;Not found&quot;
+## [1] &quot;[Statistics](../archive/statistics.html)&quot;
+## [1] &quot;This [Statistics](../archive/statistics.html) was added to this website on\n[2015-01](../archive/2015-01.html)-15.\nYou can find similar pages at [Human side of statistics](../archive/human-side-of-statistics.html), [Observational studies](../archive/observational-studies.html).&quot;</code></pre>
 <div id="step-1.-find-the-.bib-files" class="section level2">
 <h2>Step 1. Find the .bib files</h2>
-<pre class="r"><code>bib_names &lt;- NULL
+<pre class="r"><code>r1_root &lt;- &quot;c:/Users/steve/Dropbox/professional/web/r1&quot;
+month_list &lt;- c(
+  &quot;18/02&quot;,
+  &quot;19/05&quot;, 
+  &quot;19/06&quot;, 
+  &quot;19/07&quot;, 
+  &quot;19/10&quot;, 
+  &quot;19/11&quot;, 
+  &quot;19/12&quot;
+)
+bib_names &lt;- NULL
 r1_names &lt;- NULL
 short_names &lt;- NULL
-r1_root &lt;- &quot;c:/Users/steve/Dropbox/professional/web/r1/19&quot;
-month_list &lt;- c(&quot;05&quot;, &quot;06&quot;, &quot;07&quot;, &quot;10&quot;, &quot;11&quot;, &quot;12&quot;)
-for (i_month in month_list[1:3]) {
+for (i_month in month_list) {
   r1_path &lt;- r1_root %s% i_month
   f0 &lt;- list.files(path=r1_path, pattern=&quot;*.nbib&quot;)
   f1 &lt;- list.files(path=r1_path, pattern=&quot;*.bib&quot;)
-  fn &lt;- setdiff(f1, f0)
-  r1_names %&lt;&gt;% append(fn)
-  bib_names %&lt;&gt;% append(r1_path %s% fn)
-  short_names %&lt;&gt;% append(&quot;19&quot; %s% i_month %s% r1_names)
-}
-short_names &lt;- sub(&quot;.bib&quot;, &quot;&quot;, short_names)
-if (verbose) print(r1_names)</code></pre>
-<pre><code>##  [1] &quot;fanelli 2009.bib&quot;                &quot;hesselman 2017.bib&quot;             
-##  [3] &quot;imsdb.bib&quot;                       &quot;krishevsky2017.bib&quot;             
-##  [5] &quot;liu2016.bib&quot;                     &quot;bates-nodate.bib&quot;               
-##  [7] &quot;broman-2013.bib&quot;                 &quot;brooks-2015.bib&quot;                
-##  [9] &quot;damschroder-2009.bib&quot;            &quot;flottorp-2013.bib&quot;              
-## [11] &quot;foy-2007.bib&quot;                    &quot;hemedinger-2016.bib&quot;            
-## [13] &quot;hemken-2019.bib&quot;                 &quot;kirk-1991.bib&quot;                  
-## [15] &quot;legler-2010.bib&quot;                 &quot;matloff-2014.bib&quot;               
-## [17] &quot;mcculloch-1985.bib&quot;              &quot;morganstein-2014.bib&quot;           
-## [19] &quot;nilsen-2015.bib&quot;                 &quot;niu-2016.bib&quot;                   
-## [21] &quot;sas-2019.bib&quot;                    &quot;sas-2019a.bib&quot;                  
-## [23] &quot;simkin-1987.bib&quot;                 &quot;umkc-2019.bib&quot;                  
-## [25] &quot;umkc-2019a.bib&quot;                  &quot;vance-2014.bib&quot;                 
-## [27] &quot;vance-2014a.bib&quot;                 &quot;vance-2015.bib&quot;                 
-## [29] &quot;weiner-2009.bib&quot;                 &quot;wu-2018.bib&quot;                    
-## [31] &quot;machine-learning-repository.bib&quot; &quot;sharma-2002.bib&quot;                
-## [33] &quot;war-data.bib&quot;</code></pre>
+  f2 &lt;- setdiff(f1, f0)
+  f3 &lt;- r1_path %s% f2
+  f4 &lt;- i_month %s% f2
+  r1_names %&lt;&gt;% append(f2)
+  bib_names %&lt;&gt;% append(f3)
+  short_names %&lt;&gt;% append(f4)
+  if (verbose) {
+     &quot;\n\nMonth =&quot; %b% i_month %&gt;% cat
+     &quot;\n&quot; %0% paste(f2, collapse=&quot;, &quot;) %&gt;% cat
+  }
+}</code></pre>
+<pre><code>## 
+## 
+## Month = 18/02
+## learns-2018.bib
+## 
+## Month = 19/05
+## fanelli-2009.bib, hesselman-2017.bib, imsdb-nodate.bib, krishevsky-2017.bib, liu-2016.bib
+## 
+## Month = 19/06
+## bates-nodate.bib, broman-2013.bib, brooks-2015.bib, damschroder-2009.bib, flottorp-2013.bib, foy-2007.bib, hemedinger-2016.bib, hemken-2019.bib, kirk-1991.bib, legler-2010.bib, matloff-2014.bib, mcculloch-1985.bib, morganstein-2014.bib, nilsen-2015.bib, niu-2016.bib, sas-2019.bib, sas-2019a.bib, simkin-1987.bib, umkc-2019.bib, umkc-2019a.bib, vance-2014.bib, vance-2014a.bib, vance-2015.bib, weiner-2009.bib, wu-2018.bib
+## 
+## Month = 19/07
+## asuncion-2019.bib, maoz-nodate.bib, sharma-2002.bib
+## 
+## Month = 19/10
+## gill-2018.bib, li-2007.bib, lundberg-2017.bib, ribeiro-2016.bib, shihipar-2019.bib, singer-2019.bib
+## 
+## Month = 19/11
+## cook-2008.bib
+## 
+## Month = 19/12
+## anonymous-2019.bib, connolly-nodate.bib, davenport-2012.bib, dwivedi-2019.bib, flamme-2019.bib, gamble-2017.bib, holder-2018.bib, informatics-podcasts.bib, jena-2019.bib, margolies-2019.bib, pant-2019.bib, pew-2019.bib, wickham-2015.bib</code></pre>
+<pre class="r"><code>short_names %&lt;&gt;% str_replace(fixed(&quot;.bib&quot;), &quot;&quot;)
+if (verbose) print(bib_names)</code></pre>
+<pre><code>##  [1] &quot;c:/Users/steve/Dropbox/professional/web/r1/18/02/learns-2018.bib&quot;         
+##  [2] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/05/fanelli-2009.bib&quot;        
+##  [3] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/05/hesselman-2017.bib&quot;      
+##  [4] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/05/imsdb-nodate.bib&quot;        
+##  [5] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/05/krishevsky-2017.bib&quot;     
+##  [6] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/05/liu-2016.bib&quot;            
+##  [7] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/bates-nodate.bib&quot;        
+##  [8] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/broman-2013.bib&quot;         
+##  [9] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/brooks-2015.bib&quot;         
+## [10] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/damschroder-2009.bib&quot;    
+## [11] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/flottorp-2013.bib&quot;       
+## [12] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/foy-2007.bib&quot;            
+## [13] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/hemedinger-2016.bib&quot;     
+## [14] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/hemken-2019.bib&quot;         
+## [15] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/kirk-1991.bib&quot;           
+## [16] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/legler-2010.bib&quot;         
+## [17] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/matloff-2014.bib&quot;        
+## [18] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/mcculloch-1985.bib&quot;      
+## [19] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/morganstein-2014.bib&quot;    
+## [20] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/nilsen-2015.bib&quot;         
+## [21] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/niu-2016.bib&quot;            
+## [22] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/sas-2019.bib&quot;            
+## [23] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/sas-2019a.bib&quot;           
+## [24] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/simkin-1987.bib&quot;         
+## [25] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/umkc-2019.bib&quot;           
+## [26] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/umkc-2019a.bib&quot;          
+## [27] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/vance-2014.bib&quot;          
+## [28] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/vance-2014a.bib&quot;         
+## [29] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/vance-2015.bib&quot;          
+## [30] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/weiner-2009.bib&quot;         
+## [31] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/06/wu-2018.bib&quot;             
+## [32] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/07/asuncion-2019.bib&quot;       
+## [33] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/07/maoz-nodate.bib&quot;         
+## [34] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/07/sharma-2002.bib&quot;         
+## [35] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/10/gill-2018.bib&quot;           
+## [36] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/10/li-2007.bib&quot;             
+## [37] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/10/lundberg-2017.bib&quot;       
+## [38] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/10/ribeiro-2016.bib&quot;        
+## [39] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/10/shihipar-2019.bib&quot;       
+## [40] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/10/singer-2019.bib&quot;         
+## [41] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/11/cook-2008.bib&quot;           
+## [42] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/12/anonymous-2019.bib&quot;      
+## [43] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/12/connolly-nodate.bib&quot;     
+## [44] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/12/davenport-2012.bib&quot;      
+## [45] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/12/dwivedi-2019.bib&quot;        
+## [46] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/12/flamme-2019.bib&quot;         
+## [47] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/12/gamble-2017.bib&quot;         
+## [48] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/12/holder-2018.bib&quot;         
+## [49] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/12/informatics-podcasts.bib&quot;
+## [50] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/12/jena-2019.bib&quot;           
+## [51] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/12/margolies-2019.bib&quot;      
+## [52] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/12/pant-2019.bib&quot;           
+## [53] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/12/pew-2019.bib&quot;            
+## [54] &quot;c:/Users/steve/Dropbox/professional/web/r1/19/12/wickham-2015.bib&quot;</code></pre>
 <pre class="r"><code>n_names &lt;- length(r1_names)
-r3_path &lt;- &quot;c:/Users/steve/Dropbox/professional/web/r3&quot;</code></pre>
+r3_path &lt;- &quot;c:/Users/steve/Dropbox/professional/web/md/r3&quot;</code></pre>
 </div>
 <div id="step-2.-read-each-.bib-file-and-convert-to-.md-file" class="section level2">
 <h2>Step 2. Read each .bib file and convert to .md file</h2>
@@ -446,160 +525,298 @@ n_cats &lt;- length(bib_cats)
 bib_info &lt;- matrix(&quot;&lt;&lt;empty&gt;&gt;&quot;, nrow=n_names, ncol=n_cats)
 dimnames(bib_info)[[2]] &lt;- bib_cats</code></pre>
 <p>Populate bib_info</p>
-<pre class="r"><code>read_bib &lt;- function(fn) {readLines(r1_path %s% r1_names[i_file])}
+<pre class="r"><code>read_bib &lt;- function(fn, def=&quot;No data&quot;) {readLines(fn)}
 
+# Some of the bib files have unprintable junk characters at the very start.
 select_txt &lt;- function(txt, lab, def) {
   txt %&gt;% 
-    gsub(&quot;{{&quot;, &quot;{&quot;, .    , fixed=TRUE) %&gt;%          # double bracket
-    gsub(&quot; {&quot;, &quot;{&quot;, .    , fixed=TRUE) %&gt;%          # leading blank
-    gsub(&quot; =&quot;, &quot;=&quot;, .    , fixed=TRUE) %&gt;%          # leading blank
-    gsub(&quot;= &quot;, &quot;=&quot;, .    , fixed=TRUE) %&gt;%          # trailing blank
-    grep(lab, ., value=TRUE) -&gt; lin 
+    str_replace(&quot;^.*@&quot;, &quot;@&quot;)          %&gt;%          # unprintable junk characters
+    str_replace_all(fixed(&quot;{{&quot;), &quot;{&quot;) %&gt;%          # double bracket
+    str_replace_all(fixed(&quot; {&quot;), &quot;{&quot;) %&gt;%          # leading blank
+    str_replace_all(fixed(&quot;},&quot;), &quot;}&quot;) %&gt;%          # trailing comma
+    str_replace_all(fixed(&quot; =&quot;), &quot;=&quot;) %&gt;%          # leading blank
+    str_replace_all(fixed(&quot;= &quot;), &quot;=&quot;) %&gt;%          # trailing blank
+    str_subset(lab)                   -&gt; lin 
   if (length(lin) == 0) {
     if (verbose) {cat(&quot;,&quot;, def)}
     return(def)
   }
   lin %&gt;%
-    remove_ch(&#39;^@.*\\{&#39;   ) %&gt;%          # from @ to {
-    remove_ch(&#39;,.*?$&#39;     ) %&gt;%          # from comma to end
-    remove_ch(&#39;\\&quot;&#39;       ) %&gt;%          # quote marks
-    remove_ch(&#39;^\\s*&#39;     ) %&gt;%          # leading spaces
-    remove_ch(&quot;^&quot; %0% lab ) %&gt;%          # label
-    remove_ch(&#39;^\\{&#39;      ) %&gt;%          # left curly bracket
-    remove_ch(&#39;\\}&#39;       ) %&gt;%          # right curly bracket
-    remove_ch(&#39;\\s*$&#39;     ) %&gt;%          # trailing blanks
-    remove_ch(&#39;,$&#39;        ) -&gt; selection # trailing comma
-  if (is.null(selection)) return(&quot;&quot;)
+    str_remove_all(&#39;^@.*\\{&#39;   ) %&gt;%          # from @ to {
+    str_remove_all(fixed(&#39;&quot;&#39;))   %&gt;%          # quote marks
+    str_remove_all(&quot;^.*?=&quot;)      %&gt;%          # label
+    str_remove_all(&quot;,$&quot;)         %&gt;%          # trailing comma
+    str_remove_all(fixed(&#39;{&#39;))   %&gt;%          # left curly bracket
+    str_remove_all(fixed(&#39;}&#39;))   %&gt;%          # right curly bracket
+    str_trim                     -&gt; selection
+  if (is.null(selection)) return(def)
   return(paste0(selection, collapse=&quot;; &quot;))
 }</code></pre>
 <pre class="r"><code>txt_original &lt;- as.list(1:n_names)
-for (i_file in 1:n_names) {
-  if (verbose) {cat(&quot;\n&quot;, short_names[i_file], sep=&quot;&quot;)}
-  tx &lt;- readLines(bib_names[i_file])
-  txt_original[[i_file]]  &lt;- tx
+for (i in 1:n_names) {
+  if (verbose) {cat(&quot;\n&quot;, short_names[i], sep=&quot;&quot;)}
+  tx &lt;- readLines(bib_names[i])
+  txt_original[[i]]  &lt;- tx
 
-  bib_info[i_file, &quot;fil&quot;] &lt;- short_names[i_file]
-  bib_info[i_file, &quot;ttl&quot;] &lt;- select_txt(tx, &quot;title=&quot;        , &quot;No title&quot;)
-  bib_info[i_file, &quot;dat&quot;] &lt;- select_txt(tx, &quot;urldate=&quot;      , &quot;No date&quot;)
-  bib_info[i_file, &quot;tag&quot;] &lt;- select_txt(tx, &quot;mendeley-tags=&quot;, &quot;No tags&quot;)
-  bib_info[i_file, &quot;not&quot;] &lt;- select_txt(tx, &quot;annote=&quot;       , &quot;No notes&quot;)
-  bib_info[i_file, &quot;url&quot;] &lt;- select_txt(tx, &quot;url=&quot;          , &quot;No html&quot;)
-  bib_info[i_file, &quot;pdf&quot;] &lt;- select_txt(tx, &quot;pdf=&quot;          , &quot;No pdf&quot;)
-  bib_info[i_file, &quot;nam&quot;] &lt;- select_txt(tx, &quot;@&quot;             , &quot;No name&quot;)
+  bib_info[i, &quot;fil&quot;] &lt;- short_names[i]
+  bib_info[i, &quot;ttl&quot;] &lt;- select_txt(tx, &quot;title=&quot;        , &quot;No title&quot;)
+  bib_info[i, &quot;dat&quot;] &lt;- select_txt(tx, &quot;urldate=&quot;      , &quot;No date&quot;)
+  bib_info[i, &quot;tag&quot;] &lt;- select_txt(tx, &quot;mendeley-tags=&quot;, &quot;No tags&quot;)
+  bib_info[i, &quot;not&quot;] &lt;- select_txt(tx, &quot;annote=&quot;       , &quot;No notes&quot;)
+  bib_info[i, &quot;url&quot;] &lt;- select_txt(tx, &quot;url=&quot;          , &quot;No html&quot;)
+  bib_info[i, &quot;pdf&quot;] &lt;- select_txt(tx, &quot;pdf=&quot;          , &quot;No pdf&quot;)
+  bib_info[i, &quot;nam&quot;] &lt;- select_txt(tx, &quot;@&quot;             , &quot;No name&quot;)
   
-  bib_info[i_file, &quot;png&quot;] &lt;- r1_path %s% sub(&quot;bib$&quot;, &quot;png&quot;, r1_names[i_file])
+  bib_info[i, &quot;png&quot;] &lt;- r1_root %s% short_names[i] %0% &quot;.png&quot;
 
 }</code></pre>
 <pre><code>## 
-## 19/05/fanelli 2009, No title, No pdf
-## 19/05/hesselman 2017, No title, No tags, No pdf
-## 19/05/imsdb, No title, No date, No tags, No notes, No html
-## 19/05/krishevsky2017, No date, No tags, No notes
-## 19/05/liu2016, No title, No date, No tags, No notes, No html
-## 19/06/fanelli 2009, No pdf
-## 19/06/hesselman 2017, No pdf
-## 19/06/imsdb, No pdf
-## 19/06/krishevsky2017, No pdf
-## 19/06/liu2016, No pdf
+## 18/02/learns-2018, No pdf
+## 19/05/fanelli-2009, No title, No pdf
+## 19/05/hesselman-2017, No title, No pdf
+## 19/05/imsdb-nodate, No title, No notes, No html, No pdf
+## 19/05/krishevsky-2017, No pdf
+## 19/05/liu-2016, No title, No notes, No html, No pdf
 ## 19/06/bates-nodate, No pdf
 ## 19/06/broman-2013, No pdf
 ## 19/06/brooks-2015, No pdf
-## 19/06/damschroder-2009, No html
-## 19/06/flottorp-2013, No html
+## 19/06/damschroder-2009, No pdf
+## 19/06/flottorp-2013, No pdf
 ## 19/06/foy-2007, No pdf
-## 19/06/hemedinger-2016, No html
-## 19/06/hemken-2019, No html
-## 19/06/kirk-1991, No pdf
-## 19/06/legler-2010, No pdf
+## 19/06/hemedinger-2016, No pdf
+## 19/06/hemken-2019, No pdf
+## 19/06/kirk-1991, No html
+## 19/06/legler-2010, No html
 ## 19/06/matloff-2014, No pdf
-## 19/06/mcculloch-1985, No pdf
+## 19/06/mcculloch-1985, No html
 ## 19/06/morganstein-2014, No html
 ## 19/06/nilsen-2015, No pdf
 ## 19/06/niu-2016, No pdf
-## 19/06/sas-2019, No html
-## 19/06/sas-2019a, No html
+## 19/06/sas-2019, No pdf
+## 19/06/sas-2019a, No pdf
 ## 19/06/simkin-1987, No html
 ## 19/06/umkc-2019, No pdf
 ## 19/06/umkc-2019a, No pdf
-## 19/06/vance-2014, No pdf
-## 19/06/vance-2014a, No date, No tags, No notes, No html, No pdf
-## 19/06/vance-2015, No pdf</code></pre>
-<pre class="r"><code>for (i_file in 1:n_names) {
+## 19/06/vance-2014, No html
+## 19/06/vance-2014a, No html
+## 19/06/vance-2015, No html
+## 19/06/weiner-2009, No pdf
+## 19/06/wu-2018, No pdf
+## 19/07/asuncion-2019, No pdf
+## 19/07/maoz-nodate, No pdf
+## 19/07/sharma-2002, No pdf
+## 19/10/gill-2018, No tags, No html, No pdf
+## 19/10/li-2007, No pdf
+## 19/10/lundberg-2017, No pdf
+## 19/10/ribeiro-2016, No title, No date, No html, No pdf
+## 19/10/shihipar-2019, No notes, No pdf
+## 19/10/singer-2019, No date, No pdf
+## 19/11/cook-2008, No pdf
+## 19/12/anonymous-2019, No pdf
+## 19/12/connolly-nodate, No pdf
+## 19/12/davenport-2012, No pdf
+## 19/12/dwivedi-2019, No pdf
+## 19/12/flamme-2019, No html, No pdf
+## 19/12/gamble-2017
+## 19/12/holder-2018, No pdf
+## 19/12/informatics-podcasts, No pdf
+## 19/12/jena-2019, No pdf
+## 19/12/margolies-2019, No pdf
+## 19/12/pant-2019, No pdf
+## 19/12/pew-2019, No pdf
+## 19/12/wickham-2015, No pdf</code></pre>
+<pre class="r"><code>for (i in 1:n_names) {
+  full_title &lt;- &#39;Recommendation:&#39; %b% bib_info[i, &quot;ttl&quot;]
   yaml_divider                                               %1%
-    &#39;title: &#39;                    %q% bib_info[i_file, &quot;ttl&quot;] %1%
+    &#39;title: &#39;                    %q% full_title              %1%
     &#39;author: &#39;                   %q% &quot;Steve Simon&quot;           %1%
-    &#39;date: &#39;                     %q% bib_info[i_file, &quot;dat&quot;] %1%
-    &#39;category: &#39;                 %0% &#39;Recommended&#39;           %1%
-    &#39;tags: &#39;                     %q% bib_info[i_file, &quot;tag&quot;] %1%
+    &#39;date: &#39;                     %q% bib_info[i, &quot;dat&quot;] %1%
+    &#39;category: &#39;                 %0% &#39;Recommendation&#39;        %1%
+    &#39;tags: &#39;                     %q% bib_info[i, &quot;tag&quot;] %1%
     &#39;output: &#39;                   %0% &#39;html_document&#39;         %1%
     yaml_divider                                             %2%
 
-    bib_info[i_file, &quot;not&quot;]                                  %2%
+    bib_info[i, &quot;not&quot;]                                  %2%
     
     &#39;&lt;!---More---&gt;&#39;                                          %2%
     
-    &#39;![]&#39;                        %p% bib_info[i_file, &quot;png&quot;] %2%
+    &#39;![]&#39;                        %p% bib_info[i, &quot;png&quot;] %2%
     
-    &#39;Available in [html format]&#39; %p% bib_info[i_file, &quot;url&quot;] %0%
-    &#39; or [PDF format]&#39;           %p% bib_info[i_file, &quot;pdf&quot;] %0%
+    &#39;Available in [html format]&#39; %p% bib_info[i, &quot;url&quot;] %0%
+    &#39; or [PDF format]&#39;           %p% bib_info[i, &quot;pdf&quot;] %0%
     &#39;.\n&#39;                                                    -&gt; md_file
   
   md_file %&gt;%
     sub(&quot; or [PDF format](No pdf)&quot;,  &quot;&quot;, ., fixed=TRUE)  %&gt;%
     sub(&quot; [html format](No html) or&quot;, &quot;&quot;, ., fixed=TRUE) -&gt; md_file
-  new_name &lt;- r3_path %s% bib_info[i_file, &quot;nam&quot;] %0% &quot;.md&quot;
-  if (verbose) {&quot;Writing&quot; %b% cat(new_name %b% &quot;.\n&quot;)}
+  new_name &lt;- r3_path %s% bib_info[i, &quot;nam&quot;] %0% &quot;.md&quot;
+  if (verbose) {
+    &quot;Writing&quot; %b% new_name           %b% &quot;.\n&quot; %&gt;% cat
+    &quot;Writing&quot; %b% bib_info[i, &quot;png&quot;] %b% &quot;.\n\n&quot; %&gt;% cat
+  }
   writeLines(md_file, new_name)
 }</code></pre>
-<pre><code>## c:/Users/steve/Dropbox/professional/web/r3/falsify-research.md .
-## c:/Users/steve/Dropbox/professional/web/r3/ï»¿@Article{scientific-misconduct.md .
-## c:/Users/steve/Dropbox/professional/web/r3/imsdb.md .
-## c:/Users/steve/Dropbox/professional/web/r3/krizhevsky2017.md .
-## c:/Users/steve/Dropbox/professional/web/r3/liu2016.md .
-## c:/Users/steve/Dropbox/professional/web/r3/meeting-mistakes.md .
-## c:/Users/steve/Dropbox/professional/web/r3/consulting-thoughts.md .
-## c:/Users/steve/Dropbox/professional/web/r3/template-analysis.md .
-## c:/Users/steve/Dropbox/professional/web/r3/cfir-construct.md .
-## c:/Users/steve/Dropbox/professional/web/r3/ticd-checklist.md .
-## c:/Users/steve/Dropbox/professional/web/r3/change-models.md .
-## c:/Users/steve/Dropbox/professional/web/r3/sas-on-jupyter.md .
-## c:/Users/steve/Dropbox/professional/web/r3/sas-inside-r.md .
-## c:/Users/steve/Dropbox/professional/web/r3/university-consulting.md .
-## c:/Users/steve/Dropbox/professional/web/r3/undergraduate-research.md .
-## c:/Users/steve/Dropbox/professional/web/r3/losing-ground.md .
-## c:/Users/steve/Dropbox/professional/web/r3/educating-consultants.md .
-## c:/Users/steve/Dropbox/professional/web/r3/improve-consulting-skills.md .
-## c:/Users/steve/Dropbox/professional/web/r3/change-taxonomies.md .
-## c:/Users/steve/Dropbox/professional/web/r3/consulting-life.md .
-## c:/Users/steve/Dropbox/professional/web/r3/sas-university-edition.md .
-## c:/Users/steve/Dropbox/professional/web/r3/sas-workspace.md .
-## c:/Users/steve/Dropbox/professional/web/r3/graph-perception.md .
-## c:/Users/steve/Dropbox/professional/web/r3/sas-at-umkc.md .
-## c:/Users/steve/Dropbox/professional/web/r3/umkc-computer-labs.md .
-## c:/Users/steve/Dropbox/professional/web/r3/zahn-interview.md .
-## c:/Users/steve/Dropbox/professional/web/r3/dallas-interview.md .
-## c:/Users/steve/Dropbox/professional/web/r3/academic-consulting-centers.md .
-## c:/Users/steve/Dropbox/professional/web/r3/readiness-for-change.md .
-## c:/Users/steve/Dropbox/professional/web/r3/html-to-markdown.md .
-## c:/Users/steve/Dropbox/professional/web/r3/machine-learning-repository.md .
-## c:/Users/steve/Dropbox/professional/web/r3/sharma2002effect.md .
-## c:/Users/steve/Dropbox/professional/web/r3/war-data.md .</code></pre>
-</div>
-<div id="step-3.-produce-an-index" class="section level2">
-<h2>Step 3. Produce an index</h2>
-<pre class="r"><code>o &lt;- rev(order(bib_dates))
-bib_dates &lt;- bib_dates[o]
-bib_names &lt;- bib_names[o]
-txt_full &lt;- as.list(1:bib_count)
-for (i in 1:bib_count) {
-  txt_full[[i]] &lt;- txt_original[[o[i]]]
-}</code></pre>
-</div>
-<div id="step-4.-add-a-footer" class="section level2">
-<h2>Step 4. Add a footer</h2>
-</div>
-<div id="step-5.-convert-to-html" class="section level2">
-<h2>Step 5. Convert to html</h2>
+<pre><code>## Writing c:/Users/steve/Dropbox/professional/web/md/r3/cleaning-words.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/18/02/learns-2018.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/falsify-research.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/05/fanelli-2009.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/scientific-misconduct.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/05/hesselman-2017.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/movie-scripts.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/05/imsdb-nodate.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/image-classification.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/05/krishevsky-2017.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/liu2016.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/05/liu-2016.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/meeting-mistakes.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/bates-nodate.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/consulting-thoughts.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/broman-2013.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/template-analysis.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/brooks-2015.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/cfir-construct.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/damschroder-2009.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/ticd-checklist.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/flottorp-2013.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/change-models.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/foy-2007.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/sas-on-jupyter.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/hemedinger-2016.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/sas-inside-r.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/hemken-2019.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/university-consulting.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/kirk-1991.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/undergraduate-research.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/legler-2010.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/losing-ground.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/matloff-2014.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/educating-consultants.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/mcculloch-1985.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/improve-consulting-skills.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/morganstein-2014.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/change-taxonomies.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/nilsen-2015.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/consulting-life.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/niu-2016.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/sas-university-edition.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/sas-2019.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/sas-workspace.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/sas-2019a.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/graph-perception.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/simkin-1987.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/sas-at-umkc.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/umkc-2019.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/umkc-computer-labs.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/umkc-2019a.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/zahn-interview.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/vance-2014.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/dallas-interview.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/vance-2014a.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/academic-consulting-centers.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/vance-2015.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/readiness-for-change.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/weiner-2009.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/html-to-markdown.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/06/wu-2018.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/machine-learning-repository.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/07/asuncion-2019.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/war-data.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/07/maoz-nodate.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/rapid-diagnosis.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/07/sharma-2002.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/model-interpretability.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/10/gill-2018.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/spatial-correlation.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/10/li-2007.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/black-box-peeking.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/10/lundberg-2017.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/lime-diagnosticss.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/10/ribeiro-2016.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/public-good.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/10/shihipar-2019.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/medical-apps,.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/10/singer-2019.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/tukey-tallying.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/11/cook-2008.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/nightingale-day.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/12/anonymous-2019.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/data-builder.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/12/connolly-nodate.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/sexiest-job.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/12/davenport-2012.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/sambr-checklist.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/12/dwivedi-2019.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/age-adjusted-hearing.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/12/flamme-2019.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/statistical-analysis-plans.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/12/gamble-2017.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/world-maps.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/12/holder-2018.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/analytics-blogs.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/12/informatics-podcasts.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/excellent-research.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/12/jena-2019.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/stolen-laptop.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/12/margolies-2019.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/recurrent-neural-networks.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/12/pant-2019.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/sermon-analysis.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/12/pew-2019.png .
+## 
+## Writing c:/Users/steve/Dropbox/professional/web/md/r3/creating-r-packages.md .
+## Writing c:/Users/steve/Dropbox/professional/web/r1/19/12/wickham-2015.png .</code></pre>
 </div>
 <div id="step-6.-list-incomplete-areas" class="section level2">
 <h2>Step 6. List incomplete areas</h2>
@@ -609,12 +826,8 @@ bib_df %&gt;%
   mutate(png=substr(png, 47, 99)) %&gt;%
   mutate(png=sub(&quot;.png&quot;, &quot;&quot;, png)) %&gt;%
   select(tag, png)</code></pre>
-<pre><code>##       tag               png
-## 1 No tags 07/hesselman 2017
-## 2 No tags          07/imsdb
-## 3 No tags 07/krishevsky2017
-## 4 No tags        07/liu2016
-## 5 No tags    07/sharma-2002</code></pre>
+<pre><code>##       tag          png
+## 1 No tags 10/gill-2018</code></pre>
 <pre class="r"><code>bib_df %&gt;%
   filter(tag==&quot;&quot;) %&gt;%
   mutate(png=substr(png, 47, 99)) %&gt;%
