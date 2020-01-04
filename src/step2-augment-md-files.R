@@ -2,12 +2,12 @@
 ## written by Steve Simon
 ## created 2019-12-21
 
-## Step 0. Preliminaries
+## Step 2-1. Preliminaries
 
 source(file="src/prelims.R", echo=FALSE)
 update_all <- TRUE
 
-## Step 1. Find the .md files
+## Step 2-2. Find the .md files
 
 wb_root <- "c:/Users/steve/Dropbox/professional/web"
 
@@ -42,7 +42,7 @@ bl_root <- wb_root %s% "md/blog"
 bl_files <- list.files(path=bl_root, pattern="*.md")
 
 
-## Step 2. Read each .md file and extract information
+## Step 2-3. Read each .md file and extract information
 
 ### Initialize values
 
@@ -58,6 +58,7 @@ ctg <- rep(no_data_label, n_files)
 
 orig_tx <- as.list(rep(no_data_label, n_files))
 head_tx <- as.list(rep(no_data_label, n_files))
+
 shrt_tx <- rep(no_data_label, n_files)
 full_tx <- rep(no_data_label, n_files)
 newh_tx <- rep(no_data_label, n_files)

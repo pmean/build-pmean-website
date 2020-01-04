@@ -133,19 +133,73 @@ compare_dates <- function(path0, path1, pattern0="md", pattern1="md") {
   for (i_file in common_files) {
     t0 <- file.info(path0 %s% i_file %0% "." %0% pattern0)$mtime
     t1 <- file.info(path1 %s% i_file %0% "." %0% pattern1)$mtime
+    if (t1-t0 > 0) next
+    changed_list %<>% append(i_file)
     if (verbose) {
       "\n" %0% t1 %b% t0 %b% str_remove(i_file, "^.*/") %>% cat
     }
-    if (t1-t0 > 0) next
-    changed_list %<>% append(i_file)
   }
   return(changed_list)
+}
+
+# This function identifies a  single line 
+# in a bibtex file and strips off unneeded
+# punctation.
+
+# Note: Some of the bib files have unprintable
+# junk characters at the very start.
+
+extract_bibtex_field <- function(txt, lab, def="Not found") {
+  txt %>% 
+    str_replace("^.*@", "@")                  %>%          # see note above
+    str_replace_all(fixed("{{"), "{")         %>%          # double bracket
+    str_replace_all(fixed(" {"), "{")         %>%          # leading blank
+    str_replace_all(fixed("},"), "}")         %>%          # trailing comma
+    str_replace_all(fixed(" ="), "=")         %>%          # leading blank
+    str_replace_all(fixed("= "), "=")         %>%          # trailing blank
+    str_trim                                  %>%          # whitespace
+    str_subset(fixed(lab, ignore_case=TRUE))  -> lin 
+  if (length(lin) == 0) {return(def)}
+  lin %>%
+    str_remove_all('^@.*\\{'   )              %>%          # from @ to {
+    str_remove_all(fixed('"'))                %>%          # quote marks
+    str_remove_all("^.*?=")                   %>%          # label
+    str_remove_all(",$")                      %>%          # trailing comma
+    str_remove_all(fixed('{'))                %>%          # left curly bracket
+    str_remove_all(fixed('}'))                %>%          # right curly bracket
+    str_trim                                  -> selection
+  return(paste0(selection, collapse="; "))
+}
+
+# Test this function
+
+if (verbose) {
+    '@Article{falsify-research,'                         %1%
+    'annote = {An article about misconduct.},'           %1%
+    'Author="Fanelli, Daniele",'                         %1%
+    'mendeley-tags = {Ethics in research},'              %1%
+    'url = {https://fakesite.com},'                      %1%
+    'urldate = {2019-05-31},'                            %1%
+    'Title="{How many scientists fabricate research?}",' %1%
+    'Journal="PLoS ONE",'                                %1%
+    'Year="2009",'                                       %1%
+    'Volume="4",'                                        %1%
+    'Number="5",'                                        %1%
+    'Pages="e5738",'                                     %1%
+    'Month="May"'                                        %1%
+    '}'                                                  %>%
+    str_split("\n")                                      %>%
+    unlist                                               -> tst_bib
+  
+  tst_bib %>% extract_bibtex_field("@")        %0% "\n\n" %>% cat  
+  tst_bib %>% extract_bibtex_field("urldate")  %0% "\n\n" %>% cat  
+  tst_bib %>% extract_bibtex_field("improper") %0% "\n\n" %>% cat
 }
 
 # This function extracts information from
 # a yaml header for a markdown file.
 
-extract_field <- function(x, field_name) {
+extract_yaml_field <- function(x, field_name) {
   str_subset(x, fixed(field_name, ignore_case=TRUE)) %>%
     str_trim %>%
     str_remove(",$") %>%
@@ -170,34 +224,3 @@ if (verbose) {
   tst %>% extract_field("improper: ") %>% print
 }
 
-# This function reads information from
-# a single line of the yaml header of
-# a markdown file and strips off unneeded
-# punctation.
-
-select_txt <- function(txt, lab, def) {
-  txt %>% 
-    str_replace("^.*@", "@")          %>%          # see note
-    str_replace_all(fixed("{{"), "{") %>%          # double bracket
-    str_replace_all(fixed(" {"), "{") %>%          # leading blank
-    str_replace_all(fixed("},"), "}") %>%          # trailing comma
-    str_replace_all(fixed(" ="), "=") %>%          # leading blank
-    str_replace_all(fixed("= "), "=") %>%          # trailing blank
-    str_subset(lab)                   -> lin 
-  if (length(lin) == 0) {
-    if (verbose) {cat(",", def)}
-    return(def)
-  }
-  lin %>%
-    str_remove_all('^@.*\\{'   ) %>%          # from @ to {
-    str_remove_all(fixed('"'))   %>%          # quote marks
-    str_remove_all("^.*?=")      %>%          # label
-    str_remove_all(",$")         %>%          # trailing comma
-    str_remove_all(fixed('{'))   %>%          # left curly bracket
-    str_remove_all(fixed('}'))   %>%          # right curly bracket
-    str_trim                     -> selection
-  if (is.null(selection)) return(def)
-  return(paste0(selection, collapse="; "))
-  # Note: Some of the bib files have unprintable
-  # junk characters at the very start.
-}

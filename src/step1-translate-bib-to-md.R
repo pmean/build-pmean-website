@@ -32,14 +32,18 @@ month_list <- c(
 all_names <- NULL
 for (i_month in month_list) {
   r1_path <- r1_root %s% i_month
-  all_names[[i_month]] <- list.files(path=r1_path)
+  all_names[[i_month]] <- list.files(path=r1_path, pattern="*.bib")
 }
 
 n_months <- sapply(all_names, length)
 month_path <- rep(names(all_names), n_months)
-all_names %>% unlist %>% unname -> word_names
+all_names %>% 
+  unlist %>% 
+  unname %>% 
+  str_remove(fixed(".bib")) -> word_names
+
 half_names <- month_path %s% word_names
-full_names <- r1_path %s% half_names %0% ".bib"
+full_names <- r1_root %s% half_names %0% ".bib"
 if (verbose) print(half_names)
 n_names <- length(word_names)
 
@@ -74,20 +78,36 @@ for (i in 1:n_names) {
   txt_original[[i]]  <- tx
 
   bib_info[i, "fil"] <- half_names[i]
-  bib_info[i, "ttl"] <- select_txt(tx, "title="        , "No title")
-  bib_info[i, "dat"] <- select_txt(tx, "urldate="      , "No date")
-  bib_info[i, "tag"] <- select_txt(tx, "mendeley-tags=", "No tags")
-  bib_info[i, "not"] <- select_txt(tx, "annote="       , "No notes")
-  bib_info[i, "url"] <- select_txt(tx, "url="          , "No html")
-  bib_info[i, "pdf"] <- select_txt(tx, "pdf="          , "No pdf")
-  bib_info[i, "nam"] <- select_txt(tx, "@"             , "No name")
+  bib_info[i, "ttl"] <- extract_bibtex_field(tx, "title="        , "No title")
+  bib_info[i, "dat"] <- extract_bibtex_field(tx, "urldate="      , "No date")
+  bib_info[i, "tag"] <- extract_bibtex_field(tx, "mendeley-tags=", "No tags")
+  bib_info[i, "not"] <- extract_bibtex_field(tx, "annote="       , "No notes")
+  bib_info[i, "url"] <- extract_bibtex_field(tx, "url="          , "No html")
+  bib_info[i, "pdf"] <- extract_bibtex_field(tx, "pdf="          , "No pdf")
+  bib_info[i, "nam"] <- extract_bibtex_field(tx, "@"             , "No name")
   
   bib_info[i, "png"] <- r1_root %s% half_names[i] %0% ".png"
 }
 
+# Find files that have changed
+
+update_needed <- rep(TRUE, n_names)
+for (i in 1:n_names) {
+  if (update_all) next
+  old_file <- full_names[i]
+  new_file <- r3_path %s% bib_info[i, "nam"] %0% ".md"
+  if (!file.exists(new_file)) next
+  t0 <- file.info(old_file)$mtime
+  t1 <- file.info(new_file)$mtime
+  if (t1 < t0) next
+  update_needed[i] <- FALSE
+}
+
 # Build md files
 
+"\n\nUpdating" %b% sum(update_needed) %b% "files.\n\n" %>% cat
 for (i in 1:n_names) {
+  if(!update_needed[i]) next
   full_title <- 'Recommendation:' %b% bib_info[i, "ttl"]
   yaml_divider                                               %1%
     'title: '                    %q% full_title              %1%
@@ -115,7 +135,6 @@ for (i in 1:n_names) {
   new_name <- r3_path %s% bib_info[i, "nam"] %0% ".md"
   if (verbose) {
     "Writing" %b% new_name           %b% ".\n" %>% cat
-    "Writing" %b% bib_info[i, "png"] %b% ".\n\n" %>% cat
   }
   writeLines(md_file, new_name)
 }
@@ -133,11 +152,7 @@ bib_df %>%
   mutate(png=substr(png, 47, 99)) %>%
   mutate(png=sub(".png", "", png)) %>%
   select(tag, png)
-```
 
+# Save everything.
 
-Save everything.
-
-```{r save-everything}
-save.image("../data/create-r3.RData")
-```
+save.image("data/step1.RData")
