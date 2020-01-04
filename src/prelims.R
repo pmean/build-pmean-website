@@ -19,6 +19,7 @@ verbose <- TRUE
 "%1%" <- function(x, y) {paste0(x, "\n", y)}
 "%2%" <- function(x, y) {paste0(x, "\n\n", y)}
 "%b%" <- function(x, y) {paste0(x, ' ', y)}
+"%c%" <- function(x, y) {paste0(x, ',', y)}
 "%s%" <- function(x, y) {paste0(x, "/", y)}
 
 "%p%" <- function(x, y) {paste0(x, '(', y, ')')}
@@ -27,6 +28,7 @@ verbose <- TRUE
 
 brack <- function(x) {"" %[% x}
 paren <- function(x) {"" %p% x}
+quote <- function(x) {"" %q% x}
 
 # Test these functions
 if (verbose) {
@@ -37,6 +39,7 @@ if (verbose) {
   '\n"abc" %2% "def" produces: ' %1% x %2% y %>% cat
 
   '\n"abc" %b% "def" produces: ' %1% x %b% y %>% cat
+  '\n"abc" %c% "def" produces: ' %1% x %c% y %>% cat
   '\n"abc" %s% "def" produces: ' %1% x %s% y %>% cat
 
   '\n"abc" %p% "def" produces: ' %1% x %p% y %>% cat

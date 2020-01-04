@@ -5,7 +5,8 @@
 ## Step 2-1. Preliminaries
 
 source(file="src/prelims.R", echo=FALSE)
-update_all <- TRUE
+if (!exists("update_all")) update_all <- TRUE
+
 
 ## Step 2-2. Find the .md files
 
@@ -125,18 +126,31 @@ for (i in 1:n_files) {
   comp_tx[i] %>% writeLines(fn)
 }
 
-## Step 4. Save information for building an archive.
+## Step 2-4. Save information for building an archive.
 
 o <- rev(order(dat, ttl))
 
+nam <- nam[o]
 dat <- dat[o]
 mnt <- mnt[o]  
 tag <- tag[o]
 ctg <- ctg[o]
 summ_tx <- summ_tx[o]
 
-save(ctg, dat, mnt, tag, summ_tx, file="data/summaries.RData")
+for (i in 1:n_files) {
+  fn <- md_root %s% "summ" %s% nam[i] %0% ".md"
+  if (verbose) {"\nWriting" %b% fn %0% "." %>% cat}
+  summ_tx[i] %>% writeLines(fn)
+  fn <- md_root %s% "link" %s% nam[i] %0% ".txt"
+  if (verbose) {"\nWriting" %b% fn %0% "." %>% cat}
+  tag[i] %>% 
+    str_replace_all(", ", "\n") %>%
+    unlist -> tg
+  mnt[i] %1% ctg[i] %1% tg %>% writeLines(fn)
+}
+
+save(nam, ctg, dat, mnt, tag, summ_tx, file="data/summaries.RData")
 
 ## Save everything
 
-save.image("data/convert-md.RData")
+save.image("data/step2.RData")
