@@ -27,7 +27,8 @@ month_list <- c(
   "19/07", 
   "19/10", 
   "19/11", 
-  "19/12"
+  "19/12",
+  "20/01"
 )
 all_names <- NULL
 for (i_month in month_list) {

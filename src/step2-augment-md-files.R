@@ -146,8 +146,13 @@ for (i in 1:n_files) {
   tag[i] %>% 
     str_replace_all(", ", "\n") %>%
     unlist -> tg
-  mnt[i] %1% ctg[i] %1% tg %>% writeLines(fn)
+  j <- n_files + 1 - i
+  zzzpad(j)
+  dat[i] %1% ctg[i] %1% tg %>% writeLines(fn)
 }
+fn <- md_root %s% "link/0000order.txt"
+if (verbose) {"\nWriting" %b% fn %0% "." %>% cat}
+nam %>% writeLines(fn)
 
 save(nam, ctg, dat, mnt, tag, summ_tx, file="data/summaries.RData")
 

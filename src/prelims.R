@@ -227,3 +227,24 @@ if (verbose) {
   tst %>% extract_field("improper: ") %>% print
 }
 
+# This function adds a leading zero to digits less than 10
+
+zzzpad <- function(x) {
+  message_tail <- " in zzzpad may produce nonsensical results"
+  if(any(x<0))           message("Note: Negative values", message_tail)
+  if(any(x != trunc(x))) message("Note: Fractional values", message_tail)
+  if(any(x>9999))        message("Note: Values > 9999", message_tail)
+  case_when(
+    x <   10 ~ paste0("000", x),
+    x <  100 ~ paste0( "00", x),
+    x < 1000 ~ paste0(  "0", x),
+    TRUE     ~ as.character(x)
+  ) %>% return
+}
+
+# Test this function
+if (verbose) zzzpad(c(8:12, 98:102, 998:1002))
+if (verbose) zzzpad(-3)
+if (verbose) zzzpad(0.5)
+if (verbose) zzzpad(9998:10003)
+
