@@ -54,6 +54,83 @@ if (verbose) {
 # or category, and produces a link to the
 # appropriate page.
 
+extract_bibtex_field <- function(txt, lab, def="Not found") {
+  txt %>% 
+    str_replace("^.*@", "@")                  %>%          # see note above
+    str_replace_all(fixed("{{"), "{")         %>%          # double bracket
+    str_replace_all(fixed(" {"), "{")         %>%          # leading blank
+    str_replace_all(fixed("},"), "}")         %>%          # trailing comma
+    str_replace_all(fixed(" ="), "=")         %>%          # leading blank
+    str_replace_all(fixed("= "), "=")         %>%          # trailing blank
+    str_trim                                  %>%          # whitespace
+    str_subset(fixed(lab, ignore_case=TRUE))  -> lin 
+  if (length(lin) == 0) {return(def)}
+  lin %>%
+    str_remove_all('^@.*\\{'   )              %>%          # from @ to {
+    str_remove_all(fixed('"'))                %>%          # quote marks
+    str_remove_all("^.*?=")                   %>%          # label
+    str_remove_all(",$")                      %>%          # trailing comma
+    str_remove_all(fixed('{'))                %>%          # left curly bracket
+    str_remove_all(fixed('}'))                %>%          # right curly bracket
+    str_trim                                  -> selection
+  return(paste0(selection, collapse="; "))
+}
+
+# Test this function
+
+if (verbose) {
+  '@Article{falsify-research,'                         %1%
+    'annote = {An article about misconduct.},'           %1%
+    'Author="Fanelli, Daniele",'                         %1%
+    'mendeley-tags = {Ethics in research},'              %1%
+    'url = {https://fakesite.com},'                      %1%
+    'urldate = {2019-05-31},'                            %1%
+    'Title="{How many scientists fabricate research?}",' %1%
+    'Journal="PLoS ONE",'                                %1%
+    'Year="2009",'                                       %1%
+    'Volume="4",'                                        %1%
+    'Number="5",'                                        %1%
+    'Pages="e5738",'                                     %1%
+    'Month="May"'                                        %1%
+    '}'                                                  %>%
+    str_split("\n")                                      %>%
+    unlist                                               -> tst_bib
+  
+  tst_bib %>% extract_bibtex_field("@")        %0% "\n\n" %>% cat  
+  tst_bib %>% extract_bibtex_field("urldate")  %0% "\n\n" %>% cat  
+  tst_bib %>% extract_bibtex_field("improper") %0% "\n\n" %>% cat
+}
+
+# This function extracts information from
+# a yaml header for a markdown file.
+
+extract_yaml_field <- function(x, field_name) {
+  str_subset(x, fixed(field_name, ignore_case=TRUE)) %>%
+    str_trim %>%
+    str_remove(",$") %>%
+    str_remove(field_name) %>%
+    str_remove_all(fixed('"')) %>%
+    str_trim %>%
+    str_c(collapse=", ") -> extracted_text
+  if (length(extracted_text) == 0) {return("Not found")}
+  return(extracted_text)
+}
+
+# Test this function
+if (verbose) {
+  tst <- c(
+    "author: \"Steve Simon\"", 
+    "date: \"2015-01-15\"", 
+    "category: Statistics",
+    "tags: \"Human side of statistics, Observational studies\"")
+  tst %>% extract_yaml_field("tags: ") %>% print
+  tst %>% extract_yaml_field("date: ") %>% print
+  tst %>% extract_yaml_field("category: ") %>% print
+  tst %>% extract_yaml_field("improper: ") %>% print
+}
+
+
+
 build_link <- function(x, p="../archive") {
   p %s% x %>% 
     tolower %>% 
@@ -68,7 +145,7 @@ if (verbose) {
     "date: \"2015-01-15\"", 
     "category: Statistics",
     "tags: \"Human side of statistics, Observational studies\"")
-  tst %>% extract_field("category: ") %>% build_link %>% print
+  tst %>% extract_yaml_field("category: ") %>% build_link %>% print
 }
 
 # This function builds a footer file with
@@ -100,9 +177,9 @@ if (verbose) {
     "category: Statistics",
     "tags: \"Human side of statistics, Observational studies\"")
   build_footer(
-    extract_field(tst, "tags: "),
-    extract_field(tst, "category: "),
-    extract_field(tst, "date: ")
+    extract_yaml_field(tst, "tags: "),
+    extract_yaml_field(tst, "category: "),
+    extract_yaml_field(tst, "date: ")
   ) %>% print
 }
 
@@ -152,82 +229,7 @@ compare_dates <- function(path0, path1, pattern0="md", pattern1="md") {
 # Note: Some of the bib files have unprintable
 # junk characters at the very start.
 
-extract_bibtex_field <- function(txt, lab, def="Not found") {
-  txt %>% 
-    str_replace("^.*@", "@")                  %>%          # see note above
-    str_replace_all(fixed("{{"), "{")         %>%          # double bracket
-    str_replace_all(fixed(" {"), "{")         %>%          # leading blank
-    str_replace_all(fixed("},"), "}")         %>%          # trailing comma
-    str_replace_all(fixed(" ="), "=")         %>%          # leading blank
-    str_replace_all(fixed("= "), "=")         %>%          # trailing blank
-    str_trim                                  %>%          # whitespace
-    str_subset(fixed(lab, ignore_case=TRUE))  -> lin 
-  if (length(lin) == 0) {return(def)}
-  lin %>%
-    str_remove_all('^@.*\\{'   )              %>%          # from @ to {
-    str_remove_all(fixed('"'))                %>%          # quote marks
-    str_remove_all("^.*?=")                   %>%          # label
-    str_remove_all(",$")                      %>%          # trailing comma
-    str_remove_all(fixed('{'))                %>%          # left curly bracket
-    str_remove_all(fixed('}'))                %>%          # right curly bracket
-    str_trim                                  -> selection
-  return(paste0(selection, collapse="; "))
-}
-
-# Test this function
-
-if (verbose) {
-    '@Article{falsify-research,'                         %1%
-    'annote = {An article about misconduct.},'           %1%
-    'Author="Fanelli, Daniele",'                         %1%
-    'mendeley-tags = {Ethics in research},'              %1%
-    'url = {https://fakesite.com},'                      %1%
-    'urldate = {2019-05-31},'                            %1%
-    'Title="{How many scientists fabricate research?}",' %1%
-    'Journal="PLoS ONE",'                                %1%
-    'Year="2009",'                                       %1%
-    'Volume="4",'                                        %1%
-    'Number="5",'                                        %1%
-    'Pages="e5738",'                                     %1%
-    'Month="May"'                                        %1%
-    '}'                                                  %>%
-    str_split("\n")                                      %>%
-    unlist                                               -> tst_bib
-  
-  tst_bib %>% extract_bibtex_field("@")        %0% "\n\n" %>% cat  
-  tst_bib %>% extract_bibtex_field("urldate")  %0% "\n\n" %>% cat  
-  tst_bib %>% extract_bibtex_field("improper") %0% "\n\n" %>% cat
-}
-
-# This function extracts information from
-# a yaml header for a markdown file.
-
-extract_yaml_field <- function(x, field_name) {
-  str_subset(x, fixed(field_name, ignore_case=TRUE)) %>%
-    str_trim %>%
-    str_remove(",$") %>%
-    str_remove(field_name) %>%
-    str_remove_all(fixed('"')) %>%
-    str_trim %>%
-    str_c(collapse=", ") -> extracted_text
-  if (length(extracted_text) == 0) {return("Not found")}
-  return(extracted_text)
-}
-
-# Test this function
-if (verbose) {
-  tst <- c(
-    "author: \"Steve Simon\"", 
-    "date: \"2015-01-15\"", 
-    "category: Statistics",
-    "tags: \"Human side of statistics, Observational studies\"")
-  tst %>% extract_field("tags: ") %>% print
-  tst %>% extract_field("date: ") %>% print
-  tst %>% extract_field("category: ") %>% print
-  tst %>% extract_field("improper: ") %>% print
-}
-
-# This function adds a leading zero to digits less than 10
+# This function adds a leading zeros to digits less than 1,000
 
 zzzpad <- function(x) {
   message_tail <- " in zzzpad may produce nonsensical results"

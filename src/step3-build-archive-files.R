@@ -1,13 +1,35 @@
-#  convert-md.R
+#  step3-build-archive-files.R
 ## written by Steve Simon
 ## created 2019-12-21
 
-## Step 0. Preliminaries
+## Step 3-0. Preliminaries
 
 source(file="src/prelims.R", echo=FALSE)
-load("data/summaries.RData")
+wb_root <- "c:/Users/steve/Dropbox/professional/web"
+summ_path <- wb_root %s% "md/summ"
+link_path <- wb_root %s% "md/link"
 
-## Step 1. List twenty most recent files
+## Step 3-1. Read files
+
+summ_files <- list.files(summ_path, pattern="*.md") 
+n_summ <- length(summ_files)
+summ_tx <- NULL
+summ_files %>% str_remove(fixed(".md")) -> summ_name 
+for (i in 1:n_summ) {
+  summ_tx[[summ_name[i]]] <- readLines(summ_path %s% summ_files[i])
+}
+
+link_files <- list.files(link_path, pattern="*.txt")
+n_link <- length(link_files)
+link_tx <- NULL
+link_files %>% str_remove(fixed(".txt")) -> link_name 
+for (i in 1:n_summ) {
+  link_tx[[link_name[i]]] <- readLines(link_path %s% link_files[i])
+}
+
+
+
+## Step 3-2. List twenty most recent files
 
 if (verbose) {"\nWriting index.md." %>% cat}
 
