@@ -126,6 +126,10 @@ for (i in 1:n_files) {
   comp_tx[i] %>% writeLines(fn)
 }
 
+## Step 2-4. Find unmatched files
+
+
+
 ## Step 2-4. Save information for building an archive.
 
 o <- rev(order(dat, ttl))
@@ -150,9 +154,6 @@ for (i in 1:n_files) {
   zzzpad(j)
   dat[i] %1% ctg[i] %1% tg %>% writeLines(fn)
 }
-fn <- md_root %s% "link/0000order.txt"
-if (verbose) {"\nWriting" %b% fn %0% "." %>% cat}
-nam %>% writeLines(fn)
 
 save(nam, ctg, dat, mnt, tag, summ_tx, file="data/summaries.RData")
 
