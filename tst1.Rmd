@@ -1,0 +1,20 @@
+---
+title: "Recommendation: Advances in Neural Information Processing Systems; A unified approach to interpreting model predictions"
+author: "Steve Simon"
+date: "2019-10-30"
+category: Recommendation
+tags: "Big data"
+source: "19/10/lundberg-2017"
+output: html_document
+---
+
+Many big data models are black boxes. This article describes an approach that helps you to peek a bit inside the black box and understand how it works.
+
+<!---More--->
+
+
+Available in [html format](https://papers.nips.cc/paper/7062-a-unified-approach-to-interpreting-model-predictions).
+
+<hr>
+
+![](c:/Users/steve/Dropbox/professional/web/r1/19/10/lundberg-2017.png)
