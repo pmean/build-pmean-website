@@ -106,26 +106,6 @@ for (i_arch in arch_list) {
   writeLines(c(md_file_header, md_file_body), new_name)
 }
 
-
-for (i_month in sort(unique(mnt))) {
-  if (verbose) {"\nWriting" %b% i_month %0% "." %>% cat}
-
-  yaml_divider                                     %1%
-    'title: "Archive:' %b% i_month         %0% '"' %1%
-    'output: '         %0% 'html_document'         %1%
-    yaml_divider                                   -> md_file_header
-  
-  sb <- mnt==i_month
-  n_sb <- sum(sb)
-  if (verbose) {" " %0% n_sb %>% cat}
-  summ_tx[sb] %>% 
-    paste0("\n\nB-", n_sb:1, ". ", .) %>%
-    paste0(collapse="") -> md_file_body
-  
-  new_name <- md_root %s% "archive" %s% i_month %0% ".md"
-  writeLines(paste0(md_file_header, md_file_body), new_name)
-}
-
 ## Save everything
 
 save.image("data/step3.RData")
