@@ -21,6 +21,8 @@ verbose <- TRUE
 "%b%" <- function(x, y) {paste0(x, ' ', y)}
 "%c%" <- function(x, y) {paste0(x, ',', y)}
 "%s%" <- function(x, y) {paste0(x, "/", y)}
+"%.%" <- function(x, y) {paste0(x, ". ", y)}
+"% %" <- function(x, y) {paste0(x, " ", y)}
 
 "%p%" <- function(x, y) {paste0(x, '(', y, ')')}
 "%q%" <- function(x, y) {paste0(x, '"', y, '"')}
@@ -41,7 +43,8 @@ if (verbose) {
   '\n"abc" %b% "def" produces: ' %1% x %b% y %>% cat
   '\n"abc" %c% "def" produces: ' %1% x %c% y %>% cat
   '\n"abc" %s% "def" produces: ' %1% x %s% y %>% cat
-
+  '\n"abc" %.% "def" produces: ' %1% x %.% y %>% cat
+  
   '\n"abc" %p% "def" produces: ' %1% x %p% y %>% cat
   '\n"abc" %q% "def" produces: ' %1% x %q% y %>% cat
   '\n"abc" %[% "def" produces: ' %1% x %[% y %>% cat
