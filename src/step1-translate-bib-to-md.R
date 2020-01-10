@@ -35,7 +35,7 @@ pull_bibtex <- function(tx) {
 check_dates <- function(f0, f1) {
   t0 <- file.info(f0)$mtime
   t1 <- file.info(f1)$mtime
-  skip_flag <- !is.na(t1) & (t1-t0 < 0) & !update_all
+  skip_flag <- !is.na(t1) & (t1-t0 > 0) & !update_all
   if (skip_flag) {
     if (verbose) {"\n    Skipping  " %b% f1 %>% cat}
   }
@@ -108,6 +108,7 @@ build_tail <- function(f0) {
   f0 %>% str_replace("bib$", "tail") -> f1
   if (check_dates(f0, f1)) {return("Skipping" %b% f1)}
   if (verbose)   {"\n    Working on" %b% f1 %>% cat}
+  t0 <- file.info(f0)$mtime
   tx <- readLines(f0)
   f <- pull_bibtex(tx)
   f$ca <- "Recomendation"
