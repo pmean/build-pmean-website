@@ -135,12 +135,12 @@ if (verbose) {
 
 
 build_link <- function(x, p="../archive") {
-  x %>% str_split(", ") -> y
+  x %>% str_split(", ") %>% unlist -> y
   p %s% y %>% 
     tolower %>% 
     str_replace_all(" ", "-") %0% ".html" -> added_dashes
-  brack(x) %0% paren(added_dashes) %>%
-    str_c(collapse=", ") %>%
+  brack(y) %0% paren(added_dashes) %>%
+    str_c(collapse=", \n") %>%
     return
 }
 
@@ -151,7 +151,7 @@ if (verbose) {
     "date: \"2015-01-15\"", 
     "category: Statistics",
     "tags: \"Human side of statistics, Observational studies\"")
-  tst %>% extract_yaml_field("category: ") %>% build_link %>% print
+  tst %>% extract_yaml_field("tags: ") %>% build_link %>% cat
 }
 
 # This function builds a footer file with

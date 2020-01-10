@@ -18,7 +18,7 @@ if (!exists("update_all")) update_all <- TRUE
 bib_root <- "../md/bib"
 yr_list <- list.dirs(bib_root, recursive=FALSE)
 
-pull_information <- function(tx) {
+pull_bibtex <- function(tx) {
   fields <- as.list(rep("Missing", 8))
   names(fields) <- c("ti", "da", "ta", "na", "no", "fo", "ur", "au")
   tx    %>% extract_bibtex_field("title="       ) -> fields$ti
@@ -31,16 +31,23 @@ pull_information <- function(tx) {
   tx    %>% extract_bibtex_field("author="      ) -> fields$au
   return(fields)
 }
-build_body <- function(f0) {
-  f0 %>% str_replace("bib$", "md") -> f1
+
+check_dates <- function(f0, f1) {
   t0 <- file.info(f0)$mtime
   t1 <- file.info(f1)$mtime
-  if (!is.na(t1) & (t1-t0 < 0) & !update_all) {
-    if (verbose) {"\n    Skipping  " %b% f1 %>% cat; next}
+  skip_flag <- !is.na(t1) & (t1-t0 < 0) & !update_all
+  if (skip_flag) {
+    if (verbose) {"\n    Skipping  " %b% f1 %>% cat}
   }
+  return(skip_flag)
+}
+
+build_body <- function(f0) {
+  f0 %>% str_replace("bib$", "md") -> f1
+  if (check_dates(f0, f1)) return("Skipping" %b% f1)
   if (verbose)   {"\n    Working on" %b% f1 %>% cat}
   tx <- readLines(f0)
-  f <- pull_information(tx)
+  f <- pull_bibtex(tx)
   
   # Modify title
   f$ti <- "Recommendation:" %b% f$ti
@@ -82,6 +89,7 @@ build_body <- function(f0) {
     "![]"        %p% f$im             %1%
     "\n"
   if (verbose) {"\n\n" %0% new_tx %>% cat}
+  writeLines(new_tx, f1)
 }
 
 for (i_yr in yr_list) {
@@ -98,24 +106,25 @@ for (i_yr in yr_list) {
 
 build_tail <- function(f0) {
   f0 %>% str_replace("bib$", "tail") -> f1
-  t0 <- file.info(f0)$mtime
-  t1 <- file.info(f1)$mtime
-  if (!is.na(t1) & (t1-t0 < 0) & !update_all) {
-    if (verbose) {"\n    Skipping  " %b% f1 %>% cat; next}
-  }
+  if (check_dates(f0, f1)) {return("Skipping" %b% f1)}
   if (verbose)   {"\n    Working on" %b% f1 %>% cat}
   tx <- readLines(f0)
-  f <- pull_information(tx)
+  f <- pull_bibtex(tx)
   f$ca <- "Recomendation"
   f$mo <- str_sub(f$da, 1, 7)
+  f$dt <- str_sub(f$da, 8, 10)
+  f$dm <- max(str_sub(t0, 1, 10), f$da)
   tail_tx <- 
     "This" %b% build_link(f$ca)                 %1%
     "was added to the website on"               %1%
-    build_link(f$mo) %0% "."                    %1%
+    build_link(f$mo)                %0% f$dt    %1%
+    "and was last modified on"                  %1%
+    f$da                            %0% "."     %1%
     "You can find similar pages at"             %1%
     build_link(f$ta) %0% ".\n\n"
   
   if (verbose) {"\n\n" %0% tail_tx %>% cat}
+  writeLines(tail_tx, f1)
   return(tx)
   }
 for (i_yr in yr_list) {
