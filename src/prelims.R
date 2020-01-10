@@ -135,10 +135,13 @@ if (verbose) {
 
 
 build_link <- function(x, p="../archive") {
-  p %s% x %>% 
+  x %>% str_split(", ") -> y
+  p %s% y %>% 
     tolower %>% 
     str_replace_all(" ", "-") %0% ".html" -> added_dashes
-  link1 <- brack(x) %0% paren(added_dashes)
+  brack(x) %0% paren(added_dashes) %>%
+    str_c(collapse=", ") %>%
+    return
 }
 
 # Test this function

@@ -17,20 +17,6 @@ if (!exists("update_all")) update_all <- TRUE
 
 bib_root <- "../md/bib"
 yr_list <- list.dirs(bib_root, recursive=FALSE)
-
-pull_information <- function(tx) {
-  fields <- as.list(rep("Missing", 8))
-  names(fields) <- c("ti", "da", "ta", "na", "no", "fo", "ur", "au")
-  tx    %>% extract_bibtex_field("title="       ) -> fields$ti
-  tx    %>% extract_bibtex_field("urldate="     ) -> fields$da
-  tx    %>% extract_bibtex_field("mendeley-tags") -> fields$ta
-  tx[1] %>% extract_bibtex_field("@"            ) -> fields$na
-  tx    %>% extract_bibtex_field("annote="      ) -> fields$no
-  tx    %>% extract_bibtex_field("format="      ) -> fields$fo
-  tx    %>% extract_bibtex_field("url="         ) -> fields$ur
-  tx    %>% extract_bibtex_field("author="      ) -> fields$au
-  return(fields)
-}
 build_body <- function(f0) {
   f0 %>% str_replace("bib$", "md") -> f1
   t0 <- file.info(f0)$mtime
@@ -39,45 +25,50 @@ build_body <- function(f0) {
     if (verbose) {"\n    Skipping  " %b% f1 %>% cat; next}
   }
   if (verbose)   {"\n    Working on" %b% f1 %>% cat}
-  f <- pull_information(tx)
-  # Modify title
-  f$ti <- "Recommendation:" %b% f$ti
+  tx <- readLines(f0)
+  tx    %>% extract_bibtex_field("title="       ) -> ti
+  tx    %>% extract_bibtex_field("urldate="     ) -> da
+  tx    %>% extract_bibtex_field("mendeley-tags") -> ta
+  tx[1] %>% extract_bibtex_field("@"            ) -> na
+  tx    %>% extract_bibtex_field("annote="      ) -> no
+  tx    %>% extract_bibtex_field("format="      ) -> fo
+  tx    %>% extract_bibtex_field("url="         ) -> ur
+
+  tx    %>% extract_bibtex_field("author="      ) -> au
  
   # Modify long author lists 
-  n_authors <- str_count(f$au, fixed(" and ", ignore_case=TRUE)) + 1
+  n_authors <- str_count(au, fixed(" and ", ignore_case=TRUE)) + 1
   if (n_authors > 2) {
-    f$au %<>% str_replace(regex(" and .*", ignore_case=TRUE), " et al")}
+    au <- str_replace(regex(" and .*", ignore_case=TRUE), " et al")}
   
   # Modify format if not found
-  if (f$fo=="Not found") {
-    f$fo %<>%
-      str_detect(regex("pdf$", ignore_case=TRUE)) %>%
-      ifelse("pdf", "html")
-  }
-  f0 %>% str_remove(bib_root) %>% str_remove(fixed(".bib")) -> f$so
-  f$im <- str_remove(f$so, "^.*/") %0% ".png"
-  f$ci <- f$au %.% f$ti %.% "Available in " %>% str_wrap(50) %1%
-    brack(f$fo) %p% f$ur %0% "."
+  if (fo=="Not found") fo <- ifelse(str_detect(fo, regex("pdf$", ignore_case=TRUE)), "pdf", "html")
+  fo <- fo % % "format"
+  
+  f0 %>% str_remove(bib_root) %>% str_remove(fixed(".bib")) -> so
+  im <- str_remove(so, "^.*/") %0% ".png"
+  ci <- au %.% ti %.% "Available in " %>% str_wrap(50) %1%
+    brack(fo) %p% ur %0% "."
   
   new_tx <-
-    "---"                             %1%
-    "title: "    %q% f$ti             %1%
-    "author: "   %q% f$au             %1%
-    "date: "     %q% f$da             %1%
+    "---" %1%
+    "title: "    %q% ti               %1%
+    "author: "   %q% au               %1%
+    "date: "     %q% da               %1%
     "category: " %q% "Recommendation" %1%
-    "tags: "     %q% f$ta             %1%
-    "source: "   %q% f$so             %1%
-    "name: "     %q% f$na             %1%
+    "tags: "     %q% ta               %1%
+    "source: "   %q% so               %1%
+    "name: "     %q% na               %1%
     "output: "   %0% "html_document"  %1%
     "---"                             %2%
     
-    str_wrap(f$no, 50)                %2%
+    str_wrap(no, 50)                  %2%
     
     "<---More--->"                    %2%
     
-    f$ci                              %2%
+    ci                                %2%
     
-    "![]"        %p% f$im             %1%
+    "![]"        %p% im               %1%
     "\n"
   if (verbose) {"\n\n" %0% new_tx %>% cat}
 }
@@ -90,21 +81,6 @@ for (i_yr in yr_list) {
     md_list <- list.files(i_mo, pattern="*.bib")
     for (i_md in md_list) {
       build_body(i_mo %s% i_md)
-    }
-  }
-}
-
-build_tail <- function(f0) {
-  if (verbose) {"\n    Working on" %b% f0 %>% cat}
-}
-for (i_yr in yr_list) {
-  if (verbose) {"\nYear =" %b% i_yr %>% cat}
-  mo_list <- list.dirs(path=i_yr, recursive=FALSE)
-  for (i_mo in mo_list) {
-    if (verbose) {"\n  Month =" %b% i_mo %>% cat}
-    md_list <- list.files(i_mo, pattern="*.bib")
-    for (i_md in md_list) {
-      build_tail(i_mo %s% i_md)
     }
   }
 }
