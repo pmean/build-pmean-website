@@ -132,6 +132,16 @@ if (verbose) {
   tst %>% extract_yaml_field("improper: ") %>% print
 }
 
+check_dates <- function(f0, f1) {
+  t0 <- file.info(f0)$mtime
+  t1 <- file.info(f1)$mtime
+  skip_flag <- !is.na(t1) & (t1-t0 > 0) & !update_all
+  if (skip_flag) {
+    if (verbose) {"\n    Skipping  " %b% f1 %>% cat}
+  }
+  return(skip_flag)
+}
+
 
 
 build_link <- function(x, p="../archive") {
