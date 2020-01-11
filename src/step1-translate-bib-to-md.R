@@ -18,20 +18,6 @@ if (!exists("update_all")) update_all <- TRUE
 bib_root <- "../md/bib"
 yr_list <- list.dirs(bib_root, recursive=FALSE)
 
-pull_bibtex <- function(tx) {
-  fields <- as.list(rep("Missing", 8))
-  names(fields) <- c("ti", "da", "ta", "na", "no", "fo", "ur", "au")
-  tx    %>% extract_bibtex_field("title="       ) -> fields$ti
-  tx    %>% extract_bibtex_field("urldate="     ) -> fields$da
-  tx    %>% extract_bibtex_field("mendeley-tags") -> fields$ta
-  tx[1] %>% extract_bibtex_field("@"            ) -> fields$na
-  tx    %>% extract_bibtex_field("annote="      ) -> fields$no
-  tx    %>% extract_bibtex_field("format="      ) -> fields$fo
-  tx    %>% extract_bibtex_field("url="         ) -> fields$ur
-  tx    %>% extract_bibtex_field("author="      ) -> fields$au
-  return(fields)
-}
-
 remove_punctuation <- function(x) {
   x %>%
     str_trim                   %>%
@@ -43,107 +29,160 @@ remove_punctuation <- function(x) {
     return
 }
 
-parse_bibtex <- function(tx) {
+parse_bibtex <- function(tx, f0) {
   tx %>%
     str_subset("^\\}", negate=TRUE) %>%
     str_remove("[=\\{].*") %>%
     str_remove("mendeley-") %>%
-    remove_punctuation -> field_names
+    remove_punctuation %>% 
+    str_replace("misc", "name") %>%
+    str_replace("article", "name") -> field_names
   tx %>%
     str_subset("^\\}", negate=TRUE) %>%
     str_remove(".*?[=\\{]") %>%
     remove_punctuation %>%
     as.list  %>%
     set_names(field_names) -> field_values
+  key_fields <- c(
+    "annote",
+    "author",
+    "date",
+    "format",
+    "name",
+    "tags",
+    "title",
+    "url",
+    "urldate"
+  )
+  
+  
+  unused_fields <- setdiff(key_fields, field_names)
+  if (verbose) {"\nUnused fields:" %b% str_c(unused_fields, collapse=", ")}
+  for (i_field in unused_fields) {
+    field_values[[i_field]] <- "Not found"
+  }
+
+  field_values$full_bib_name <- f0
+  field_values$modified <- 
+    max(
+      str_sub(file.info(f0)$mtime, 1, 10), 
+      field_values$urldate
+    )
+  
+  return(field_values)
 }
 
-build_body <- function(f0) {
-  f0 %>% str_replace("bib$", "md") -> f1
-  if (check_dates(f0, f1)) return("Skipping" %b% f1)
-  if (verbose)   {"\n    Working on" %b% f1 %>% cat}
-  tx <- readLines(f0)
-  f <- pull_bibtex(tx)
-  if (verbose) print(parse_bibtex(tx))
-  
-  # Modify title
-  f$ti <- "Recommendation:" %b% f$ti
- 
-  # Modify long author lists 
-  n_authors <- str_count(f$au, fixed(" and ", ignore_case=TRUE)) + 1
-  if (n_authors > 2) {
-    f$au %<>% str_replace(regex(" and .*", ignore_case=TRUE), " et al")}
-  
+modify_fields <- function(f) {
   # Modify format if not found
-  if (f$fo=="Not found") {
-    f$fo %<>%
+  if (f$format=="Not found") {
+    f$format %<>%
       str_detect(regex("pdf$", ignore_case=TRUE)) %>%
       ifelse("pdf", "html")
   }
-  f0 %>% str_remove(bib_root) %>% str_remove(fixed(".bib")) -> f$so
-  f$im <- str_remove(f$so, "^.*/") %0% ".png"
-  f$ci <- f$au %.% f$ti %.% "Available in " %>% str_wrap(50) %1%
-    brack(f$fo) %p% f$ur %0% "."
+  f$format <- f$format %b% "format"
   
+  # Build citation
+  f$citation <- f$author %.% f$title %.% "Available in " %>% str_wrap(50) %1%
+    brack(f$format) %p% f$url %0% "."
+  
+  # Modify long author lists 
+  n_authors <- str_count(f$author, fixed(" and ", ignore_case=TRUE)) + 1
+  if (n_authors > 2) {
+    f$author %<>% str_replace(regex(" and .*", ignore_case=TRUE), " et al")}
+  
+  # Modify title
+  f$title <- "Recommendation:" %b% f$title
+  
+  # Build source
+  f$full_bib_name %>% 
+    str_remove(bib_root) %>% 
+    str_remove(fixed(".bib")) -> f$source
+  
+  # Build image file
+  f$image <- str_remove(f$source, "^.*/") %0% ".png"
+  
+  # Build full file names
+  f$full_body_name <- str_replace(f$full_bib_name, "bib$", "md")
+  f$full_tail_name <- str_replace(f$full_bib_name, "bib$", "tail")
+  f$full_link_name <- str_replace(f$full_bib_name, "bib$", "link")
+  f$full_summ_name <- str_replace(f$full_bib_name, "bib$", "summ")
+  
+  f$category <- "Recomendation"
+  f$month    <- str_sub(f$urldate, 1, 7)
+  f$day      <- str_sub(f$urldate, 8, 10)
+
+  return(f)
+}
+
+write_body <- function(f) {
   new_tx <-
     "---"                             %1%
-    "title: "    %q% f$ti             %1%
-    "author: "   %q% f$au             %1%
-    "date: "     %q% f$da             %1%
+    "title: "    %q% f$title          %1%
+    "author: "   %q% f$author         %1%
+    "date: "     %q% f$urldate        %1%
     "category: " %q% "Recommendation" %1%
-    "tags: "     %q% f$ta             %1%
-    "source: "   %q% f$so             %1%
-    "name: "     %q% f$na             %1%
+    "tags: "     %q% f$tags           %1%
+    "source: "   %q% f$source         %1%
+    "name: "     %q% f$name           %1%
     "output: "   %0% "html_document"  %1%
     "---"                             %2%
     
-    str_wrap(f$no, 50)                %2%
+    str_wrap(f$note, 50)              %2%
     
     "<---More--->"                    %2%
     
-    f$ci                              %2%
+    f$citation                        %2%
     
-    "![]"        %p% f$im             %1%
+    "![]"        %p% f$image          %1%
     "\n"
   if (verbose) {"\n\n" %0% new_tx %>% cat}
-  writeLines(new_tx, f1)
+  writeLines(new_tx, f$full_body_name)
+  return(f)  
 }
 
-for (i_yr in yr_list) {
-  if (verbose) {"\nYear =" %b% i_yr %>% cat}
-  mo_list <- list.dirs(path=i_yr, recursive=FALSE)
-  for (i_mo in mo_list) {
-    if (verbose) {"\n  Month =" %b% i_mo %>% cat}
-    md_list <- list.files(i_mo, pattern="*.bib")
-    for (i_md in md_list) {
-      build_body(i_mo %s% i_md)
-    }
-  }
-}
-
-build_tail <- function(f0) {
-  f0 %>% str_replace("bib$", "tail") -> f1
-  if (check_dates(f0, f1)) {return("Skipping" %b% f1)}
-  if (verbose)   {"\n    Working on" %b% f1 %>% cat}
-  t0 <- file.info(f0)$mtime
-  tx <- readLines(f0)
-  f <- pull_bibtex(tx)
-  f$ca <- "Recomendation"
-  f$mo <- str_sub(f$da, 1, 7)
-  f$dt <- str_sub(f$da, 8, 10)
-  f$dm <- max(str_sub(t0, 1, 10), f$da)
+write_tail <- function(f) {
   tail_tx <- 
-    "This" %b% build_link(f$ca)                 %1%
+    "This" %b% build_link(f$category)           %1%
     "was added to the website on"               %1%
-    build_link(f$mo)                %0% f$dt    %1%
+    build_link(f$month)               %0% f$day %1%
     "and was last modified on"                  %1%
-    f$da                            %0% "."     %1%
+    f$modified                        %0% "."   %1%
     "You can find similar pages at"             %1%
     build_link(f$ta) %0% ".\n\n"
   
   if (verbose) {"\n\n" %0% tail_tx %>% cat}
-  writeLines(tail_tx, f1)
-  return(tx)
-  }
+  writeLines(tail_tx, f$full_tail_name)
+  return(f)
+}
+
+write_links <- function(f) {
+  f$month                               %1%
+    f$urldate                           %1%
+    f$category                          %1%
+    str_replace_all(f$tags, ", ", "\n") %1%
+    "\n"                                -> link_tx
+  if (verbose) {print(link_tx)}
+  writeLines(f$full_link_name)
+  return(f)
+}
+
+
+write_everything <- function(f0) {
+  f0 %>% str_replace("bib$", "md") -> f1
+  if (check_dates(f0, f1)) return("Skipping" %b% f1)
+  if (verbose)   {"\n    Working on" %b% f1 %>% cat}
+  
+  readLines(f0) %>%
+    parse_bibtex(f0) %>%
+    modify_fields %>%
+    write_body %>%
+    write_tail %>%
+    write_links %>%
+    return
+}
+
+
+
 for (i_yr in yr_list) {
   if (verbose) {"\nYear =" %b% i_yr %>% cat}
   mo_list <- list.dirs(path=i_yr, recursive=FALSE)
@@ -151,7 +190,7 @@ for (i_yr in yr_list) {
     if (verbose) {"\n  Month =" %b% i_mo %>% cat}
     md_list <- list.files(i_mo, pattern="*.bib")
     for (i_md in md_list) {
-      tx <- build_tail(i_mo %s% i_md)
+      f <- write_everything(i_mo %s% i_md)
     }
   }
 }
