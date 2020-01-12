@@ -13,9 +13,9 @@ source(file="src/prelims.R")
 if (!exists("verbose")) verbose <- TRUE
 if (!exists("update_all")) update_all <- TRUE
 
-# Step 1-2. Find the .bib files
+# Step 1-2. Find the .md files
 
-bib_root <- "../source/bib"
+post_root <- "../source/posts"
 yr_list <- list.dirs(bib_root, recursive=FALSE)
 
 remove_punctuation <- function(x) {
@@ -29,7 +29,7 @@ remove_punctuation <- function(x) {
     return
 }
 
-parse_bibtex <- function(tx, f0) {
+parse_yaml <- function(tx, f0) {
   tx %>%
     str_subset("^\\}", negate=TRUE) %>%
     str_remove("[=\\{].*") %>%
@@ -197,4 +197,4 @@ for (i_yr in yr_list) {
 
 # Save everything.
 
-save.image("data/step1.RData")
+save.image("data/step2.RData")
