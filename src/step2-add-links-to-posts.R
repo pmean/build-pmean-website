@@ -16,43 +16,40 @@ if (!exists("update_all")) update_all <- TRUE
 # Step 1-2. Find the .md files
 
 post_root <- "../source/posts"
-yr_list <- list.dirs(bib_root, recursive=FALSE)
+yr_list <- list.dirs(post_root, recursive=FALSE)
 
 remove_punctuation <- function(x) {
   x %>%
     str_trim                   %>%
-    str_remove_all(fixed("{")) %>%
-    str_remove_all(fixed("}")) %>%
-    str_remove    (",$"      ) %>%
-    str_remove    ("^@"      ) %>%
+    str_remove_all(fixed('"')) %>%
     str_trim                   %>%
     return
 }
 
 parse_yaml <- function(tx, f0) {
-  tx %>%
-    str_subset("^\\}", negate=TRUE) %>%
-    str_remove("[=\\{].*") %>%
+  yaml_lines <- str_which(tx, "---")
+  print(yaml_lines)
+  if (length(yaml_lines) < 2) return("Two yaml dividers not found.")
+  tx[2:(yaml_lines[2]-1)] %>%
+    str_remove("\\:.*") %>%
     str_remove("mendeley-") %>%
     remove_punctuation %>% 
     str_replace("misc", "name") %>%
     str_replace("article", "name") -> field_names
-  tx %>%
-    str_subset("^\\}", negate=TRUE) %>%
-    str_remove(".*?[=\\{]") %>%
+  print(field_names)
+  tx[2:(yaml_lines[2]-1)] %>%
+    str_remove(".*?\\:") %>%
     remove_punctuation %>%
     as.list  %>%
     set_names(field_names) -> field_values
   key_fields <- c(
-    "annote",
     "author",
+    "category",
     "date",
     "format",
     "name",
     "tags",
-    "title",
-    "url",
-    "urldate"
+    "title"
   )
   
   
@@ -62,7 +59,7 @@ parse_yaml <- function(tx, f0) {
     field_values[[i_field]] <- "Not found"
   }
 
-  field_values$full_bib_name <- f0
+  field_values$full_post_name <- f0
   field_values$modified <- 
     max(
       str_sub(file.info(f0)$mtime, 1, 10), 
@@ -73,39 +70,19 @@ parse_yaml <- function(tx, f0) {
 }
 
 modify_fields <- function(f) {
-  # Modify format if not found
-  if (f$format=="Not found") {
-    f$format %<>%
-      str_detect(regex("pdf$", ignore_case=TRUE)) %>%
-      ifelse("pdf", "html")
-  }
-  f$format <- f$format %b% "format"
-  
-  # Build citation
-  f$citation <- f$author %.% f$title %.% "Available in " %>% str_wrap(50) %1%
-    brack(f$format) %p% f$url %0% "."
-  
-  # Modify long author lists 
-  n_authors <- str_count(f$author, fixed(" and ", ignore_case=TRUE)) + 1
-  if (n_authors > 2) {
-    f$author %<>% str_replace(regex(" and .*", ignore_case=TRUE), " et al")}
-  
-  # Modify title
-  f$title <- "Recommendation:" %b% f$title
-  
   # Build source
-  f$full_bib_name %>% 
+  f$full_post_name %>% 
     str_remove(bib_root) %>% 
-    str_remove(fixed(".bib")) -> f$source
+    str_remove(fixed(".md")) -> f$source
   
   # Build image file
   f$image <- str_remove(f$source, "^.*/") %0% ".png"
   
   # Build full file names
-  f$full_body_name <- str_replace(f$full_bib_name, "bib$", "md")
-  f$full_tail_name <- str_replace(f$full_bib_name, "bib$", "tail")
-  f$full_link_name <- str_replace(f$full_bib_name, "bib$", "link")
-  f$full_summ_name <- str_replace(f$full_bib_name, "bib$", "summ")
+  f$full_body_name <- str_replace(f$full_post_name, "md$", "md")
+  f$full_tail_name <- str_replace(f$full_post_name, "md$", "tail")
+  f$full_link_name <- str_replace(f$full_post_name, "md$", "link")
+  f$full_summ_name <- str_replace(f$full_post_name, "md$", "summ")
   
   f$category <- "Recomendation"
   f$month    <- str_sub(f$urldate, 1, 7)
@@ -168,17 +145,17 @@ write_links <- function(f) {
 
 
 write_everything <- function(f0) {
-  f0 %>% str_replace("bib$", "md") -> f1
+  f0 %>% str_replace("md$", "tail") -> f1
   if (check_dates(f0, f1)) return("Skipping" %b% f1)
   if (verbose)   {"\n    Working on" %b% f1 %>% cat}
   
   readLines(f0) %>%
-    parse_bibtex(f0) %>%
-    modify_fields %>%
-    write_body %>%
-    write_tail %>%
-    write_links %>%
-    return
+    parse_yaml(f0) %>% print
+    # modify_fields %>%
+    # write_body %>%
+    # write_tail %>%
+    # write_links %>%
+    # return
 }
 
 
@@ -188,7 +165,7 @@ for (i_yr in yr_list) {
   mo_list <- list.dirs(path=i_yr, recursive=FALSE)
   for (i_mo in mo_list) {
     if (verbose) {"\n  Month =" %b% i_mo %>% cat}
-    md_list <- list.files(i_mo, pattern="*.bib")
+    md_list <- list.files(i_mo, pattern="*.md")
     for (i_md in md_list) {
       f <- write_everything(i_mo %s% i_md)
     }
