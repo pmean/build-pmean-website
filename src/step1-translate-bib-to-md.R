@@ -18,60 +18,6 @@ if (!exists("update_all")) update_all <- TRUE
 bib_root <- "../source/bib"
 yr_list <- list.dirs(bib_root, recursive=FALSE)
 
-remove_punctuation <- function(x) {
-  x %>%
-    str_trim                   %>%
-    str_remove_all(fixed("{")) %>%
-    str_remove_all(fixed("}")) %>%
-    str_remove    (",$"      ) %>%
-    str_remove    ("^@"      ) %>%
-    str_trim                   %>%
-    return
-}
-
-parse_bibtex <- function(tx, f0) {
-  tx %>%
-    str_subset("^\\}", negate=TRUE) %>%
-    str_remove("[=\\{].*") %>%
-    str_remove("mendeley-") %>%
-    remove_punctuation %>% 
-    str_replace("misc", "name") %>%
-    str_replace("article", "name") -> field_names
-  tx %>%
-    str_subset("^\\}", negate=TRUE) %>%
-    str_remove(".*?[=\\{]") %>%
-    remove_punctuation %>%
-    as.list  %>%
-    set_names(field_names) -> field_values
-  key_fields <- c(
-    "annote",
-    "author",
-    "date",
-    "format",
-    "name",
-    "tags",
-    "title",
-    "url",
-    "urldate"
-  )
-  
-  
-  unused_fields <- setdiff(key_fields, field_names)
-  if (verbose) {"\nUnused fields:" %b% str_c(unused_fields, collapse=", ")}
-  for (i_field in unused_fields) {
-    field_values[[i_field]] <- "Not found"
-  }
-
-  field_values$full_bib_name <- f0
-  field_values$modified <- 
-    max(
-      str_sub(file.info(f0)$mtime, 1, 10), 
-      field_values$urldate
-    )
-  
-  return(field_values)
-}
-
 modify_fields <- function(f) {
   # Modify format if not found
   if (f$format=="Not found") {
@@ -113,59 +59,6 @@ modify_fields <- function(f) {
 
   return(f)
 }
-
-write_body <- function(f) {
-  new_tx <-
-    "---"                             %1%
-    "title: "    %q% f$title          %1%
-    "author: "   %q% f$author         %1%
-    "date: "     %q% f$urldate        %1%
-    "category: " %q% "Recommendation" %1%
-    "tags: "     %q% f$tags           %1%
-    "source: "   %q% f$source         %1%
-    "name: "     %q% f$name           %1%
-    "output: "   %0% "html_document"  %1%
-    "---"                             %2%
-    
-    str_wrap(f$note, 50)              %2%
-    
-    "<---More--->"                    %2%
-    
-    f$citation                        %2%
-    
-    "![]"        %p% f$image          %1%
-    "\n"
-  if (verbose) {"\n\n" %0% new_tx %>% cat}
-  writeLines(new_tx, f$full_body_name)
-  return(f)  
-}
-
-write_tail <- function(f) {
-  tail_tx <- 
-    "This" %b% build_link(f$category)           %1%
-    "was added to the website on"               %1%
-    build_link(f$month)               %0% f$day %1%
-    "and was last modified on"                  %1%
-    f$modified                        %0% "."   %1%
-    "You can find similar pages at"             %1%
-    build_link(f$ta) %0% ".\n\n"
-  
-  if (verbose) {"\n\n" %0% tail_tx %>% cat}
-  writeLines(tail_tx, f$full_tail_name)
-  return(f)
-}
-
-write_links <- function(f) {
-  f$month                               %1%
-    f$urldate                           %1%
-    f$category                          %1%
-    str_replace_all(f$tags, ", ", "\n") %1%
-    "\n"                                -> link_tx
-  if (verbose) {print(link_tx)}
-  writeLines(f$full_link_name)
-  return(f)
-}
-
 
 write_everything <- function(f0) {
   f0 %>% str_replace("bib$", "md") -> f1

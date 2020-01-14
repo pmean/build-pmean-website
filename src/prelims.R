@@ -238,9 +238,182 @@ compare_dates <- function(path0, path1, pattern0="md", pattern1="md") {
   return(changed_list)
 }
 
-# This function identifies a  single line 
-# in a bibtex file and strips off unneeded
-# punctation.
+# This function takes an entry from a bibtex
+# file or a yaml header and removes unneeded
+# punctuation (commas, quote marks, etc.)
+
+remove_punctuation <- function(x) {
+  x %>%
+    str_trim                   %>%
+    str_remove_all(fixed('"')) %>%
+    str_remove_all(fixed("{")) %>%
+    str_remove_all(fixed("}")) %>%
+    str_remove    (",$"      ) %>%
+    str_remove    ("^@"      ) %>%
+    str_trim                   %>%
+    return
+}
+
+# This function reads a bibtex file and creates
+# an organized list of the information from 
+# this file.
+
+parse_bibtex <- function(tx, f0) {
+  tx %>%
+    str_subset("^\\}", negate=TRUE) %>%
+    str_remove("[=\\{].*") %>%
+    str_remove("mendeley-") %>%
+    remove_punctuation %>% 
+    str_replace("misc", "name") %>%
+    str_replace("article", "name") -> field_names
+  tx %>%
+    str_subset("^\\}", negate=TRUE) %>%
+    str_remove(".*?[=\\{]") %>%
+    remove_punctuation %>%
+    as.list  %>%
+    set_names(field_names) -> field_values
+  key_fields <- c(
+    "annote",
+    "author",
+    "date",
+    "format",
+    "name",
+    "tags",
+    "title",
+    "url",
+    "urldate"
+  )
+  
+  
+  unused_fields <- setdiff(key_fields, field_names)
+  if (verbose) {"\nUnused fields:" %b% str_c(unused_fields, collapse=", ")}
+  for (i_field in unused_fields) {
+    field_values[[i_field]] <- "Not found"
+  }
+  
+  field_values$full_bib_name <- f0
+  field_values$modified <- 
+    max(
+      str_sub(file.info(f0)$mtime, 1, 10), 
+      field_values$urldate
+    )
+  
+  return(field_values)
+}
+
+# This function reads a yaml header from a file
+# and creates an organized list of the information
+# from this file.
+
+parse_yaml <- function(tx, f0) {
+  yaml_lines <- str_which(tx, "---")
+  if (length(yaml_lines) < 2) return("Two yaml dividers not found.")
+  tx[2:(yaml_lines[2]-1)] %>%
+    str_remove("\\:.*") %>%
+    str_remove("mendeley-") %>%
+    remove_punctuation %>% 
+    str_replace("misc", "name") %>%
+    str_replace("article", "name") -> field_names
+  tx[2:(yaml_lines[2]-1)] %>%
+    str_remove(".*?\\:") %>%
+    remove_punctuation %>%
+    as.list  %>%
+    set_names(field_names) -> field_values
+  key_fields <- c(
+    "author",
+    "category",
+    "date",
+    "tags",
+    "title"
+  )
+  
+  
+  unused_fields <- setdiff(key_fields, field_names)
+  if (verbose) {"\nUnused fields:" %b% str_c(unused_fields, collapse=", ")}
+  for (i_field in unused_fields) {
+    field_values[[i_field]] <- "Not found"
+  }
+  
+  field_values$full_post_name <- f0
+  field_values$modified <- 
+    max(
+      str_sub(file.info(f0)$mtime, 1, 10), 
+      field_values$urldate
+    )
+  
+  return(field_values)
+}
+
+# This function writes the body of a markdown
+# file associated with a bibtex recommendation.
+
+write_body <- function(f) {
+  new_tx <-
+    "---"                             %1%
+    "title: "    %q% f$title          %1%
+    "author: "   %q% f$author         %1%
+    "date: "     %q% f$urldate        %1%
+    "category: " %q% "Recommendation" %1%
+    "tags: "     %q% f$tags           %1%
+    "source: "   %q% f$source         %1%
+    "name: "     %q% f$name           %1%
+    "output: "   %0% "html_document"  %1%
+    "---"                             %2%
+    
+    str_wrap(f$note, 50)              %2%
+    
+    "<---More--->"                    %2%
+    
+    f$citation                        %2%
+    
+    "![]"        %p% f$image          %1%
+    "\n"
+  if (verbose) {"\n\n" %0% new_tx %>% cat}
+  writeLines(new_tx, f$full_body_name)
+  return(f)  
+}
+
+
+
+# This function produces a text file to be
+# put at the end of a markdown file with 
+# information and links to various 
+# locations (tags, categories, dates).
+
+write_tail <- function(f) {
+  tail_tx <- 
+    "This" %b% build_link(f$category)           %1%
+    "was added to the website on"               %1%
+    build_link(f$month)               %0% f$day %1%
+    "and was last modified on"                  %1%
+    f$modified                        %0% "."   %1%
+    "You can find similar pages at"             %1%
+    build_link(f$ta) %0% ".\n\n"
+  
+  if (str_detect(f$source, "pmean")) {
+    tail_tx                                     %1%
+      "An earlier version of this page appears" %1%
+      "[here]" %p% f$source %0% ".\n\n"         -> tail_tx
+  }
+  
+  if (verbose) {"\n\n" %0% tail_tx %>% cat}
+  writeLines(tail_tx, f$full_tail_name)
+  return(f)
+}
+
+# This function writes the names of various
+# links (tags, category, date).
+
+write_links <- function(f) {
+  f$date                                %1%
+    f$month                             %1%
+    f$category                          %1%
+    str_replace_all(f$tags, ", ", "\n") -> link_tx
+  
+  if (verbose) {"\nLinks" %1% link_tx %>% cat}
+  writeLines(link_tx, f$full_link_name)
+  return(f)
+}
 
 # Note: Some of the bib files have unprintable
 # junk characters at the very start.
