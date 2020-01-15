@@ -18,18 +18,6 @@ if (!exists("update_all")) update_all <- TRUE
 post_root <- "../source/posts"
 yr_list <- list.dirs(post_root, recursive=FALSE)
 
-modify_fields <- function(f) {
-  # Build full file names
-  f$full_tail_name <- str_replace(f$full_post_name, "md$|Rmd$", "tail")
-  f$full_link_name <- str_replace(f$full_post_name, "md$|Rmd$", "link")
-  f$full_summ_name <- str_replace(f$full_post_name, "md$|Rmd$", "summ")
-  
-  f$month    <- str_sub(f$date, 1, 7)
-  f$day      <- str_sub(f$date, 8, 10)
-
-  return(f)
-}
-
 write_everything <- function(f0) {
   f0 %>% str_replace("md$|Rmd$", "tail") -> f1
   if (check_dates(f0, f1)) return("Skipping" %b% f1)
@@ -37,7 +25,8 @@ write_everything <- function(f0) {
   
   readLines(f0) %>%
     parse_yaml(f0) %>% 
-    modify_fields %>% 
+    flag_unused_yaml_fields(f0) %>%
+    modify_yaml_fields %>% 
     write_tail %>%
     write_links %>%
     print
