@@ -66,6 +66,30 @@ if (verbose) {
   'paren("abc") produces: '    %1% paren(x)     %>% br    %>% cat
 }
 
+# This function reads through a set of directories
+# and stores files of a particular pattern in a
+# character vector for later use.
+
+build_file_list <- function(dir_root, file_pattern) {
+  file_list <- NULL
+  yr_list <- list.dirs(dir_root, recursive=FALSE)
+  for (i_yr in yr_list) {
+    if (verbose) {"\nYear =" %b% i_yr %>% cat}
+    mo_list <- list.dirs(path=i_yr, recursive=FALSE)
+    for (i_mo in sort(mo_list)) {
+      if (verbose) {"\n  Month =" %b% i_mo %>% cat}
+      new_files <- list.files(i_mo, pattern=file_pattern)
+      if (length(new_files)==0) {
+        if (verbose) " has no files of the form" %b% file_pattern %>% br %>% cat
+        next
+      }
+      if (verbose) " has" %b% str_c(new_files, collapse=", ") %>% br%>% cat
+      file_list <- append(file_list, i_mo %s% new_files)
+    }
+  }
+  return(file_list)
+}
+
 # This function takes a topic, partial date,
 # or category, and produces a link to the
 # appropriate page.
@@ -269,6 +293,19 @@ flag_unused_bib_fields <- function(field_values, f0) {
   return(field_values)
 }
 
+# This function skims through bibtex files
+# and prints a specified field header.
+
+skim_bib_files <- function(field_header, dir_root="../source/bib", file_pattern="*.bib") {
+  file_list <- build_file_list(dir_root, file_pattern)
+  for (i_file in file_list) {
+    tx <- readLines(i_file)
+    fields <- parse_bibtex(tx, i_file)
+    if(verbose) i_file %C% fields[[field_header]] %>% br %>% cat
+    if(is.null(fields[[field_header]])) print(fields)
+  }
+}
+
 # yaml specific functions
 
 # This function reads a yaml header from a file
@@ -350,6 +387,20 @@ flag_unused_yaml_fields <- function(field_values, f0) {
     )
   
   return(field_values)
+}
+
+# This function skims through the yaml headers
+# of markdown files and prints a specified
+# field header.
+
+skim_yaml_files <- function(field_header, dir_root="../source/posts", file_pattern="*.md") {
+  file_list <- build_file_list(dir_root, file_pattern)
+  for (i_file in file_list) {
+    tx <- readLines(i_file)
+    fields <- parse_yaml(tx, i_file)
+    if(verbose) i_file %C% fields[[field_header]] %>% br %>% cat
+    if(is.null(fields[[field_header]])) print(fields)
+  }
 }
 
 # Functions for writing files
@@ -439,3 +490,4 @@ write_summ <- function(f) {
 }
 
 if (verbose) {cat("\n\n***Completed testing***\n\n")}
+
